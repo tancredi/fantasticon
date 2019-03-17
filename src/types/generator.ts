@@ -13,13 +13,23 @@ export interface FontGeneratorOptions {
   formatOptions: { [key in FontType]: any };
 }
 
-export type FontGeneratorFn = (
-  options: FontGeneratorOptions,
-  generated: { [key in FontType]?: string | Buffer },
-  done: (error: Error | null, fontContents: string | Buffer) => void
+export type Callback = (
+  error: Error | null,
+  fontContents: string | Buffer
 ) => void;
 
-export interface FontGenerator {
-  dependencies: FontType[];
-  generate: FontGeneratorFn;
-}
+export type FontGeneratorFn<DependencyT> = DependencyT extends {}
+  ? (
+      options: FontGeneratorOptions,
+      dependencyContent: DependencyT,
+      done: Callback
+    ) => void
+  : (options: FontGeneratorOptions, done: Callback) => void;
+
+export type FontGenerator<DependencyT = void> = {
+  generate: FontGeneratorFn<DependencyT>;
+} & (DependencyT extends {}
+  ? {
+      dependsOn: FontType;
+    }
+  : {});

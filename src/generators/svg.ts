@@ -5,10 +5,8 @@ import { FontType } from '../types/misc';
 
 type GglyphStream = ReadStream & { metadata?: any };
 
-const generator: FontGenerator = {
-  dependencies: [],
-
-  generate(options, generated, done) {
+const generator: FontGenerator<void> = {
+  generate(options, done) {
     let font = new Buffer(0);
     let svgOptions = {
       fontName: options.fontName,
@@ -16,10 +14,9 @@ const generator: FontGenerator = {
       descent: options.descent,
       normalize: options.normalize,
       round: options.round,
+      log: () => null,
       ...options.formatOptions[FontType.SVG]
     };
-
-    svgOptions.log = function() {};
 
     const fontStream = svgicons2svgfont(svgOptions)
       .on('data', data => (font = Buffer.concat([font, data])))
