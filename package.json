@@ -11,7 +11,6 @@
     "slug": "^0.9.3",
     "svg2ttf": "^4.2.0",
     "svgicons2svgfont": "^9.0.4",
-    "ts-node": "^8.0.2",
     "ttf2eot": "^2.0.0",
     "ttf2woff": "^2.0.1",
     "ttf2woff2": "^2.0.3",
