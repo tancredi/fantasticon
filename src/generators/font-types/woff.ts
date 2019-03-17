@@ -1,6 +1,6 @@
 import ttf2woff from 'ttf2woff';
-import { FontGenerator } from '../types/generator';
-import { FontType } from '../types/misc';
+import { FontGenerator } from '../../types/generator';
+import { FontType } from '../../types/misc';
 
 const generator: FontGenerator<Buffer> = {
   dependsOn: FontType.TTF,

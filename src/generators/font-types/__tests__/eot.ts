@@ -1,6 +1,6 @@
 import ttf2eot from 'ttf2eot';
-import { FontType } from '../../types/misc';
-import { FontGeneratorOptions } from '../../types/generator';
+import { FontType } from '../../../types/misc';
+import { FontGeneratorOptions } from '../../../types/generator';
 import eotGen from '../eot';
 
 jest.mock('ttf2eot', () => ({

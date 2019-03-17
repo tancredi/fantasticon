@@ -1,6 +1,6 @@
 import svg2ttf from 'svg2ttf';
-import { FontGenerator } from '../types/generator';
-import { FontType } from '../types/misc';
+import { FontGenerator } from '../../types/generator';
+import { FontType } from '../../types/misc';
 
 const generator: FontGenerator<string> = {
   dependsOn: FontType.SVG,

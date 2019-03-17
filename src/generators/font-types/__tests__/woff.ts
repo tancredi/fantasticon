@@ -1,6 +1,6 @@
 import ttf2woff from 'ttf2woff';
-import { FontType } from '../../types/misc';
-import { FontGeneratorOptions } from '../../types/generator';
+import { FontType } from '../../../types/misc';
+import { FontGeneratorOptions } from '../../../types/generator';
 import woffGen from '../woff';
 
 jest.mock('ttf2woff', () => ({
