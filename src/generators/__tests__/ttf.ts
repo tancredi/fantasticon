@@ -19,21 +19,19 @@ describe('`TTF` font generator', () => {
     svg2ttf.mockClear();
   });
 
-  test('calls done with the correctly obtained return value of `svg2ttf`', () => {
+  test('resolves with the correctly processed return value of `svg2ttf`', async () => {
     const done = jest.fn();
-    const result = ttfGen.generate(mockOptions(), ttf, done);
+    const result = await ttfGen.generate(mockOptions(), ttf);
     const svg = '::svg::';
 
     expect(svg2ttf).toHaveBeenCalledTimes(1);
     expect(svg2ttf).toHaveBeenCalledWith(svg, { __mock: 'options__' });
-
-    expect(done).toHaveBeenCalledTimes(1);
-    expect(done).toHaveBeenCalledWith(null, new Buffer(`::ttf(${svg})::`));
+    expect(result).toEqual(new Buffer(`::ttf(${svg})::`));
   });
 
-  test('passes correctly format options to `svg2ttf`', () => {
+  test('passes correctly format options to `svg2ttf`', async () => {
     const formatOptions = { foo: 'bar' };
-    const result = ttfGen.generate(mockOptions(formatOptions), ttf, () => null);
+    const result = await ttfGen.generate(mockOptions(formatOptions), ttf);
 
     expect(svg2ttf).toHaveBeenCalledTimes(1);
     expect(svg2ttf.mock.calls[0][1]).toEqual(formatOptions);

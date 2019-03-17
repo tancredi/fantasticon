@@ -1,3 +1,3 @@
-// import { RunnerOptionsInput } from '.,./types/runner';
+import { RunnerOptionsInput } from '../types/runner';
 
-// export const generateFonts = (options: RunnerOptionsInput) => {};
+export default (options: RunnerOptionsInput) => {};

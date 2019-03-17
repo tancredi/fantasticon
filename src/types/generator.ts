@@ -1,30 +1,20 @@
 import { FontType } from './misc';
 import { AssetsMap } from '../utils/assets';
 import { CodepointsMap } from '../utils/codepoints';
+import { RunnerOptions } from './runner';
 
-export interface FontGeneratorOptions {
+export type FontGeneratorOptions = RunnerOptions & {
   assets: AssetsMap;
-  codepoints: CodepointsMap;
-  fontName: string;
   fontHeight: number;
-  descent: number;
-  normalize: boolean;
-  round: boolean;
   formatOptions: { [key in FontType]: any };
-}
+};
 
-export type Callback = (
-  error: Error | null,
-  fontContents: string | Buffer
-) => void;
+export type Result = Promise<string | Buffer>;
 
-export type FontGeneratorFn<DependencyT> = DependencyT extends {}
-  ? (
-      options: FontGeneratorOptions,
-      dependencyContent: DependencyT,
-      done: Callback
-    ) => void
-  : (options: FontGeneratorOptions, done: Callback) => void;
+export type FontGeneratorFn<DependencyT> = (
+  options: FontGeneratorOptions,
+  dependencyContent: DependencyT extends {} ? DependencyT : null
+) => Result;
 
 export type FontGenerator<DependencyT = void> = {
   generate: FontGeneratorFn<DependencyT>;

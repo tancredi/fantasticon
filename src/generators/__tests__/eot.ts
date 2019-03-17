@@ -19,21 +19,18 @@ describe('`EOT` font generator', () => {
     ttf2eot.mockClear();
   });
 
-  test('calls done with the correctly obtained return value of `ttf2eot`', () => {
-    const done = jest.fn();
-    const result = eotGen.generate(mockOptions(), ttf, done);
+  test('resolves with the correctly processed return value of `ttf2eot`', async () => {
+    const result = await eotGen.generate(mockOptions(), ttf);
     const ttfArr = new Uint8Array(('::ttf::' as unknown) as any[]);
 
     expect(ttf2eot).toHaveBeenCalledTimes(1);
     expect(ttf2eot).toHaveBeenCalledWith(ttfArr, { __mock: 'options__' });
-
-    expect(done).toHaveBeenCalledTimes(1);
-    expect(done).toHaveBeenCalledWith(null, new Buffer(`::eot(${ttfArr})::`));
+    expect(result).toEqual(new Buffer(`::eot(${ttfArr})::`));
   });
 
-  test('passes correctly format options to `ttf2eot`', () => {
+  test('passes correctly format options to `ttf2eot`', async () => {
     const formatOptions = { foo: 'bar' };
-    const result = eotGen.generate(mockOptions(formatOptions), ttf, () => null);
+    const result = await eotGen.generate(mockOptions(formatOptions), ttf);
 
     expect(ttf2eot).toHaveBeenCalledTimes(1);
     expect(ttf2eot.mock.calls[0][1]).toEqual(formatOptions);

@@ -37,7 +37,7 @@ jest.mock('svgicons2svgfont', () => {
 
 const mockOptions = (svgOptions = { __mock: 'options__' } as any) =>
   (({
-    fontName: 'foo',
+    name: 'foo',
     fontHeight: 1,
     descent: 2,
     normalize: false,
@@ -57,9 +57,8 @@ describe('`SVG` font generator', () => {
     svgicons2svgfont.mockClear();
   });
 
-  test('calls done with the correctly with the result of the completed `svgicons2svgfont` stream', () => {
-    const done = jest.fn();
-    const result = svgGen.generate(mockOptions(), done);
+  test('resolves with the result of the completed `svgicons2svgfont` stream', async () => {
+    const result = await svgGen.generate(mockOptions());
 
     expect(svgicons2svgfont).toHaveBeenCalledTimes(1);
     expect(svgicons2svgfont).toHaveBeenCalledWith({
@@ -72,17 +71,15 @@ describe('`SVG` font generator', () => {
       __mock: 'options__'
     });
 
-    expect(done).toHaveBeenCalledTimes(1);
-    expect(done).toHaveBeenCalledWith(
-      null,
+    expect(result).toBe(
       'processed->content->/root/foo.svg$processed->content->/root/bar.svg$'
     );
   });
 
-  test('passes correctly format options to `svgicons2svgfont`', () => {
+  test('passes correctly format options to `svgicons2svgfont`', async () => {
     const log = () => null;
     const formatOptions = { descent: 5, fontHeight: 6, log };
-    const result = svgGen.generate(mockOptions(formatOptions), () => null);
+    const result = await svgGen.generate(mockOptions(formatOptions));
 
     expect(svgicons2svgfont).toHaveBeenCalledTimes(1);
     expect(svgicons2svgfont).toHaveBeenCalledWith({

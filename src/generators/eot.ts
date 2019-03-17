@@ -5,10 +5,9 @@ import { FontType } from '../types/misc';
 const generator: FontGenerator<Buffer> = {
   dependsOn: FontType.TTF,
 
-  generate({ formatOptions }, ttf, done) {
+  async generate({ formatOptions }, ttf) {
     const font = ttf2eot(new Uint8Array(ttf), formatOptions[FontType.EOT]);
-
-    done(null, new Buffer(font.buffer));
+    return new Buffer(font.buffer);
   }
 };
 

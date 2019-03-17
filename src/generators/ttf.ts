@@ -5,10 +5,9 @@ import { FontType } from '../types/misc';
 const generator: FontGenerator<string> = {
   dependsOn: FontType.SVG,
 
-  generate({ formatOptions }, svg, done) {
+  async generate({ formatOptions }, svg) {
     const font = svg2ttf(svg, formatOptions[FontType.TTF]);
-
-    done(null, new Buffer(font.buffer));
+    return new Buffer(font.buffer);
   }
 };
 
