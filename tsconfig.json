@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "allowJs": true,
+    "types": ["node", "jest"]
+  },
+  "typeRoots": ["node_modules/@types"],
+  "exclude": ["node_modules"]
+}
