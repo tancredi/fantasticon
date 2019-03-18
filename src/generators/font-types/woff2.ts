@@ -7,7 +7,7 @@ const generator: FontGenerator<Buffer> = {
 
   async generate({ formatOptions }, ttf) {
     const font = ttf2woff2(new Uint8Array(ttf), formatOptions[FontType.WOFF2]);
-    return new Buffer(font.buffer);
+    return Buffer.from(font.buffer);
   }
 };
 

@@ -22,12 +22,10 @@ jest.mock('../font-types', () => {
   });
 
   return {
-    default: {
-      a: mockGenerator('a'),
-      b: mockGenerator('b', 'a'),
-      c: mockGenerator('c', 'd'),
-      d: mockGenerator('d')
-    }
+    a: mockGenerator('a'),
+    b: mockGenerator('b', 'a'),
+    c: mockGenerator('c', 'd'),
+    d: mockGenerator('d')
   };
 });
 

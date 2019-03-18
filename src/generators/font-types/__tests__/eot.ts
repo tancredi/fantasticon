@@ -1,11 +1,13 @@
-import ttf2eot from 'ttf2eot';
+import _ttf2eot from 'ttf2eot';
 import { FontType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import eotGen from '../eot';
 
-jest.mock('ttf2eot', () => ({
-  default: jest.fn(content => ({ buffer: `::eot(${content})::` }))
-}));
+const ttf2eot = (_ttf2eot as unknown) as jest.Mock<typeof _ttf2eot>;
+
+jest.mock('ttf2eot', () =>
+  jest.fn(content => ({ buffer: `::eot(${content})::` }))
+);
 
 const mockOptions = (eotOptions = { __mock: 'options__' } as any) =>
   (({
@@ -15,9 +17,7 @@ const mockOptions = (eotOptions = { __mock: 'options__' } as any) =>
 const ttf = ('::ttf::' as unknown) as Buffer;
 
 describe('`EOT` font generator', () => {
-  beforeEach(() => {
-    ttf2eot.mockClear();
-  });
+  beforeEach(() => ttf2eot.mockClear());
 
   test('resolves with the correctly processed return value of `ttf2eot`', async () => {
     const result = await eotGen.generate(mockOptions(), ttf);

@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest src"
+    "test": "jest",
+    "build": "tsc --project ./tsconfig.json",
+    "watch": "tsc --project ./tsconfig.json --watch"
   },
   "dependencies": {
     "glob": "^7.1.3",
@@ -26,6 +28,7 @@
     "ts-jest": "^23.10.5"
   },
   "jest": {
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "rootDir": "src"
   }
 }

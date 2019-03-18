@@ -1,6 +1,6 @@
 import { removeExtension } from './path';
 import { resolve, relative } from 'path';
-import * as slug from 'slug';
+import slug from 'slug';
 
 const SLUG_OPTIONS: Partial<typeof slug.defaults> = {
   charmap: { ...slug.charmap, '/': '-', '.': '-' }

@@ -3,6 +3,7 @@ import { FontType } from './misc';
 import { Omit } from './utils';
 
 export interface RunnerMandatoryOptions {
+  inDir: string;
   outDir: string;
 }
 

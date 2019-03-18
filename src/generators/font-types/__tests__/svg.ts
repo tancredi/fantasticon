@@ -1,7 +1,11 @@
-import svgicons2svgfont from 'svgicons2svgfont';
+import _SVGIcons2SVGFontStream from 'svgicons2svgfont';
 import { FontType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import svgGen from '../svg';
+
+const SVGIcons2SVGFontStream = (_SVGIcons2SVGFontStream as unknown) as jest.Mock<
+  typeof _SVGIcons2SVGFontStream
+>;
 
 jest.mock('fs', () => ({
   createReadStream: (filepath: string) => ({
@@ -32,7 +36,7 @@ jest.mock('svgicons2svgfont', () => {
     }
   }
 
-  return { default: jest.fn(() => new MockStream()) };
+  return jest.fn(() => new MockStream());
 });
 
 const mockOptions = (svgOptions = { __mock: 'options__' } as any) =>
@@ -54,14 +58,14 @@ const ttf = ('::ttf::' as unknown) as Buffer;
 
 describe('`SVG` font generator', () => {
   beforeEach(() => {
-    svgicons2svgfont.mockClear();
+    SVGIcons2SVGFontStream.mockClear();
   });
 
-  test('resolves with the result of the completed `svgicons2svgfont` stream', async () => {
+  test('resolves with the result of the completed `SVGIcons2SVGFontStream`', async () => {
     const result = await svgGen.generate(mockOptions(), null);
 
-    expect(svgicons2svgfont).toHaveBeenCalledTimes(1);
-    expect(svgicons2svgfont).toHaveBeenCalledWith({
+    expect(SVGIcons2SVGFontStream).toHaveBeenCalledTimes(1);
+    expect(SVGIcons2SVGFontStream).toHaveBeenCalledWith({
       descent: 2,
       fontHeight: 1,
       fontName: 'foo',
@@ -76,13 +80,13 @@ describe('`SVG` font generator', () => {
     );
   });
 
-  test('passes correctly format options to `svgicons2svgfont`', async () => {
+  test('passes correctly format options to `SVGIcons2SVGFontStream`', async () => {
     const log = () => null;
     const formatOptions = { descent: 5, fontHeight: 6, log };
     const result = await svgGen.generate(mockOptions(formatOptions), null);
 
-    expect(svgicons2svgfont).toHaveBeenCalledTimes(1);
-    expect(svgicons2svgfont).toHaveBeenCalledWith({
+    expect(SVGIcons2SVGFontStream).toHaveBeenCalledTimes(1);
+    expect(SVGIcons2SVGFontStream).toHaveBeenCalledWith({
       descent: 5,
       fontHeight: 6,
       fontName: 'foo',

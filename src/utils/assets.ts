@@ -1,4 +1,5 @@
 import { slashJoin, removeExtension } from './path';
+import glob from 'glob';
 import { resolve, relative } from 'path';
 import { getIconId } from './icon-id';
 
@@ -11,8 +12,6 @@ export interface IconAsset {
 export interface AssetsMap {
   [key: string]: IconAsset;
 }
-
-import * as glob from 'glob';
 
 export const ASSETS_EXTENSION = 'svg';
 

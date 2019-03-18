@@ -3,9 +3,9 @@ import { FontType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import ttfGen from '../ttf';
 
-jest.mock('svg2ttf', () => ({
-  default: jest.fn(content => ({ buffer: `::ttf(${content})::` }))
-}));
+jest.mock('svg2ttf', () =>
+  jest.fn(content => ({ buffer: `::ttf(${content})::` }))
+);
 
 const mockOptions = (ttfOptions = { __mock: 'options__' } as any) =>
   (({

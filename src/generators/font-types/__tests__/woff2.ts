@@ -3,9 +3,9 @@ import { FontType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import woff2Gen from '../woff2';
 
-jest.mock('ttf2woff2', () => ({
-  default: jest.fn(content => ({ buffer: `::woff2(${content})::` }))
-}));
+jest.mock('ttf2woff2', () =>
+  jest.fn(content => ({ buffer: `::woff2(${content})::` }))
+);
 
 const mockOptions = (woffOptions = { __mock: 'options__' } as any) =>
   (({
