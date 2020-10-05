@@ -15,7 +15,7 @@ describe('Cli utilities', () => {
   test('`parseNumeric` throws an error when given a non-numeric value', () => {
     for (const value of ['a', {}, undefined]) {
       expect(() => parseNumeric(value as any)).toThrow(
-        'Must be a valid number'
+        `${value} is not a valid number`
       );
     }
   });

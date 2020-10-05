@@ -1,7 +1,9 @@
-import ttf2woff from 'ttf2woff';
+import _ttf2woff from 'ttf2woff';
 import { FontType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import woffGen from '../woff';
+
+const ttf2woff = (_ttf2woff as unknown) as jest.Mock<typeof _ttf2woff>;
 
 jest.mock('ttf2woff', () =>
   jest.fn(content => ({ buffer: `::woff(${content})::` }))
@@ -30,7 +32,8 @@ describe('`WOFF` font generator', () => {
 
   test('passes correctly format options to `ttf2woff`', async () => {
     const formatOptions = { foo: 'bar' };
-    const result = await woffGen.generate(mockOptions(formatOptions), ttf);
+
+    await woffGen.generate(mockOptions(formatOptions), ttf);
 
     expect(ttf2woff).toHaveBeenCalledTimes(1);
     expect(ttf2woff.mock.calls[0][1]).toEqual(formatOptions);

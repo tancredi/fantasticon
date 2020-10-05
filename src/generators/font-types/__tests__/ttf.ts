@@ -1,7 +1,9 @@
-import svg2ttf from 'svg2ttf';
+import _svg2ttf from 'svg2ttf';
 import { FontType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import ttfGen from '../ttf';
+
+const svg2ttf = (_svg2ttf as unknown) as jest.Mock<typeof _svg2ttf>;
 
 jest.mock('svg2ttf', () =>
   jest.fn(content => ({ buffer: `::ttf(${content})::` }))
@@ -12,7 +14,7 @@ const mockOptions = (ttfOptions = { __mock: 'options__' } as any) =>
     formatOptions: { [FontType.TTF]: ttfOptions }
   } as unknown) as FontGeneratorOptions);
 
-const ttf = '::svg::';
+const svg = '::svg::';
 
 describe('`TTF` font generator', () => {
   beforeEach(() => {
@@ -20,9 +22,7 @@ describe('`TTF` font generator', () => {
   });
 
   test('resolves with the correctly processed return value of `svg2ttf`', async () => {
-    const done = jest.fn();
-    const result = await ttfGen.generate(mockOptions(), ttf);
-    const svg = '::svg::';
+    const result = await ttfGen.generate(mockOptions(), svg);
 
     expect(svg2ttf).toHaveBeenCalledTimes(1);
     expect(svg2ttf).toHaveBeenCalledWith(svg, { __mock: 'options__' });
@@ -31,7 +31,7 @@ describe('`TTF` font generator', () => {
 
   test('passes correctly format options to `svg2ttf`', async () => {
     const formatOptions = { foo: 'bar' };
-    const result = await ttfGen.generate(mockOptions(formatOptions), ttf);
+    await ttfGen.generate(mockOptions(formatOptions), svg);
 
     expect(svg2ttf).toHaveBeenCalledTimes(1);
     expect(svg2ttf.mock.calls[0][1]).toEqual(formatOptions);

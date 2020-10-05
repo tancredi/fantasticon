@@ -30,7 +30,7 @@ describe('`EOT` font generator', () => {
 
   test('passes correctly format options to `ttf2eot`', async () => {
     const formatOptions = { foo: 'bar' };
-    const result = await eotGen.generate(mockOptions(formatOptions), ttf);
+    await eotGen.generate(mockOptions(formatOptions), ttf);
 
     expect(ttf2eot).toHaveBeenCalledTimes(1);
     expect(ttf2eot.mock.calls[0][1]).toEqual(formatOptions);

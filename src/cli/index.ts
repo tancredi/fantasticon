@@ -14,7 +14,9 @@ const cli = () => {
 const config = () => {
   commander.program
     .version('0.0.1')
+
     .requiredOption('-o, --output <value>', 'specify output directory')
+
     .option(
       '-t, --font-types <...value>',
       'list of font formats to generate',

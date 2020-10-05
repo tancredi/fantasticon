@@ -54,8 +54,6 @@ const mockOptions = (svgOptions = { __mock: 'options__' } as any) =>
     }
   } as unknown) as FontGeneratorOptions);
 
-const ttf = ('::ttf::' as unknown) as Buffer;
-
 describe('`SVG` font generator', () => {
   beforeEach(() => {
     SVGIcons2SVGFontStream.mockClear();
@@ -83,7 +81,7 @@ describe('`SVG` font generator', () => {
   test('passes correctly format options to `SVGIcons2SVGFontStream`', async () => {
     const log = () => null;
     const formatOptions = { descent: 5, fontHeight: 6, log };
-    const result = await svgGen.generate(mockOptions(formatOptions), null);
+    await svgGen.generate(mockOptions(formatOptions), null);
 
     expect(SVGIcons2SVGFontStream).toHaveBeenCalledTimes(1);
     expect(SVGIcons2SVGFontStream).toHaveBeenCalledWith({

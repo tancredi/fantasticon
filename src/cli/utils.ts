@@ -13,7 +13,7 @@ export const parseNumeric = (value: string) => {
 export const parseFontType = (value: string) => {
   const typeValues = Object.values(FontType);
 
-  if (!typeValues.includes(value)) {
+  if (!typeValues.includes(value as any)) {
     throw new Error(
       [
         `${value} is not a valid font type`,
