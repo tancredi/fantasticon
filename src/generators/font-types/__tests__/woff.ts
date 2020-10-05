@@ -27,7 +27,7 @@ describe('`WOFF` font generator', () => {
 
     expect(ttf2woff).toHaveBeenCalledTimes(1);
     expect(ttf2woff).toHaveBeenCalledWith(ttfArr, { __mock: 'options__' });
-    expect(result).toEqual(new Buffer(`::woff(${ttfArr})::`));
+    expect(result).toEqual(Buffer.from(`::woff(${ttfArr})::`));
   });
 
   test('passes correctly format options to `ttf2woff`', async () => {

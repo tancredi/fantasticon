@@ -21,7 +21,7 @@ jest.mock('svgicons2svgfont', () => {
     public content = '';
 
     public write(chunk: any) {
-      this.events.emit('data', new Buffer(`processed->${chunk.content}$`));
+      this.events.emit('data', Buffer.from(`processed->${chunk.content}$`));
       return this;
     }
 

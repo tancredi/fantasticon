@@ -26,7 +26,7 @@ describe('`TTF` font generator', () => {
 
     expect(svg2ttf).toHaveBeenCalledTimes(1);
     expect(svg2ttf).toHaveBeenCalledWith(svg, { __mock: 'options__' });
-    expect(result).toEqual(new Buffer(`::ttf(${svg})::`));
+    expect(result).toEqual(Buffer.from(`::ttf(${svg})::`));
   });
 
   test('passes correctly format options to `svg2ttf`', async () => {

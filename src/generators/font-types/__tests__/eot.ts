@@ -25,7 +25,7 @@ describe('`EOT` font generator', () => {
 
     expect(ttf2eot).toHaveBeenCalledTimes(1);
     expect(ttf2eot).toHaveBeenCalledWith(ttfArr, { __mock: 'options__' });
-    expect(result).toEqual(new Buffer(`::eot(${ttfArr})::`));
+    expect(result).toEqual(Buffer.from(`::eot(${ttfArr})::`));
   });
 
   test('passes correctly format options to `ttf2eot`', async () => {

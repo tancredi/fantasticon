@@ -36,14 +36,13 @@ const config = () => {
     )
 
     .option('-d, --descent <...value>', 'the font descent', parseNumeric)
-    // normalize: boolean;
 
     .option(
       '-n, --normalize',
       'normalize icons by scaling them to the height of the highest icon'
-    );
+    )
 
-  // round: boolean;
+    .option('-r, --round', 'setup the SVG path rounding [10e12]');
 };
 
 const buildOptions = (cmd: commander.Command) => {
@@ -51,15 +50,15 @@ const buildOptions = (cmd: commander.Command) => {
 
   validatePositionals(cmd.args);
 
-  const options = removeUndefined({
+  return removeUndefined({
     inputDir,
     outputDir: cmd.output,
     types: cmd.fontTypes,
     fontHeight: cmd.fontHeight,
-    descent: cmd.descent
+    descent: cmd.descent,
+    normalize: cmd.normalize,
+    round: cmd.round
   }) as RunnerOptionsInput;
-
-  return options;
 };
 
 const run = async (options: RunnerOptionsInput) => await runner(options);
