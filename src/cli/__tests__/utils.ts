@@ -1,4 +1,4 @@
-import { parseNumeric, validatePositionals } from '../utils';
+import { parseNumeric, validatePositionals, removeUndefined } from '../utils';
 
 describe('Cli utilities', () => {
   test('`parseNumeric` returns correctly parsed number', () => {
@@ -31,10 +31,29 @@ describe('Cli utilities', () => {
       'Please specify an input directory'
     );
 
-    for (const args of [['1', '2'], ['1', '2', '3']]) {
+    for (const args of [
+      ['1', '2'],
+      ['1', '2', '3']
+    ]) {
       expect(() => validatePositionals(args)).toThrow(
         'Only specify one input directory as a positional argument'
       );
     }
+  });
+
+  test('`removeUndefined` removes keys in an Object mapped to `undefined` values', () => {
+    expect(
+      removeUndefined({
+        a: 1,
+        b: '2',
+        c: undefined,
+        d: null,
+        e: false,
+        f: true,
+        g: [],
+        h: {},
+        i: undefined
+      })
+    ).toMatchObject({ a: 1, b: '2', d: null, e: false, f: true, g: [], h: {} });
   });
 });

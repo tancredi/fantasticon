@@ -34,3 +34,13 @@ export const validatePositionals = (args: string[]) => {
     );
   }
 };
+
+export const removeUndefined = (object: Object) => {
+  for (const key of Object.keys(object)) {
+    if (typeof object[key] === 'undefined') {
+      delete object[key];
+    }
+  }
+
+  return object;
+};

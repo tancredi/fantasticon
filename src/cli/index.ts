@@ -1,7 +1,12 @@
 import commander from 'commander';
 import { RunnerOptionsInput } from '../types/runner';
 import runner from '../core/runner';
-import { parseNumeric, parseFontType, validatePositionals } from './utils';
+import {
+  parseNumeric,
+  parseFontType,
+  validatePositionals,
+  removeUndefined
+} from './utils';
 
 const cli = () => {
   config();
@@ -19,23 +24,25 @@ const config = () => {
 
     .option(
       '-t, --font-types <...value>',
-      'list of font formats to generate',
+      'specify font formats to generate',
       parseFontType
     )
     // formatOptions: { [key in FontType]?: any };
     // codepoints: CodepointsMap;
     .option(
       '-h, --font-height <...value>',
-      'height in points of the genrated font',
+      'the output font height (icons will be scaled so the highest has this height)',
       parseNumeric
     )
 
+    .option('-d, --descent <...value>', 'the font descent', parseNumeric)
+    // normalize: boolean;
+
     .option(
-      '-d, --descent <...value>',
-      'font descent value in points',
-      parseNumeric
+      '-n, --normalize',
+      'normalize icons by scaling them to the height of the highest icon'
     );
-  // normalize: boolean;
+
   // round: boolean;
 };
 
@@ -44,13 +51,13 @@ const buildOptions = (cmd: commander.Command) => {
 
   validatePositionals(cmd.args);
 
-  const options: RunnerOptionsInput = {
+  const options = removeUndefined({
     inputDir,
     outputDir: cmd.output,
     types: cmd.fontTypes,
     fontHeight: cmd.fontHeight,
     descent: cmd.descent
-  };
+  }) as RunnerOptionsInput;
 
   return options;
 };
