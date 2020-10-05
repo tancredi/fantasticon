@@ -6,13 +6,11 @@ import { AssetsMap } from '../utils/assets';
 export const getGeneratorOptions = (
   options: RunnerOptions,
   assets: AssetsMap
-): FontGeneratorOptions => {
-  return {
-    ...options,
-    formatOptions: getFormatOptions(options.formatOptions),
-    assets
-  };
-};
+): FontGeneratorOptions => ({
+  ...options,
+  formatOptions: getFormatOptions(options.formatOptions),
+  assets
+});
 
 export const getFormatOptions = (
   userOptions: RunnerOptions['formatOptions'] = {}
@@ -20,4 +18,4 @@ export const getFormatOptions = (
   Object.values(FontType).reduce(
     (cur = {}, type: FontType) => ({ ...cur, [type]: userOptions[type] || {} }),
     {}
-  );
+  ) as FontGeneratorOptions['formatOptions'];

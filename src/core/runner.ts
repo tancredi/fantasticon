@@ -5,7 +5,7 @@ import { generateFonts } from '../generators';
 
 export default async (userOptions: RunnerOptionsInput) => {
   const options = { ...DEFAULT_OPTIONS, ...userOptions };
-  const assets = await loadAssets(options.inDir);
+  const assets = await loadAssets(options.inputDir);
   const fonts = await generateFonts(assets, options);
 
   console.log(fonts);

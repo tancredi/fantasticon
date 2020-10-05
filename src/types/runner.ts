@@ -1,10 +1,9 @@
 import { CodepointsMap } from '../utils/codepoints';
 import { FontType } from './misc';
-import { Omit } from './utils';
 
 export interface RunnerMandatoryOptions {
-  inDir: string;
-  outDir: string;
+  inputDir: string;
+  outputDir: string;
 }
 
 export type RunnerOptionalOptions = {

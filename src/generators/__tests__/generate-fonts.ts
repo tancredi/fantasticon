@@ -1,8 +1,8 @@
 import { DEFAULT_OPTIONS } from '../../constants';
 import { FontType } from '../../types/misc';
 import { RunnerOptions } from '../../types/runner';
-import { generateFonts } from '../generate-fonts';
 import { AssetsMap } from '../../utils/assets';
+import { generateFonts } from '../generate-fonts';
 import { getGeneratorOptions } from '../generator-options';
 import generators from '../font-types';
 
@@ -31,7 +31,7 @@ jest.mock('../font-types', () => {
 
 const cast = <T>(val: any) => (val as unknown) as T;
 
-const getGeneratorFn = key =>
+const getGeneratorFn = (key: string) =>
   generators[key as keyof typeof generators].generate;
 
 describe('Generate fonts', () => {

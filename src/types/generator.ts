@@ -1,6 +1,6 @@
-import { FontType } from './misc';
 import { AssetsMap } from '../utils/assets';
 import { CodepointsMap } from '../utils/codepoints';
+import { FontType } from './misc';
 import { RunnerOptions } from './runner';
 
 export type FontGeneratorOptions = RunnerOptions & {

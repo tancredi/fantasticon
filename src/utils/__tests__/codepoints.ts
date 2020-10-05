@@ -1,6 +1,6 @@
+import { DEFAULT_START_CODEPOINT } from '../../constants';
 import { AssetsMap } from '../assets';
 import { getCodepoints } from '../codepoints';
-import { DEFAULT_START_CODEPOINT } from '../../constants';
 
 const mockAssetsMap = (ids: string[] = ['foo', 'bar', 'test']): AssetsMap =>
   ids.reduce(

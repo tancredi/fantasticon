@@ -1,5 +1,5 @@
-import { AssetsMap } from './assets';
 import { DEFAULT_START_CODEPOINT } from '../constants';
+import { AssetsMap } from './assets';
 
 export type CodepointsMap = { [key: string]: number };
 
