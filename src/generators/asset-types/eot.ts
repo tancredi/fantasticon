@@ -1,12 +1,12 @@
 import ttf2eot from 'ttf2eot';
 import { FontGenerator } from '../../types/generator';
-import { FontType } from '../../types/misc';
+import { FontAssetType } from '../../types/misc';
 
 const generator: FontGenerator<Buffer> = {
-  dependsOn: FontType.TTF,
+  dependsOn: FontAssetType.TTF,
 
   async generate({ formatOptions }, ttf) {
-    const font = ttf2eot(new Uint8Array(ttf), formatOptions[FontType.EOT]);
+    const font = ttf2eot(new Uint8Array(ttf), formatOptions[FontAssetType.EOT]);
     return Buffer.from(font.buffer);
   }
 };

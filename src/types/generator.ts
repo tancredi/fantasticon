@@ -1,12 +1,12 @@
 import { AssetsMap } from '../utils/assets';
-import { CodepointsMap } from '../utils/codepoints';
-import { FontType } from './misc';
+// import { CodepointsMap } from '../utils/codepoints';
+import { AssetType } from './misc';
 import { RunnerOptions } from './runner';
 
 export type FontGeneratorOptions = RunnerOptions & {
   assets: AssetsMap;
   fontHeight: number;
-  formatOptions: { [key in FontType]: any };
+  formatOptions: { [key in AssetType]: any };
 };
 
 export type Result = Promise<string | Buffer>;
@@ -18,8 +18,4 @@ export type FontGeneratorFn<DependencyT> = (
 
 export type FontGenerator<DependencyT = void> = {
   generate: FontGeneratorFn<DependencyT>;
-} & (DependencyT extends {}
-  ? {
-      dependsOn: FontType;
-    }
-  : {});
+} & (DependencyT extends {} ? { dependsOn: AssetType } : {});

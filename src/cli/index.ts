@@ -53,7 +53,7 @@ const buildOptions = (cmd: commander.Command) => {
   return removeUndefined({
     inputDir,
     outputDir: cmd.output,
-    types: cmd.fontTypes,
+    fontTypes: cmd.fontTypes,
     fontHeight: cmd.fontHeight,
     descent: cmd.descent,
     normalize: cmd.normalize,

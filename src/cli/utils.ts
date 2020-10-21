@@ -1,4 +1,4 @@
-import { FontType } from '../types/misc';
+import { FontAssetType } from '../types/misc';
 
 export const parseNumeric = (value: string) => {
   const out = Number(value);
@@ -11,7 +11,7 @@ export const parseNumeric = (value: string) => {
 };
 
 export const parseFontType = (value: string) => {
-  const typeValues = Object.values(FontType);
+  const typeValues = Object.values(FontAssetType);
 
   if (!typeValues.includes(value as any)) {
     throw new Error(
@@ -22,7 +22,7 @@ export const parseFontType = (value: string) => {
     );
   }
 
-  return value as FontType;
+  return value as FontAssetType;
 };
 
 export const validatePositionals = (args: string[]) => {

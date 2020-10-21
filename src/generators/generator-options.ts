@@ -1,6 +1,6 @@
 import { RunnerOptions } from '../types/runner';
 import { FontGeneratorOptions } from '../types/generator';
-import { FontType } from '../types/misc';
+import { AssetType, ASSET_TYPES } from '../types/misc';
 import { AssetsMap } from '../utils/assets';
 
 export const getGeneratorOptions = (
@@ -15,7 +15,10 @@ export const getGeneratorOptions = (
 export const getFormatOptions = (
   userOptions: RunnerOptions['formatOptions'] = {}
 ): FontGeneratorOptions['formatOptions'] =>
-  Object.values(FontType).reduce(
-    (cur = {}, type: FontType) => ({ ...cur, [type]: userOptions[type] || {} }),
+  Object.values(ASSET_TYPES).reduce(
+    (cur = {}, type: AssetType) => ({
+      ...cur,
+      [type]: userOptions[type] || {}
+    }),
     {}
   ) as FontGeneratorOptions['formatOptions'];

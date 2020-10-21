@@ -5,7 +5,7 @@ import glob from 'glob';
 import { resolve, relative } from 'path';
 import { getIconId } from './icon-id';
 import { RunnerOptions } from '../types/runner';
-import { GeneratedFonts } from '../generators/generate-fonts';
+import { GeneratedAssets } from '../generators/generate-assets';
 
 export interface IconAsset {
   id: string;
@@ -54,7 +54,7 @@ export const loadAssets = async (dir: string): Promise<AssetsMap> => {
 };
 
 export const writeAssets = async (
-  assets: GeneratedFonts,
+  assets: GeneratedAssets,
   { name, outputDir }: RunnerOptions
 ) => {
   for (const ext of Object.keys(assets)) {

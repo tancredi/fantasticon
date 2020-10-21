@@ -1,5 +1,5 @@
 import _svg2ttf from 'svg2ttf';
-import { FontType } from '../../../types/misc';
+import { FontAssetType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import ttfGen from '../ttf';
 
@@ -11,7 +11,7 @@ jest.mock('svg2ttf', () =>
 
 const mockOptions = (ttfOptions = { __mock: 'options__' } as any) =>
   (({
-    formatOptions: { [FontType.TTF]: ttfOptions }
+    formatOptions: { [FontAssetType.TTF]: ttfOptions }
   } as unknown) as FontGeneratorOptions);
 
 const svg = '::svg::';

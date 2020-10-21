@@ -1,9 +1,10 @@
 import { RunnerOptionalOptions } from './types/runner';
-import { FontType } from './types/misc';
+import { FontAssetType, OtherAssetType } from './types/misc';
 
 export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   name: 'icons',
-  types: [FontType.EOT, FontType.WOFF2, FontType.WOFF],
+  fontTypes: [FontAssetType.EOT, FontAssetType.WOFF2, FontAssetType.WOFF],
+  assetTypes: [OtherAssetType.CSS],
   formatOptions: {},
   codepoints: {},
   round: undefined,

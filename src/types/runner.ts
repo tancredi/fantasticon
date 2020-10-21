@@ -1,5 +1,5 @@
 import { CodepointsMap } from '../utils/codepoints';
-import { FontType } from './misc';
+import { FontAssetType, OtherAssetType, AssetType } from './misc';
 
 export interface RunnerMandatoryOptions {
   inputDir: string;
@@ -8,8 +8,9 @@ export interface RunnerMandatoryOptions {
 
 export type RunnerOptionalOptions = {
   name: string;
-  types: FontType[];
-  formatOptions: { [key in FontType]?: any };
+  fontTypes: FontAssetType[];
+  assetTypes: OtherAssetType[];
+  formatOptions: { [key in AssetType]?: any };
   codepoints: CodepointsMap;
   fontHeight: number;
   descent: number;

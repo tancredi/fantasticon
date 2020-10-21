@@ -1,7 +1,7 @@
 import { createReadStream, ReadStream } from 'fs';
 import SVGIcons2SVGFontStream from 'svgicons2svgfont';
 import { FontGenerator } from '../../types/generator';
-import { FontType } from '../../types/misc';
+import { FontAssetType } from '../../types/misc';
 
 type GglyphStream = ReadStream & { metadata?: any };
 
@@ -16,7 +16,7 @@ const generator: FontGenerator<void> = {
         normalize: options.normalize,
         round: options.round,
         log: () => null,
-        ...options.formatOptions[FontType.SVG]
+        ...options.formatOptions[FontAssetType.SVG]
       };
 
       const fontStream = new SVGIcons2SVGFontStream(svgOptions)

@@ -1,1 +1,1 @@
-export { generateFonts } from './generate-fonts';
+export { generateAssets } from './generate-assets';

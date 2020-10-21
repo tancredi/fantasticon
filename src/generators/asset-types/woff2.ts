@@ -1,12 +1,15 @@
 import ttf2woff2 from 'ttf2woff2';
 import { FontGenerator } from '../../types/generator';
-import { FontType } from '../../types/misc';
+import { FontAssetType } from '../../types/misc';
 
 const generator: FontGenerator<Buffer> = {
-  dependsOn: FontType.TTF,
+  dependsOn: FontAssetType.TTF,
 
   async generate({ formatOptions }, ttf) {
-    const font = ttf2woff2(new Uint8Array(ttf), formatOptions[FontType.WOFF2]);
+    const font = ttf2woff2(
+      new Uint8Array(ttf),
+      formatOptions[FontAssetType.WOFF2]
+    );
     return Buffer.from(font.buffer);
   }
 };

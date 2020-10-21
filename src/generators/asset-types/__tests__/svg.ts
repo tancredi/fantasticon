@@ -1,5 +1,5 @@
 import _SVGIcons2SVGFontStream from 'svgicons2svgfont';
-import { FontType } from '../../../types/misc';
+import { FontAssetType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import svgGen from '../svg';
 
@@ -46,7 +46,7 @@ const mockOptions = (svgOptions = { __mock: 'options__' } as any) =>
     descent: 2,
     normalize: false,
     round: true,
-    formatOptions: { [FontType.SVG]: svgOptions },
+    formatOptions: { [FontAssetType.SVG]: svgOptions },
     codepoints: { foo: 1, bar: 1 },
     assets: {
       foo: { id: 'foo', absolutePath: '/root/foo.svg' },
