@@ -1,4 +1,3 @@
-import { FontGenerator, FontGeneratorOptions } from '../types/generator';
 import { FontType } from '../types/misc';
 import { RunnerOptions } from '../types/runner';
 import { AssetsMap } from '../utils/assets';

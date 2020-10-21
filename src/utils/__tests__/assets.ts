@@ -1,7 +1,11 @@
-import { loadPaths, loadAssets } from '../assets';
+import { loadPaths, loadAssets, writeAssets } from '../assets';
+import { writeFile } from 'fs';
+
+const writeFileMock = (writeFile as unknown) as jest.Mock<typeof writeFile>;
 
 jest.mock('path');
 jest.mock('glob');
+jest.mock('fs', () => ({ writeFile: jest.fn() }));
 
 describe('Assets utilities', () => {
   test('`loadPaths` returns a Promise that resolves with an Array of `strings`', async () => {
@@ -61,5 +65,31 @@ describe('Assets utilities', () => {
         id: 'sub-sub-nested'
       }
     });
+  });
+
+  test('`writeAssets` calls writeFile for each given asset with correctly formed filepath and content', async () => {
+    writeFileMock.mockImplementation((_, __, cb) => cb(null));
+
+    await writeAssets(
+      { svg: '::svg-content::', foo: '::foo-content::' } as any,
+      {
+        name: 'base-name',
+        outputDir: '/dev/null'
+      } as any
+    );
+
+    expect(writeFileMock).toHaveBeenCalledTimes(2);
+
+    expect(writeFileMock).toHaveBeenCalledWith(
+      '/dev/null/base-name.svg',
+      '::svg-content::',
+      expect.any(Function)
+    );
+
+    expect(writeFileMock).toHaveBeenCalledWith(
+      '/dev/null/base-name.foo',
+      '::foo-content::',
+      expect.any(Function)
+    );
   });
 });

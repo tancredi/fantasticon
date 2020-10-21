@@ -1,7 +1,11 @@
-import { slashJoin, removeExtension } from './path';
+import { slashJoin } from './path';
+import { writeFile } from 'fs';
+import { promisify } from 'util';
 import glob from 'glob';
 import { resolve, relative } from 'path';
 import { getIconId } from './icon-id';
+import { RunnerOptions } from '../types/runner';
+import { GeneratedFonts } from '../generators/generate-fonts';
 
 export interface IconAsset {
   id: string;
@@ -47,4 +51,14 @@ export const loadAssets = async (dir: string): Promise<AssetsMap> => {
   }
 
   return out;
+};
+
+export const writeAssets = async (
+  assets: GeneratedFonts,
+  { name, outputDir }: RunnerOptions
+) => {
+  for (const ext of Object.keys(assets)) {
+    const filename = [name, ext].join('.');
+    await promisify(writeFile)(slashJoin(outputDir, filename), assets[ext]);
+  }
 };
