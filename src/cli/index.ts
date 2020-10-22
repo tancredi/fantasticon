@@ -29,7 +29,7 @@ const config = () => {
     .requiredOption('-o, --output <value>', 'specify output directory')
 
     .option(
-      '-t, --font-types [...value]',
+      '-t, --font-types <value...>',
       `specify font formats to generate` +
         showDefaultArr(DEFAULT_OPTIONS.fontTypes),
       listMembersParser<FontAssetType>(
@@ -39,13 +39,13 @@ const config = () => {
     )
 
     .option(
-      '--asset-types [...value]',
+      '--asset-types <alue...>',
       `specify other asset types to generate` +
-        showDefaultArr(DEFAULT_OPTIONS.assetTypes),
-      listMembersParser<OtherAssetType>(
-        Object.values(OtherAssetType),
-        'asset type'
-      )
+        showDefaultArr(DEFAULT_OPTIONS.assetTypes)
+      // listMembersParser<OtherAssetType>(
+      //   Object.values(OtherAssetType),
+      //   'asset type'
+      // )
     )
     // formatOptions: { [key in FontType]?: any };
     // codepoints: CodepointsMap;
