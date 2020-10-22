@@ -29,6 +29,10 @@ export const renderSrcAttribute = (
       const hash = getHash(font.toString('utf8'));
       const suffix = getSuffix ? getSuffix(name) : '';
 
-      return `url(./${name}.${fontType}?${hash}${suffix}) format(${formatValue})`;
+      return [
+        'url("',
+        `./${name}.${fontType}?${hash}${suffix}`,
+        `") format("${formatValue}")`
+      ].join('');
     })
     .join(',\n');

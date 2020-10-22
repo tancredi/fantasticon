@@ -6,6 +6,7 @@ import woff from './woff';
 import woff2 from './woff2';
 import eot from './eot';
 import css from './css';
+import html from './html';
 
 const generators: { [key in AssetType]: FontGenerator<any> } = {
   [FontAssetType.SVG]: svg,
@@ -13,7 +14,8 @@ const generators: { [key in AssetType]: FontGenerator<any> } = {
   [FontAssetType.WOFF]: woff,
   [FontAssetType.WOFF2]: woff2,
   [FontAssetType.EOT]: eot,
-  [OtherAssetType.CSS]: css
+  [OtherAssetType.CSS]: css,
+  [OtherAssetType.HTML]: html
 };
 
 export default generators;

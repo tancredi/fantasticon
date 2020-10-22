@@ -6,7 +6,7 @@
 {{# if selector }}
 {{ selector }}:before {
 {{ else }}
-{{ tag }}[class^="{{prefix}}"]:before, {{ tag }}[class*=" {{prefix}}"]:before {
+{{ tag }}[class^="{{prefix}}-"]:before, {{ tag }}[class*=" {{prefix}}-"]:before {
 {{/ if }}
     font-family: {{ name }} !important;
     font-style: normal;
@@ -20,10 +20,10 @@
 
 {{# each codepoints }}
 {{# if ../selector }}
-{{ ../selector }}.{{ ../prefix }}{{ @key }}:before {
+{{ ../selector }}.{{ ../prefix }}-{{ @key }}:before {
 {{ else }}
-{{ tag }}.{{ ../prefix }}{{ @key }}:before {
+{{ tag }}.{{ ../prefix }}-{{ @key }}:before {
 {{/ if }}
-    content: "\\{{ this }}";
+    content: "\\{{ codepoint this }}";
 }
 {{/ each }}
