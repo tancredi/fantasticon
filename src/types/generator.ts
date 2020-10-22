@@ -1,11 +1,9 @@
 import { AssetsMap } from '../utils/assets';
-// import { CodepointsMap } from '../utils/codepoints';
 import { AssetType } from './misc';
 import { RunnerOptions } from './runner';
 
 export type FontGeneratorOptions = RunnerOptions & {
   assets: AssetsMap;
-  fontHeight: number;
   formatOptions: { [key in AssetType]: any };
 };
 

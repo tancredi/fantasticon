@@ -1,8 +1,21 @@
 import { DEFAULT_OPTIONS } from '../constants';
-import { RunnerOptionsInput } from '../types/runner';
-import { loadAssets, writeAssets } from '../utils/assets';
+import { RunnerOptions, RunnerOptionsInput } from '../types/runner';
+import {
+  loadAssets,
+  writeAssets,
+  AssetsMap,
+  WriteResults
+} from '../utils/assets';
+import { GeneratedAssets } from '../generators/generate-assets';
 import { parseConfig } from './config-parser';
 import { generateAssets } from '../generators';
+
+export interface RunnerResults {
+  options: RunnerOptions;
+  writeResults: WriteResults;
+  assetsIn: AssetsMap;
+  assetsOut: GeneratedAssets;
+}
 
 export const sanitiseOptions = (userOptions: any) =>
   parseConfig({
@@ -13,7 +26,7 @@ export const sanitiseOptions = (userOptions: any) =>
 export const generateFonts = async (
   userOptions: RunnerOptionsInput,
   mustWrite = false
-) => {
+): Promise<RunnerResults> => {
   const options = await sanitiseOptions(userOptions);
   const { outputDir } = options;
 
@@ -25,5 +38,5 @@ export const generateFonts = async (
   const assetsOut = await generateAssets(assetsIn, options);
   const writeResults = outputDir ? await writeAssets(assetsOut, options) : [];
 
-  return { options, writeResults };
+  return { options, assetsIn, assetsOut, writeResults };
 };

@@ -4,10 +4,21 @@ import { loadConfig, DEFAULT_FILEPATHS } from './config-loader';
 import { DEFAULT_OPTIONS } from '../constants';
 import { generateFonts } from '../core/runner';
 import { removeUndefined } from '../utils/validation';
+import { getLogger } from './logger';
 
 const cli = async () => {
   config();
-  run(await buildOptions(commander.program.parse(process.argv)));
+  const input = commander.program.parse(process.argv);
+  const logger = getLogger(input.debug, input.silent);
+
+  try {
+    const results = await run(await buildOptions(input));
+    logger.start();
+    logger.results(results);
+  } catch (error) {
+    logger.error(error);
+    process.exitCode = 1;
+  }
 };
 
 const printList = (available: { [key: string]: string }, defaults: string[]) =>
@@ -47,7 +58,7 @@ const config = () => {
     )
 
     .option(
-      '-d, --descent <value>',
+      '--descent <value>',
       'the font descent',
       DEFAULT_OPTIONS.descent as any
     )
@@ -72,7 +83,11 @@ const config = () => {
       '-p, --prefix <value>',
       'CSS classname prefix for icons',
       DEFAULT_OPTIONS.prefix
-    );
+    )
+
+    .option('--debug', 'display errors stack trace', false)
+
+    .option('--silent', 'run with no logs', false);
 };
 
 const buildOptions = async (cmd: commander.Command) => {

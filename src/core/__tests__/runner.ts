@@ -36,23 +36,27 @@ describe('Runner', () => {
     parseConfigMock.mockClear();
   });
 
-  test('`generateFonts` resolved with expected results', async () => {
+  test('`generateFonts` resolves with expected results', async () => {
     const optionsIn = {} as any;
     const optionsOut = { hasDefaults: true, parsed: true };
 
     expect(await generateFonts(optionsIn)).toEqual({
       options: optionsOut,
-      writeResults: []
+      writeResults: [],
+      assetsIn: { mock: 'assets' },
+      assetsOut: { mockGenerated: { assets: {}, options: { mock: 'assets' } } }
     });
   });
 
-  test('`generateFonts` resolved with asset write result if `outputDir` was passed', async () => {
+  test('`generateFonts` resolves with asset write result if `outputDir` was passed', async () => {
     const optionsIn = { outputDir: 'foo' } as any;
     const optionsOut = { hasDefaults: true, parsed: true, outputDir: 'foo' };
 
     expect(await generateFonts(optionsIn)).toEqual({
       options: optionsOut,
-      writeResults: [{ mock: 'writeResult' }]
+      writeResults: [{ mock: 'writeResult' }],
+      assetsIn: { mock: 'assets' },
+      assetsOut: { mockGenerated: { assets: {}, options: { mock: 'assets' } } }
     });
   });
 
