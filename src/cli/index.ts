@@ -83,7 +83,7 @@ const config = () => {
 const buildOptions = async (cmd: commander.Command) => {
   const [inputDir] = cmd.args;
 
-  return parseConfig({
+  return (await parseConfig({
     ...(await loadConfig(cmd.config)),
     ...removeUndefined({
       inputDir,
@@ -97,7 +97,7 @@ const buildOptions = async (cmd: commander.Command) => {
       selector: cmd.selector,
       tag: cmd.tag
     })
-  }) as RunnerOptionsInput;
+  })) as RunnerOptionsInput;
 };
 
 const run = async (options: RunnerOptionsInput) => await runner(options);
