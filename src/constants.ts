@@ -8,7 +8,7 @@ export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   formatOptions: {},
   codepoints: {},
   round: undefined,
-  fontHeight: undefined,
+  fontHeight: 300,
   descent: undefined,
   normalize: undefined,
   selector: null,
