@@ -44,8 +44,7 @@ const config = () => {
       `specify other asset types to generate` +
         printList(OtherAssetType, DEFAULT_OPTIONS.assetTypes)
     )
-    // formatOptions: { [key in FontType]?: any };
-    // codepoints: CodepointsMap;
+
     .option(
       '-h, --font-height <value>',
       'the output font height (icons will be scaled so the highest has this height)',

@@ -4,9 +4,19 @@ import * as fs from 'fs';
 export const readFile = promisify(fs.readFile);
 export const writeFile = promisify(fs.writeFile);
 export const stat = promisify(fs.stat);
-export const fileExists = async (filepath: string) => {
+
+export const checkPath = async (
+  filepath: string,
+  type?: 'directory' | 'file'
+) => {
   try {
-    return (await stat(filepath)).isFile();
+    const result = await stat(filepath);
+
+    if (type) {
+      return type === 'directory' ? result.isDirectory() : result.isFile();
+    }
+
+    return true;
   } catch (err) {
     return false;
   }

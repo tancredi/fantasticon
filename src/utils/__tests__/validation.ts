@@ -1,12 +1,18 @@
 import {
   parseNumeric,
   parseString,
-  optional,
   listMembersParser,
   removeUndefined,
   parseBoolean,
-  nullable
+  optional,
+  nullable,
+  parseDir
 } from '../validation';
+import { checkPath } from '../fs-async';
+
+const checkPathMock = (checkPath as any) as jest.Mock;
+
+jest.mock('../fs-async', () => ({ checkPath: jest.fn() }));
 
 describe('Cli utilities', () => {
   test('`parseNumeric` returns correctly parsed number', () => {
@@ -107,5 +113,25 @@ describe('Cli utilities', () => {
     expect(parse(undefined)).toBeUndefined();
     expect(() => parse(2)).toThrow('2 is not a string');
     expect(() => parse(null)).toThrow('null is not a string');
+  });
+
+  test('`parseDir` calls `checkPath` correctly and returns unchanged path if found to be an existing directory', async () => {
+    const dirname = '/foo/bar';
+
+    checkPathMock.mockImplementationOnce(() => Promise.resolve(true));
+
+    expect(await parseDir(dirname)).toBe(dirname);
+    expect(checkPathMock).toHaveBeenCalledTimes(1);
+    expect(checkPathMock).toHaveBeenCalledWith(dirname, 'directory');
+  });
+
+  test('`parseDir` throws expected error if given path is found not to be a directory', async () => {
+    const dirname = '/foo/bar';
+
+    checkPathMock.mockImplementationOnce(() => Promise.resolve(false));
+
+    await expect(() => parseDir(dirname)).rejects.toThrow(
+      '/foo/bar is not a directory'
+    );
   });
 });

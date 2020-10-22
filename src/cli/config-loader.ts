@@ -1,5 +1,5 @@
 import { slashJoin } from '../utils/path';
-import { readFile, fileExists } from '../utils/fs-async';
+import { readFile, checkPath } from '../utils/fs-async';
 
 export const DEFAULT_FILEPATHS = [
   '.iconfontrc',
@@ -11,7 +11,7 @@ export const DEFAULT_FILEPATHS = [
 ];
 
 const attemptLoading = async (filepath: string): Promise<any | void> => {
-  if (await fileExists(filepath)) {
+  if (await checkPath(filepath, 'file')) {
     try {
       return require(slashJoin(process.cwd(), filepath));
     } catch (err) {}

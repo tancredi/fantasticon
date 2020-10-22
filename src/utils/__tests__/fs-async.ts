@@ -1,4 +1,4 @@
-import { readFile, writeFile, stat } from '../fs-async';
+import { readFile, writeFile, stat, checkPath } from '../fs-async';
 import * as fs from 'fs';
 
 const readFileMock = (fs.readFile as any) as jest.Mock;
@@ -57,5 +57,54 @@ describe('Async FS utilities', () => {
     expect(await stat(filepath)).toBe(undefined);
     expect(statMock).toHaveBeenCalledTimes(1);
     expect(statMock).toHaveBeenCalledWith(filepath, expect.any(Function));
+  });
+
+  test('`checkPath` will call `stat` correctly and correctly check the existance of a path', async () => {
+    const mockPath = '/dev/null';
+
+    statMock.mockImplementationOnce((_, cb) => cb());
+
+    expect(await checkPath(mockPath)).toBe(true);
+    expect(statMock).toHaveBeenCalledTimes(1);
+    expect(statMock).toHaveBeenCalledWith(mockPath, expect.any(Function));
+
+    statMock.mockClear();
+    statMock.mockImplementationOnce((_, cb) => cb(new Error('Fail')));
+
+    expect(await checkPath(mockPath)).toBe(false);
+    expect(statMock).toHaveBeenCalledTimes(1);
+    expect(statMock).toHaveBeenCalledWith(mockPath, expect.any(Function));
+  });
+
+  test('`checkPath` will correctly check if given path is a directory when given as check type', async () => {
+    const mockPath = '/dev/null';
+    const isDirectory = jest.fn(() => false);
+
+    statMock.mockImplementation((_, cb) => cb(null, { isDirectory }));
+
+    expect(await checkPath(mockPath, 'directory')).toBe(false);
+    expect(statMock).toHaveBeenCalledTimes(1);
+    expect(statMock).toHaveBeenCalledWith(mockPath, expect.any(Function));
+    expect(isDirectory).toHaveBeenCalledTimes(1);
+
+    isDirectory.mockImplementation(() => true);
+
+    expect(await checkPath(mockPath, 'directory')).toBe(true);
+  });
+
+  test('`checkPath` will correctly check if given path is a file when given as check type', async () => {
+    const mockPath = '/dev/null';
+    const isFile = jest.fn(() => false);
+
+    statMock.mockImplementation((_, cb) => cb(null, { isFile }));
+
+    expect(await checkPath(mockPath, 'file')).toBe(false);
+    expect(statMock).toHaveBeenCalledTimes(1);
+    expect(statMock).toHaveBeenCalledWith(mockPath, expect.any(Function));
+    expect(isFile).toHaveBeenCalledTimes(1);
+
+    isFile.mockImplementation(() => true);
+
+    expect(await checkPath(mockPath, 'file')).toBe(true);
   });
 });

@@ -1,3 +1,5 @@
+import { checkPath } from '../utils/fs-async';
+
 export const parseNumeric = (value: string) => {
   const out = Number(value);
 
@@ -58,6 +60,14 @@ export const parseBoolean = (val: any) => {
 const skipIfMatching = (match: any) => (fn: (value: any, cur?: any) => any) => (
   val: any
 ) => (val === match ? match : fn(val));
+
+export const parseDir = async (dirname: string) => {
+  if ((await checkPath(dirname, 'directory')) === false) {
+    throw new Error(`${dirname} is not a directory`);
+  }
+
+  return dirname;
+};
 
 export const nullable = skipIfMatching(null);
 

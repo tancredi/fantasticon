@@ -2,6 +2,7 @@ import { RunnerOptions } from '../types/runner';
 import { DEFAULT_OPTIONS } from '../constants';
 import uniq from 'lodash/uniq';
 import {
+  parseDir,
   parseString,
   parseBoolean,
   listMembersParser,
@@ -14,8 +15,8 @@ import { FontAssetType, OtherAssetType } from '../types/misc';
 const CONFIG_VALIDATORS: {
   [key in keyof RunnerOptions]: Array<(val: any, cur: any) => any>;
 } = {
-  inputDir: [parseString],
-  outputDir: [parseString],
+  inputDir: [parseString, parseDir],
+  outputDir: [parseString, parseDir],
   name: [parseString],
   fontTypes: [listMembersParser(Object.values(FontAssetType))],
   assetTypes: [listMembersParser(Object.values(OtherAssetType))],
@@ -30,7 +31,7 @@ const CONFIG_VALIDATORS: {
   prefix: [parseString]
 };
 
-export const parseConfig = (input: object) => {
+export const parseConfig = async (input: object) => {
   const options = { ...DEFAULT_OPTIONS, ...input };
   const out = {};
   const allKeys = [...Object.keys(options), ...Object.keys(CONFIG_VALIDATORS)];
@@ -46,7 +47,7 @@ export const parseConfig = (input: object) => {
 
     try {
       for (const fn of validators) {
-        val = fn(val, val);
+        val = await fn(val, val);
       }
     } catch (err) {
       throw new Error(`Invalid option ${key}: ${err.message}`);
