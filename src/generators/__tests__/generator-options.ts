@@ -2,17 +2,16 @@ import { getFormatOptions, getGeneratorOptions } from '../generator-options';
 import { RunnerOptions } from '../../types/runner';
 import { AssetsMap } from '../../utils/assets';
 
+jest.mock('../../types/misc', () => ({
+  ASSET_TYPES: { svg: 'svg', eot: 'eot', ttf: 'ttf' }
+}));
+
 describe('Font generator options', () => {
   test('`getFormatOptions` correctly ensures there’s at least one empty Object property for each font type key in its resulting value', () => {
     expect(getFormatOptions({})).toEqual({
       svg: {},
       eot: {},
-      ttf: {},
-      woff: {},
-      woff2: {},
-      css: {},
-      html: {},
-      json: {}
+      ttf: {}
     });
   });
 
@@ -20,23 +19,11 @@ describe('Font generator options', () => {
     const svg = { __mock: 'svgOptions__' };
     const eot = { __mock: 'eotOptions__' };
     const ttf = { __mock: 'ttfOptions__' };
-    const woff = { __mock: 'woffOptions__' };
-    const woff2 = { __mock: 'woff2Options__' };
-    const css = { __mock: 'cssOptions__' };
-    const html = { __mock: 'html__' };
-    const json = { __mock: 'json__' };
 
-    expect(
-      getFormatOptions({ svg, eot, ttf, woff, woff2, css, html, json })
-    ).toEqual({
+    expect(getFormatOptions({ svg, eot, ttf })).toEqual({
       svg,
       eot,
-      ttf,
-      woff,
-      woff2,
-      css,
-      html,
-      json
+      ttf
     });
   });
 
