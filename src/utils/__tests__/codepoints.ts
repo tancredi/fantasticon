@@ -26,7 +26,7 @@ describe('CodePoints utilities', () => {
   });
 
   test('`getCodepoints` uses given start codepoint', () => {
-    expect(getCodepoints(mockAssetsMap(), 10)).toEqual({
+    expect(getCodepoints(mockAssetsMap(), {}, 10)).toEqual({
       foo: 10,
       bar: 11,
       test: 12
@@ -36,7 +36,7 @@ describe('CodePoints utilities', () => {
   test('`getCodepoints` correctly merges predefined codepoints with generated ones', () => {
     const predefined = { buzz: 20, bazz: 21 };
 
-    expect(getCodepoints(mockAssetsMap(), 10, predefined)).toEqual({
+    expect(getCodepoints(mockAssetsMap(), predefined, 10)).toEqual({
       foo: 10,
       bar: 11,
       test: 12,
@@ -48,7 +48,7 @@ describe('CodePoints utilities', () => {
   test('`getCodepoints` skips codepoints already used in the predefined map', () => {
     const predefined = { buzz: 10, bazz: 12 };
 
-    expect(getCodepoints(mockAssetsMap(), 10, predefined)).toEqual({
+    expect(getCodepoints(mockAssetsMap(), predefined, 10)).toEqual({
       foo: 11,
       bar: 13,
       test: 14,

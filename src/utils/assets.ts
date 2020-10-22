@@ -1,5 +1,4 @@
 import { slashJoin } from './path';
-import { promisify } from 'util';
 import glob from 'glob';
 import { resolve, relative } from 'path';
 import { getIconId } from './icon-id';

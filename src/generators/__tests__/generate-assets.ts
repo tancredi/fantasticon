@@ -2,8 +2,15 @@ import { FontAssetType, OtherAssetType, AssetType } from '../../types/misc';
 import { RunnerOptions } from '../../types/runner';
 import { AssetsMap } from '../../utils/assets';
 import { generateAssets } from '../generate-assets';
+import { getCodepoints } from '../../utils/codepoints';
 import { getGeneratorOptions } from '../generator-options';
 import generators from '../asset-types';
+
+const getCodepointsMock = (getCodepoints as any) as jest.Mock;
+
+jest.mock('../../utils/codepoints', () => ({
+  getCodepoints: jest.fn(() => ({ __mock: 'codepoint__' }))
+}));
 
 jest.mock('../asset-types', () => {
   const mockResult = (type: string) => `::${type}::`;
@@ -38,6 +45,8 @@ describe('Generate assets', () => {
     for (const gen of Object.values(generators)) {
       ((gen.generate as unknown) as jest.Mock).mockClear();
     }
+
+    getCodepointsMock.mockClear();
   });
 
   test('`generateAssets` correctly generates and returns assets specified by the merged `fontTypes` and `assetTypes` option', async () => {
@@ -52,13 +61,27 @@ describe('Generate assets', () => {
     expect(result).toEqual({ a: '::a::', c: '::c::' });
   });
 
-  test('`generateAssets` calls necessary generator functions with correct argugments and only once', async () => {
+  test('`generateAssets` calls necessary generator functions with correct argugments and only once, and with correctly generated codepoints', async () => {
     const fontTypes = cast<AssetType[]>(['b', 'd']);
     const assets = cast<AssetsMap>({ __mock: 'assetsMap__' });
-    const options = cast<RunnerOptions>({ fontTypes, assetTypes: [] });
-    const genOptions = getGeneratorOptions(options, assets);
+    const codepointsIn = { __mock: '::codepoint-in::' };
+    const codepointsOut = { __mock: '::codepoint-out::' };
+    const options = cast<RunnerOptions>({
+      fontTypes,
+      assetTypes: [],
+      codepoints: codepointsIn
+    });
+    const genOptions = {
+      ...getGeneratorOptions(options, assets),
+      codepoints: codepointsOut
+    };
+
+    getCodepointsMock.mockImplementationOnce(() => codepointsOut);
 
     await generateAssets(assets, options);
+
+    expect(getCodepointsMock).toHaveBeenCalledTimes(1);
+    expect(getCodepointsMock).toHaveBeenCalledWith(assets, codepointsIn);
 
     expect(getGeneratorFn('a')).toHaveBeenCalledTimes(1);
     expect(getGeneratorFn('a')).toHaveBeenCalledWith(genOptions, null);

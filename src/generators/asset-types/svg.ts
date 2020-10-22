@@ -32,10 +32,7 @@ const generator: FontGenerator<void> = {
           ligature += String.fromCharCode(id.charCodeAt(i));
         }
 
-        glyph.metadata = {
-          name: id,
-          unicode: [unicode, ligature]
-        };
+        glyph.metadata = { name: id, unicode: [unicode, ligature] };
 
         fontStream.write(glyph);
       }

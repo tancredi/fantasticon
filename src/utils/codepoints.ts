@@ -5,8 +5,8 @@ export type CodepointsMap = { [key: string]: number };
 
 export const getCodepoints = (
   assets: AssetsMap,
-  start = DEFAULT_START_CODEPOINT,
-  predefined: CodepointsMap = {}
+  predefined: CodepointsMap = {},
+  start = DEFAULT_START_CODEPOINT
 ): CodepointsMap => {
   2;
   const out: CodepointsMap = {};

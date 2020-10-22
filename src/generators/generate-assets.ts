@@ -1,5 +1,6 @@
 import { AssetType, FontAssetType, OtherAssetType } from '../types/misc';
 import { RunnerOptions } from '../types/runner';
+import { getCodepoints } from '../utils/codepoints';
 import { AssetsMap } from '../utils/assets';
 import { getGeneratorOptions } from './generator-options';
 import generators from './asset-types';
@@ -12,6 +13,8 @@ export const generateAssets = async (
   assets: AssetsMap,
   options: RunnerOptions
 ): Promise<GeneratedAssets> => {
+  options.codepoints = { ...getCodepoints(assets, options.codepoints) };
+
   const generated: GeneratedAssets = {};
   const generatorOptions = getGeneratorOptions(options, assets);
   const generateTypes = [...options.fontTypes, ...options.assetTypes];
