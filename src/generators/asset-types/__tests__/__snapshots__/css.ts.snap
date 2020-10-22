@@ -1,5 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`\`CSS\` asset generator renders CSS correctly with \`selector\` option 1`] = `
+"@font-face {
+    font-family: \\"test-font\\";
+    src: \\"::src-attr::\\";
+}
+
+.my-selector:before {
+    font-family: test-font !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.my-selector.tf-my-icon:before {
+    content: \\"\\\\f101\\";
+}
+"
+`;
+
 exports[`\`CSS\` asset generator renders CSS correctly with prefix and tag name options 1`] = `
 "@font-face {
     font-family: \\"test-font\\";
@@ -18,29 +41,6 @@ b[class^=\\"tf-\\"]:before, b[class*=\\" tf-\\"]:before {
 }
 
 .tf-my-icon:before {
-    content: \\"\\\\f101\\";
-}
-"
-`;
-
-exports[`\`CSS\` asset generator renders CSS correctly with selector option 1`] = `
-"@font-face {
-    font-family: \\"test-font\\";
-    src: \\"::src-attr::\\";
-}
-
-.my-custom-selector:before {
-    font-family: test-font !important;
-    font-style: normal;
-    font-weight: normal !important;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.my-custom-selector.tf-my-icon:before {
     content: \\"\\\\f101\\";
 }
 "

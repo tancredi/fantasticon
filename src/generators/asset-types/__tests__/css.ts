@@ -26,10 +26,10 @@ describe('`CSS` asset generator', () => {
     ).toMatchSnapshot();
   });
 
-  test('renders CSS correctly with selector option', async () => {
+  test('renders CSS correctly with `selector` option', async () => {
     expect(
       await cssGen.generate(
-        { ...mockOptions, selector: '.my-custom-selector' },
+        { ...mockOptions, selector: '.my-selector' },
         Buffer.from('')
       )
     ).toMatchSnapshot();
@@ -43,5 +43,22 @@ describe('`CSS` asset generator', () => {
     expect(renderSrcMock).toHaveBeenCalledTimes(1);
     expect(renderSrcMock).toHaveBeenCalledWith(mockOptions, fontBuffer);
     expect(result).toContain('::src-attr::');
+  });
+
+  test('renders expected selector blocks', async () => {
+    const css = await cssGen.generate(mockOptions, Buffer.from(''));
+
+    expect(css).toContain('b[class^="tf-"]:before, b[class*=" tf-"]:before {');
+    expect(css).toContain('.tf-my-icon:before {');
+  });
+
+  test('renders expected selector blocks with `selector` option', async () => {
+    const css = await cssGen.generate(
+      { ...mockOptions, selector: '.my-selector' },
+      Buffer.from('')
+    );
+
+    expect(css).toContain('.my-selector:before {');
+    expect(css).toContain('.my-selector.tf-my-icon:before {');
   });
 });
