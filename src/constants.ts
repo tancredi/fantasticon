@@ -10,7 +10,10 @@ export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   round: undefined,
   fontHeight: undefined,
   descent: undefined,
-  normalize: undefined
+  normalize: undefined,
+  selector: null,
+  tag: 'i',
+  prefix: 'icon-'
 };
 
 export const DEFAULT_START_CODEPOINT = 0xf101;

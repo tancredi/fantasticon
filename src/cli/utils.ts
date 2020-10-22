@@ -1,4 +1,4 @@
-import { FontAssetType } from '../types/misc';
+import { FontAssetType, OtherAssetType } from '../types/misc';
 
 export const parseNumeric = (value: string) => {
   const out = Number(value);
@@ -10,19 +10,12 @@ export const parseNumeric = (value: string) => {
   return out;
 };
 
-export const parseFontType = (value: string) => {
-  const typeValues = Object.values(FontAssetType);
-
-  if (!typeValues.includes(value as any)) {
-    throw new Error(
-      [
-        `${value} is not a valid font type`,
-        `accepted values are: ${typeValues.join(', ')}`
-      ].join(' - ')
-    );
+export const parseString = (value: string) => {
+  if (typeof value !== 'string') {
+    throw new Error(`${value} is not a string`);
   }
 
-  return value as FontAssetType;
+  return value;
 };
 
 export const validatePositionals = (args: string[]) => {
@@ -43,4 +36,25 @@ export const removeUndefined = (object: Object) => {
   }
 
   return object;
+};
+
+const validateBelonging = (value: any, accepted: any[], typeStr: string) => {
+  if (!accepted.includes(value as any)) {
+    throw new Error(
+      [
+        `${value} is not a valid ${typeStr}`,
+        `accepted values are: ${accepted.join(', ')}`
+      ].join(' - ')
+    );
+  }
+};
+
+export const parseFontType = (value: string, prev = []) => {
+  validateBelonging(value, Object.values(FontAssetType), 'font type');
+  return [...prev, value as FontAssetType];
+};
+
+export const parseOtherAssetType = (value: string, prev = []) => {
+  validateBelonging(value, Object.values(OtherAssetType), 'font type');
+  return [...prev, value as OtherAssetType];
 };

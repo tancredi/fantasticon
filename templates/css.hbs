@@ -1,14 +1,14 @@
 @font-face {
-    font-family: "{{ fontName }}";
-    src: {{{ src }}};
+    font-family: "{{ name }}";
+    src: {{{ fontSrc }}};
 }
 
-{{# if baseSelector }}
-{{ baseSelector }}:before {
+{{# if selector }}
+{{ selector }}:before {
 {{ else }}
-{{ baseTag }}[class^="{{classPrefix}}"]:before, {{ baseTag }}[class*=" {{classPrefix}}"]:before {
+{{ tag }}[class^="{{prefix}}"]:before, {{ tag }}[class*=" {{prefix}}"]:before {
 {{/ if }}
-    font-family: {{ fontName }} !important;
+    font-family: {{ name }} !important;
     font-style: normal;
     font-weight: normal !important;
     font-variant: normal;
@@ -19,10 +19,10 @@
 }
 
 {{# each codepoints }}
-{{# if ../baseSelector }}
-{{ ../baseSelector }}.{{ ../classPrefix }}{{ @key }}:before {
+{{# if ../selector }}
+{{ ../selector }}.{{ ../prefix }}{{ @key }}:before {
 {{ else }}
-{{ baseTag }}.{{ ../classPrefix }}{{ @key }}:before {
+{{ tag }}.{{ ../prefix }}{{ @key }}:before {
 {{/ if }}
     content: "\\{{ this }}";
 }

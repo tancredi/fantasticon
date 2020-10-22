@@ -16,6 +16,9 @@ export type RunnerOptionalOptions = {
   descent: number;
   normalize: boolean;
   round: boolean;
+  selector: string;
+  tag: string;
+  prefix: string;
 };
 
 export type RunnerOptionsInput = RunnerMandatoryOptions &

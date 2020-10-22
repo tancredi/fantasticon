@@ -1,4 +1,9 @@
-import { parseNumeric, validatePositionals, removeUndefined } from '../utils';
+import {
+  parseNumeric,
+  parseString,
+  validatePositionals,
+  removeUndefined
+} from '../utils';
 
 describe('Cli utilities', () => {
   test('`parseNumeric` returns correctly parsed number', () => {
@@ -16,6 +21,20 @@ describe('Cli utilities', () => {
     for (const value of ['a', {}, undefined]) {
       expect(() => parseNumeric(value as any)).toThrow(
         `${value} is not a valid number`
+      );
+    }
+  });
+
+  test('`parseString` returns its unchanged input when given a string', () => {
+    for (const value of ['a', 'foobar', '  ']) {
+      expect(parseString(value)).toBe(value);
+    }
+  });
+
+  test('`parseString` throws an error when given a non-string value', () => {
+    for (const value of [1, true, {}, undefined, null, false]) {
+      expect(() => parseString(value as any)).toThrow(
+        `${value} is not a string`
       );
     }
   });
