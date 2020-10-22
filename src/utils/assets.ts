@@ -50,11 +50,11 @@ export const loadAssets = async (dir: string): Promise<AssetsMap> => {
 
 export const writeAssets = async (
   assets: GeneratedAssets,
-  { name, pathOptions, outputDir }: RunnerOptions
+  { name, pathOptions = {}, outputDir }: RunnerOptions
 ) => {
   for (const ext of Object.keys(assets)) {
-    const writeDir = (pathOptions || {})[ext] || outputDir;
     const filename = [name, ext].join('.');
-    await writeFile(slashJoin(writeDir, filename), assets[ext]);
+    const writePath = pathOptions[ext] || slashJoin(outputDir, filename);
+    await writeFile(writePath, assets[ext]);
   }
 };

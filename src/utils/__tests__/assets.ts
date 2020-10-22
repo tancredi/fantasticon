@@ -101,7 +101,7 @@ describe('Assets utilities', () => {
       {
         name: 'base-name',
         outputDir: '/dev/null',
-        pathOptions: { foo: 'custom-dir' }
+        pathOptions: { foo: 'custom-path/to-file.ts' }
       } as any
     );
 
@@ -113,7 +113,7 @@ describe('Assets utilities', () => {
     );
 
     expect(writeFileMock).toHaveBeenCalledWith(
-      'custom-dir/base-name.foo',
+      'custom-path/to-file.ts',
       '::foo-content::'
     );
   });
