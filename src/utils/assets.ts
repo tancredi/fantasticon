@@ -1,9 +1,9 @@
 import { slashJoin } from './path';
-import { writeFile } from 'fs';
 import { promisify } from 'util';
 import glob from 'glob';
 import { resolve, relative } from 'path';
 import { getIconId } from './icon-id';
+import { writeFile } from '../utils/fs-async';
 import { RunnerOptions } from '../types/runner';
 import { GeneratedAssets } from '../generators/generate-assets';
 
@@ -59,6 +59,6 @@ export const writeAssets = async (
 ) => {
   for (const ext of Object.keys(assets)) {
     const filename = [name, ext].join('.');
-    await promisify(writeFile)(slashJoin(outputDir, filename), assets[ext]);
+    await writeFile(slashJoin(outputDir, filename), assets[ext]);
   }
 };

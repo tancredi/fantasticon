@@ -1,9 +1,8 @@
 import { FontGenerator } from '../../types/generator';
+import { renderTemplate } from '../../utils/template';
 
 const generator: FontGenerator = {
-  async generate({}) {
-    return 'body {}';
-  }
+  generate: async options => renderTemplate('css.hbs', options)
 };
 
 export default generator;
