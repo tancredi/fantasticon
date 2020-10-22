@@ -5,8 +5,6 @@ const checkPathMock = (checkPath as any) as jest.Mock;
 
 jest.mock('../../utils/fs-async', () => ({ checkPath: jest.fn() }));
 
-jest.mock('path');
-
 jest.mock('../../types/misc', () => ({
   FontAssetType: { svg: 'a', eot: 'b' },
   OtherAssetType: { svg: 'c', eot: 'd' }
@@ -85,6 +83,20 @@ describe('Config parser', () => {
       { normalize: null },
       'normalize',
       'must be a boolean value'
+    );
+  });
+
+  test('correctly validates existance of input and output paths', async () => {
+    checkPathMock.mockImplementationOnce(() => Promise.resolve(false));
+
+    await testError({ inputDir: 'foo' }, 'inputDir', 'foo is not a directory');
+
+    checkPathMock.mockImplementation(val => Promise.resolve(val !== 'bar'));
+
+    await testError(
+      { outputDir: 'bar' },
+      'outputDir',
+      'bar is not a directory'
     );
   });
 
