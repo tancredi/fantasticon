@@ -25,19 +25,22 @@ const attemptLoading = async (filepath: string): Promise<any | void> => {
 };
 
 export const loadConfig = async (filepath?: string) => {
-  let loaded = {};
+  let loadedConfigPath: string | null = null;
+  let loadedConfig = {};
 
   if (filepath) {
-    loaded = await attemptLoading(filepath);
+    loadedConfig = await attemptLoading(filepath);
+    loadedConfigPath = filepath;
   } else {
-    for (const filepath of DEFAULT_FILEPATHS) {
-      loaded = await attemptLoading(filepath);
+    for (const path of DEFAULT_FILEPATHS) {
+      loadedConfig = await attemptLoading(path);
 
-      if (loaded) {
+      if (loadedConfig) {
+        loadedConfigPath = path;
         break;
       }
     }
   }
 
-  return loaded;
+  return { loadedConfig, loadedConfigPath };
 };

@@ -14,8 +14,16 @@ export const getLogger = (debug = false, silent = false) => ({
     !silent && console.log(...values);
   },
 
-  start() {
+  start(loadedConfigPath: string = null) {
     this.log(color.yellow(`Generating font kit..`));
+
+    if (loadedConfigPath) {
+      this.log(
+        color.green(
+          `✔ Using configuration file: ${color.green.bold(loadedConfigPath)}`
+        )
+      );
+    }
   },
 
   results({ assetsIn, writeResults, options: { inputDir } }: RunnerResults) {

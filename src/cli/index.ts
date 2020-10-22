@@ -12,8 +12,9 @@ const cli = async () => {
   const logger = getLogger(input.debug, input.silent);
 
   try {
-    const results = await run(await buildOptions(input));
-    logger.start();
+    const { loadedConfig, loadedConfigPath } = await loadConfig(input.config);
+    const results = await run(await buildOptions(input, loadedConfig));
+    logger.start(loadedConfigPath);
     logger.results(results);
   } catch (error) {
     logger.error(error);
@@ -90,11 +91,11 @@ const config = () => {
     .option('--silent', 'run with no logs', false);
 };
 
-const buildOptions = async (cmd: commander.Command) => {
+const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
   const [inputDir] = cmd.args;
 
   return {
-    ...(await loadConfig(cmd.config)),
+    ...loadedConfig,
     ...removeUndefined({
       inputDir,
       outputDir: cmd.output,
