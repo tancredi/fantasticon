@@ -8,7 +8,8 @@ export enum FontAssetType {
 
 export enum OtherAssetType {
   CSS = 'css',
-  HTML = 'html'
+  HTML = 'html',
+  JSON = 'json'
 }
 
 export const ASSET_TYPES = {

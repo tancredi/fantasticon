@@ -7,6 +7,7 @@ import woff2 from './woff2';
 import eot from './eot';
 import css from './css';
 import html from './html';
+import json from './json';
 
 const generators: { [key in AssetType]: FontGenerator<any> } = {
   [FontAssetType.SVG]: svg,
@@ -15,7 +16,8 @@ const generators: { [key in AssetType]: FontGenerator<any> } = {
   [FontAssetType.WOFF2]: woff2,
   [FontAssetType.EOT]: eot,
   [OtherAssetType.CSS]: css,
-  [OtherAssetType.HTML]: html
+  [OtherAssetType.HTML]: html,
+  [OtherAssetType.JSON]: json
 };
 
 export default generators;

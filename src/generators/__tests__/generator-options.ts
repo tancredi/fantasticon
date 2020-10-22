@@ -11,7 +11,8 @@ describe('Font generator options', () => {
       woff: {},
       woff2: {},
       css: {},
-      html: {}
+      html: {},
+      json: {}
     });
   });
 
@@ -23,18 +24,20 @@ describe('Font generator options', () => {
     const woff2 = { __mock: 'woff2Options__' };
     const css = { __mock: 'cssOptions__' };
     const html = { __mock: 'html__' };
+    const json = { __mock: 'json__' };
 
-    expect(getFormatOptions({ svg, eot, ttf, woff, woff2, css, html })).toEqual(
-      {
-        svg,
-        eot,
-        ttf,
-        woff,
-        woff2,
-        css,
-        html
-      }
-    );
+    expect(
+      getFormatOptions({ svg, eot, ttf, woff, woff2, css, html, json })
+    ).toEqual({
+      svg,
+      eot,
+      ttf,
+      woff,
+      woff2,
+      css,
+      html,
+      json
+    });
   });
 
   test('`getGeneratorOptions` produces usable font generator options including given `assets` and sanitised `formatOptions`', () => {
