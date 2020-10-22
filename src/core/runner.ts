@@ -1,12 +1,21 @@
 import { DEFAULT_OPTIONS } from '../constants';
-import { RunnerOptions, RunnerOptionsInput } from '../types/runner';
+import { RunnerOptionsInput } from '../types/runner';
 import { loadAssets, writeAssets } from '../utils/assets';
 import { generateAssets } from '../generators';
 
-export default async (userOptions: RunnerOptionsInput) => {
-  const options: RunnerOptions = { ...DEFAULT_OPTIONS, ...userOptions };
-  const assets = await loadAssets(options.inputDir);
-  const fonts = await generateAssets(assets, options);
+export const sanitiseOptions = (userOptions: RunnerOptionsInput) => ({
+  ...DEFAULT_OPTIONS,
+  ...userOptions
+});
 
-  await writeAssets(fonts, options);
+export const generateFontAssets = async (
+  userOptions: RunnerOptionsInput,
+  options = sanitiseOptions(userOptions)
+) => await generateAssets(await loadAssets(options.inputDir), options);
+
+export default async (userOptions: RunnerOptionsInput) => {
+  const options = sanitiseOptions(userOptions);
+  const outputAssets = await generateFontAssets(userOptions, options);
+
+  await writeAssets(outputAssets, options);
 };
