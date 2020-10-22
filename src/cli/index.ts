@@ -39,7 +39,7 @@ const config = () => {
     )
 
     .option(
-      '--asset-types <alue...>',
+      '-g --asset-types <alue...>',
       `specify other asset types to generate` +
         showDefaultArr(DEFAULT_OPTIONS.assetTypes),
       listMembersParser<OtherAssetType>(
@@ -102,6 +102,7 @@ const buildOptions = (cmd: commander.Command) => {
     inputDir,
     outputDir: cmd.output,
     fontTypes: cmd.fontTypes,
+    assetTypes: cmd.assetTypes,
     fontHeight: cmd.fontHeight,
     descent: cmd.descent,
     normalize: cmd.normalize,

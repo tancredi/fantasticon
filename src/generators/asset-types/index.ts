@@ -8,6 +8,7 @@ import eot from './eot';
 import css from './css';
 import html from './html';
 import json from './json';
+import ts from './ts';
 
 const generators: { [key in AssetType]: FontGenerator<any> } = {
   [FontAssetType.SVG]: svg,
@@ -17,7 +18,8 @@ const generators: { [key in AssetType]: FontGenerator<any> } = {
   [FontAssetType.EOT]: eot,
   [OtherAssetType.CSS]: css,
   [OtherAssetType.HTML]: html,
-  [OtherAssetType.JSON]: json
+  [OtherAssetType.JSON]: json,
+  [OtherAssetType.TS]: ts
 };
 
 export default generators;
