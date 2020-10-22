@@ -41,11 +41,11 @@ const config = () => {
     .option(
       '--asset-types <alue...>',
       `specify other asset types to generate` +
-        showDefaultArr(DEFAULT_OPTIONS.assetTypes)
-      // listMembersParser<OtherAssetType>(
-      //   Object.values(OtherAssetType),
-      //   'asset type'
-      // )
+        showDefaultArr(DEFAULT_OPTIONS.assetTypes),
+      listMembersParser<OtherAssetType>(
+        Object.values(OtherAssetType),
+        'asset type'
+      )
     )
     // formatOptions: { [key in FontType]?: any };
     // codepoints: CodepointsMap;
