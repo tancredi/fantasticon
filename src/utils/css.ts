@@ -1,5 +1,6 @@
 import { FontGeneratorOptions } from '../types/generator';
 import { getHash } from './hash';
+import { slashJoin } from '../utils/path';
 
 import { FontAssetType } from '../types/misc';
 
@@ -20,7 +21,7 @@ const renderSrcOptions: { [key in FontAssetType]: RenderSrcOptions } = {
 };
 
 export const renderSrcAttribute = (
-  { name, fontTypes }: FontGeneratorOptions,
+  { name, fontTypes, fontsUrl }: FontGeneratorOptions,
   font: string | Buffer
 ) =>
   fontTypes
@@ -31,7 +32,7 @@ export const renderSrcAttribute = (
 
       return [
         'url("',
-        `./${name}.${fontType}?${hash}${suffix}`,
+        `${slashJoin(fontsUrl || '.', name)}.${fontType}?${hash}${suffix}`,
         `") format("${formatValue}")`
       ].join('');
     })

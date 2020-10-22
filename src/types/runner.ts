@@ -20,6 +20,7 @@ export type RunnerOptionalOptions = {
   selector: string;
   tag: string;
   prefix: string;
+  fontsUrl: string;
 };
 
 export type RunnerOptionsInput = RunnerMandatoryOptions &

@@ -25,7 +25,8 @@ const mockConfig = {
   round: 3,
   selector: null,
   tag: 'f',
-  prefix: 'baz'
+  prefix: 'baz',
+  fontsUrl: '/fonts'
 };
 
 const testError = async (options: object, key: string, message: string) =>

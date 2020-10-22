@@ -38,4 +38,17 @@ describe('CSS utilities', () => {
       ].join('\n')
     );
   });
+
+  test('`renderSrcOptions` uses the `fontsUrl` option when given', () => {
+    const font = '::font-content::';
+    const options = {
+      fontTypes: [FontAssetType.TTF],
+      name: 'my-font',
+      fontsUrl: '/fonts'
+    };
+
+    expect(renderSrcAttribute(options as any, font)).toEqual(
+      'url("/fonts/my-font.ttf?::hashed(::font-content::)::") format("truetype")'
+    );
+  });
 });

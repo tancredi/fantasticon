@@ -74,15 +74,15 @@ const config = () => {
 
     .option(
       '--selector <value>',
-      "Use a CSS selector instead of 'tag + prefix'",
+      "use a CSS selector instead of 'tag + prefix'",
       DEFAULT_OPTIONS.selector
     )
 
     .option('-t, --tag <value>', 'CSS base tag for icons', DEFAULT_OPTIONS.tag)
 
     .option(
-      '-p, --prefix <value>',
-      'CSS classname prefix for icons',
+      '-u, --fonts-url <value>',
+      'public url to the fonts directory (used in the generated CSS)',
       DEFAULT_OPTIONS.prefix
     )
 
@@ -106,7 +106,8 @@ const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
       normalize: cmd.normalize,
       round: cmd.round,
       selector: cmd.selector,
-      tag: cmd.tag
+      tag: cmd.tag,
+      fontsUrl: cmd.fontsUrl
     })
   };
 };

@@ -29,7 +29,8 @@ const CONFIG_VALIDATORS: {
   round: [optional(parseNumeric)],
   selector: [nullable(parseString)],
   tag: [parseString],
-  prefix: [parseString]
+  prefix: [parseString],
+  fontsUrl: [nullable(parseString)]
 };
 
 export const parseConfig = async (input: object = {}) => {

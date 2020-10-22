@@ -14,7 +14,8 @@ export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   normalize: undefined,
   selector: null,
   tag: 'i',
-  prefix: 'icon'
+  prefix: 'icon',
+  fontsUrl: null
 };
 
 export const DEFAULT_START_CODEPOINT = 0xf101;
