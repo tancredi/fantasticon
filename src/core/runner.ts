@@ -1,21 +1,29 @@
 import { DEFAULT_OPTIONS } from '../constants';
 import { RunnerOptionsInput } from '../types/runner';
 import { loadAssets, writeAssets } from '../utils/assets';
+import { parseConfig } from './config-parser';
 import { generateAssets } from '../generators';
 
-export const sanitiseOptions = (userOptions: RunnerOptionsInput) => ({
-  ...DEFAULT_OPTIONS,
-  ...userOptions
-});
+export const sanitiseOptions = (userOptions: any) =>
+  parseConfig({
+    ...DEFAULT_OPTIONS,
+    ...userOptions
+  });
 
-export const generateFontAssets = async (
+export const generateFonts = async (
   userOptions: RunnerOptionsInput,
-  options = sanitiseOptions(userOptions)
-) => await generateAssets(await loadAssets(options.inputDir), options);
+  mustWrite = false
+) => {
+  const options = await sanitiseOptions(userOptions);
+  const { outputDir } = options;
 
-export default async (userOptions: RunnerOptionsInput) => {
-  const options = sanitiseOptions(userOptions);
-  const outputAssets = await generateFontAssets(userOptions, options);
+  if (mustWrite && !outputDir) {
+    throw new Error('You must specify an output path');
+  }
 
-  await writeAssets(outputAssets, options);
+  const assetsIn = await loadAssets(options.inputDir);
+  const assetsOut = await generateAssets(assetsIn, options);
+  const writeResults = outputDir ? await writeAssets(assetsOut, options) : [];
+
+  return { options, writeResults };
 };

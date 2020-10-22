@@ -7,6 +7,10 @@ import { writeFile } from '../utils/fs-async';
 import { RunnerOptions } from '../types/runner';
 import { GeneratedAssets } from '../generators/generate-assets';
 
+export type WriteResult = { content: string | Buffer; writePath: string };
+
+export type WriteResults = WriteResult[];
+
 export interface IconAsset {
   id: string;
   absolutePath: string;
@@ -52,9 +56,14 @@ export const writeAssets = async (
   assets: GeneratedAssets,
   { name, pathOptions = {}, outputDir }: RunnerOptions
 ) => {
+  const results: WriteResults = [];
+
   for (const ext of Object.keys(assets)) {
     const filename = [name, ext].join('.');
     const writePath = pathOptions[ext] || slashJoin(outputDir, filename);
+    results.push({ content: assets[ext], writePath });
     await writeFile(writePath, assets[ext]);
   }
+
+  return results;
 };

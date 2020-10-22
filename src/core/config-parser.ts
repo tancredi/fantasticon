@@ -16,7 +16,7 @@ const CONFIG_VALIDATORS: {
   [key in keyof RunnerOptions]: Array<(val: any, cur: any) => any>;
 } = {
   inputDir: [parseString, parseDir],
-  outputDir: [parseString, parseDir],
+  outputDir: [optional(parseDir)],
   name: [parseString],
   fontTypes: [listMembersParser(Object.values(FontAssetType))],
   assetTypes: [listMembersParser(Object.values(OtherAssetType))],
@@ -32,7 +32,7 @@ const CONFIG_VALIDATORS: {
   prefix: [parseString]
 };
 
-export const parseConfig = async (input: object) => {
+export const parseConfig = async (input: object = {}) => {
   const options = { ...DEFAULT_OPTIONS, ...input };
   const out = {};
   const allKeys = [...Object.keys(options), ...Object.keys(CONFIG_VALIDATORS)];
@@ -57,5 +57,5 @@ export const parseConfig = async (input: object) => {
     out[key] = val;
   }
 
-  return out;
+  return (out as any) as RunnerOptions;
 };

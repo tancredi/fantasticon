@@ -117,4 +117,20 @@ describe('Assets utilities', () => {
       '::foo-content::'
     );
   });
+
+  test('`writeAssets` returns an object containing information on written assets', async () => {
+    expect(
+      await writeAssets(
+        { svg: '::svg-content::', foo: '::foo-content::' } as any,
+        {
+          name: 'base-name',
+          outputDir: '/dev/null',
+          pathOptions: { foo: 'custom-path/to-file.ts' }
+        } as any
+      )
+    ).toEqual([
+      { writePath: '/dev/null/base-name.svg', content: '::svg-content::' },
+      { writePath: 'custom-path/to-file.ts', content: '::foo-content::' }
+    ]);
+  });
 });

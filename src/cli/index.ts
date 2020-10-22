@@ -1,18 +1,13 @@
 import commander from 'commander';
-import { RunnerOptionsInput } from '../types/runner';
 import { FontAssetType, OtherAssetType } from '../types/misc';
 import { loadConfig, DEFAULT_FILEPATHS } from './config-loader';
 import { DEFAULT_OPTIONS } from '../constants';
-import runner from '../core/runner';
+import { generateFonts } from '../core/runner';
 import { removeUndefined } from '../utils/validation';
-import { parseConfig } from '../core/config-parser';
 
 const cli = async () => {
   config();
-
-  const options = await buildOptions(commander.program.parse(process.argv));
-
-  run(options);
+  run(await buildOptions(commander.program.parse(process.argv)));
 };
 
 const printList = (available: { [key: string]: string }, defaults: string[]) =>
@@ -83,7 +78,7 @@ const config = () => {
 const buildOptions = async (cmd: commander.Command) => {
   const [inputDir] = cmd.args;
 
-  return (await parseConfig({
+  return {
     ...(await loadConfig(cmd.config)),
     ...removeUndefined({
       inputDir,
@@ -97,9 +92,9 @@ const buildOptions = async (cmd: commander.Command) => {
       selector: cmd.selector,
       tag: cmd.tag
     })
-  })) as RunnerOptionsInput;
+  };
 };
 
-const run = async (options: RunnerOptionsInput) => await runner(options);
+const run = async (options: any) => await generateFonts(options, true);
 
 cli();
