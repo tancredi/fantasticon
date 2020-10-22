@@ -1,12 +1,12 @@
 import commander from 'commander';
 import { RunnerOptionsInput } from '../types/runner';
+import { FontAssetType, OtherAssetType } from '../types/misc';
 import { DEFAULT_OPTIONS } from '../constants';
 import runner from '../core/runner';
 import {
   parseNumeric,
   parseString,
-  parseFontType,
-  parseOtherAssetType,
+  listMembersParser,
   validatePositionals,
   removeUndefined
 } from './utils';
@@ -32,14 +32,20 @@ const config = () => {
       '-t, --font-types [...value]',
       `specify font formats to generate` +
         showDefaultArr(DEFAULT_OPTIONS.fontTypes),
-      parseFontType
+      listMembersParser<FontAssetType>(
+        Object.values(FontAssetType),
+        'font type'
+      )
     )
 
     .option(
       '--asset-types [...value]',
       `specify other asset types to generate` +
         showDefaultArr(DEFAULT_OPTIONS.assetTypes),
-      parseOtherAssetType
+      listMembersParser<OtherAssetType>(
+        Object.values(OtherAssetType),
+        'asset type'
+      )
     )
     // formatOptions: { [key in FontType]?: any };
     // codepoints: CodepointsMap;
@@ -91,20 +97,6 @@ const buildOptions = (cmd: commander.Command) => {
   const [inputDir] = cmd.args;
 
   validatePositionals(cmd.args);
-
-  console.log(
-    removeUndefined({
-      inputDir,
-      outputDir: cmd.output,
-      fontTypes: cmd.fontTypes,
-      fontHeight: cmd.fontHeight,
-      descent: cmd.descent,
-      normalize: cmd.normalize,
-      round: cmd.round,
-      selector: cmd.selector,
-      tag: cmd.tag
-    })
-  );
 
   return removeUndefined({
     inputDir,

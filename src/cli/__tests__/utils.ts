@@ -2,6 +2,7 @@ import {
   parseNumeric,
   parseString,
   validatePositionals,
+  listMembersParser,
   removeUndefined
 } from '../utils';
 
@@ -58,6 +59,21 @@ describe('Cli utilities', () => {
         'Only specify one input directory as a positional argument'
       );
     }
+  });
+
+  test('`listMembersParser` throws correct error when given a value outside the given list', () => {
+    const fn = listMembersParser(['a', 'b', 'c'], 'thing');
+
+    expect(() => fn('d')).toThrowError(
+      'd is not a valid thing - accepted values are: a, b, c'
+    );
+  });
+
+  test('`listMembersParser` returns the previews array plus the new value if accepted', () => {
+    const fn = listMembersParser(['a', 'b', 'c'], 'thing');
+
+    expect(fn('a')).toEqual(['a']);
+    expect(fn('c', ['a', 'b'])).toEqual(['a', 'b', 'c']);
   });
 
   test('`removeUndefined` removes keys in an Object mapped to `undefined` values', () => {
