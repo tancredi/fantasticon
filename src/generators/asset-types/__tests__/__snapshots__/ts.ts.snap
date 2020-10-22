@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`\`TS\` asset generator renders expected TypeScript module content 1`] = `
+"export enum MyIconsSet {
+  Foo = \\"foo\\",
+  Bar = \\"bar\\",
+}
+
+export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
+  [MyIconsSet.Foo]: \\"oof\\",
+  [MyIconsSet.Bar]: \\"baz\\",
+};
+
+export type MyIconsSetId =
+  | \\"foo\\"
+  | \\"bar\\";
+"
+`;

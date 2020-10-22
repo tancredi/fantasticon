@@ -9,21 +9,21 @@ const generator: FontGenerator = {
 
     return [
       `export enum ${enumName} {`,
-      Object.keys(assets)
-        .map(key => `  ${pascalCase(key)} = '${key}'`)
-        .join(',\n'),
+      ...Object.keys(assets).map(key => `  ${pascalCase(key)} = "${key}",`),
       '}\n',
 
       `export const ${codepointsName}: { [key in ${enumName}]: string } = {`,
-      Object.keys(assets)
-        .map(key => `  [${enumName}.${pascalCase(key)}]: '${codepoints[key]}'`)
-        .join(',\n'),
-      '}\n',
+      ...Object.keys(assets).map(
+        key => `  [${enumName}.${pascalCase(key)}]: "${codepoints[key]}",`
+      ),
+      '};\n',
 
       `export type ${typeName} =`,
       Object.keys(assets)
-        .map(key => `  | '${key}'`)
-        .join('\n') + ';'
+        .map(key => `  | "${key}"`)
+        .join('\n') + ';',
+
+      ''
     ].join('\n');
   }
 };
