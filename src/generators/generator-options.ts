@@ -8,17 +8,19 @@ export const getGeneratorOptions = (
   assets: AssetsMap
 ): FontGeneratorOptions => ({
   ...options,
-  formatOptions: getFormatOptions(options.formatOptions),
+  formatOptions: prefillOptions(options.formatOptions, {}),
+  pathOptions: prefillOptions(options.pathOptions, options.outputDir),
   assets
 });
 
-export const getFormatOptions = (
-  userOptions: RunnerOptions['formatOptions'] = {}
-): FontGeneratorOptions['formatOptions'] =>
+export const prefillOptions = <T>(
+  userOptions: { [key in AssetType]?: T } = {},
+  emptyValue: T
+) =>
   Object.values(ASSET_TYPES).reduce(
     (cur = {}, type: AssetType) => ({
       ...cur,
-      [type]: userOptions[type] || {}
+      [type]: userOptions[type] || emptyValue
     }),
     {}
-  ) as FontGeneratorOptions['formatOptions'];
+  ) as { [key in AssetType]: T };

@@ -1,5 +1,4 @@
-import { getFormatOptions, getGeneratorOptions } from '../generator-options';
-import { RunnerOptions } from '../../types/runner';
+import { prefillOptions, getGeneratorOptions } from '../generator-options';
 import { AssetsMap } from '../../utils/assets';
 
 jest.mock('../../types/misc', () => ({
@@ -7,20 +6,22 @@ jest.mock('../../types/misc', () => ({
 }));
 
 describe('Font generator options', () => {
-  test('`getFormatOptions` correctly ensures there’s at least one empty Object property for each font type key in its resulting value', () => {
-    expect(getFormatOptions({})).toEqual({
-      svg: {},
-      eot: {},
-      ttf: {}
+  test('`prefillOptions` correctly ensures there’s at least one empty Object property for each font type key in its resulting value', () => {
+    expect(prefillOptions({}, { foo: 'bar' })).toEqual({
+      svg: { foo: 'bar' },
+      eot: { foo: 'bar' },
+      ttf: { foo: 'bar' }
     });
   });
 
-  test('`getFormatOptions` keeps input values', () => {
+  test('`prefillOptions` keeps input values', () => {
     const svg = { __mock: 'svgOptions__' };
     const eot = { __mock: 'eotOptions__' };
     const ttf = { __mock: 'ttfOptions__' };
 
-    expect(getFormatOptions({ svg, eot, ttf })).toEqual({
+    expect(
+      prefillOptions({ svg, eot, ttf }, { __mock: 'remove_me__' })
+    ).toEqual({
       svg,
       eot,
       ttf
@@ -28,19 +29,26 @@ describe('Font generator options', () => {
   });
 
   test('`getGeneratorOptions` produces usable font generator options including given `assets` and sanitised `formatOptions`', () => {
-    const formatOptions = ({
-      __mock: 'formatOptions__'
-    } as unknown) as RunnerOptions['formatOptions'];
-    const options = ({
+    const outputDir = '/dev/null';
+    const formatOptions = { svg: { foo: 'bar' } } as any;
+    const pathOptions = { eot: 'test' } as any;
+    const options = {
       __mock: 'assetsMap__',
-      formatOptions
-    } as unknown) as RunnerOptions;
+      outputDir,
+      formatOptions,
+      pathOptions
+    } as any;
     const assets = ({ __mock: 'runnerOptions__' } as unknown) as AssetsMap;
 
     expect(getGeneratorOptions(options, assets)).toEqual({
       ...options,
       assets,
-      formatOptions: getFormatOptions(formatOptions)
+      formatOptions: {
+        svg: { foo: 'bar' },
+        eot: {},
+        ttf: {}
+      },
+      pathOptions: { svg: outputDir, eot: 'test', ttf: outputDir }
     });
   });
 });

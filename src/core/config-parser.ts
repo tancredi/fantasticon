@@ -21,6 +21,7 @@ const CONFIG_VALIDATORS: {
   fontTypes: [listMembersParser(Object.values(FontAssetType))],
   assetTypes: [listMembersParser(Object.values(OtherAssetType))],
   formatOptions: [],
+  pathOptions: [],
   codepoints: [],
   fontHeight: [optional(parseNumeric)],
   descent: [optional(parseNumeric)],

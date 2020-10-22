@@ -17,6 +17,7 @@ const mockConfig = {
   fontTypes: ['a', 'b'],
   assetTypes: ['c', 'd'],
   formatOptions: { svg: { foo: 'bar' } },
+  pathOptions: { css: '/dev/null' },
   codepoints: { foo: 'bar' },
   fontHeight: 1,
   descent: 2,

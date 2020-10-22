@@ -6,6 +6,7 @@ export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   fontTypes: [FontAssetType.EOT, FontAssetType.WOFF2, FontAssetType.WOFF],
   assetTypes: [OtherAssetType.CSS, OtherAssetType.HTML, OtherAssetType.JSON],
   formatOptions: {},
+  pathOptions: {},
   codepoints: {},
   round: undefined,
   fontHeight: 300,

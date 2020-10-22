@@ -11,6 +11,7 @@ export type RunnerOptionalOptions = {
   fontTypes: FontAssetType[];
   assetTypes: OtherAssetType[];
   formatOptions: { [key in AssetType]?: any };
+  pathOptions: { [key in AssetType]?: string };
   codepoints: CodepointsMap;
   fontHeight: number;
   descent: number;

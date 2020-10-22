@@ -1,5 +1,6 @@
 import { slashJoin } from './path';
 import glob from 'glob';
+import { promisify } from 'util';
 import { resolve, relative } from 'path';
 import { getIconId } from './icon-id';
 import { writeFile } from '../utils/fs-async';
@@ -18,22 +19,17 @@ export interface AssetsMap {
 
 export const ASSETS_EXTENSION = 'svg';
 
-export const loadPaths = (dir: string): Promise<string[]> =>
-  new Promise((resolve, reject) => {
-    const globPath = slashJoin(dir, `**/*.${ASSETS_EXTENSION}`);
+export const loadPaths = async (dir: string): Promise<string[]> => {
+  const globPath = slashJoin(dir, `**/*.${ASSETS_EXTENSION}`);
 
-    glob(globPath, {}, (err, files) => {
-      if (err) {
-        return reject(err);
-      }
+  const files = await promisify(glob)(globPath, {});
 
-      if (!files.length) {
-        return reject(new Error(`No SVGs found in ${dir}`));
-      }
+  if (!files.length) {
+    throw new Error(`No SVGs found in ${dir}`);
+  }
 
-      resolve(files);
-    });
-  });
+  return files;
+};
 
 export const loadAssets = async (dir: string): Promise<AssetsMap> => {
   const paths = await loadPaths(dir);
@@ -54,10 +50,11 @@ export const loadAssets = async (dir: string): Promise<AssetsMap> => {
 
 export const writeAssets = async (
   assets: GeneratedAssets,
-  { name, outputDir }: RunnerOptions
+  { name, pathOptions, outputDir }: RunnerOptions
 ) => {
   for (const ext of Object.keys(assets)) {
+    const writeDir = (pathOptions || {})[ext] || outputDir;
     const filename = [name, ext].join('.');
-    await writeFile(slashJoin(outputDir, filename), assets[ext]);
+    await writeFile(slashJoin(writeDir, filename), assets[ext]);
   }
 };
