@@ -18,15 +18,15 @@ It also generates TypeScript types, JSON maps of the generated code-points, allo
 npm install -g iconfont-tool
 ```
 
-### Use
+## Use
 
-##### Quick usage
+### Quick usage
 
 ```
 iconfont-tool my-icons/*.svg -o icon-dist
 ```
 
-##### Cli params
+### Command-line
 
 ```
 Usage: iconfont-tool [options] [input-dir]
@@ -49,7 +49,7 @@ Options:
   --help                       display help for command
 ```
 
-#### Configuration file
+### Configuration file
 
 Some options (specifically, `formatOptions` and `pathOptions`) cannot be passed to the cli directly.
 
@@ -75,13 +75,8 @@ module.exports = {
   fontTypes: ["ttf"],
   formatOptions: {
     // Pass options directly to `svgicons2svgfont`
-    svg: {
-      metadata: { foo: "bar" },
-      ascent: 0.5,
-    },
-    json: {
-      indent: 2,
-    },
+    svg: { metadata: { foo: "bar" }, ascent: 0.5 },
+    json: { indent: 2 },
   },
   pathOptions: {
     ts: "./src/types/icon-types.ts",
@@ -91,6 +86,39 @@ module.exports = {
 
 ```
 
+### API
+
+```
+import { generateFonts } from 'iconfont-tool';
+
+// Default options
+generateFonts({
+  name: 'icons',
+  fontTypes: [FontAssetType.EOT, FontAssetType.WOFF2, FontAssetType.WOFF],
+  assetTypes: [
+    OtherAssetType.CSS,
+    OtherAssetType.HTML,
+    OtherAssetType.JSON,
+    OtherAssetType.TS
+  ],
+  formatOptions: {},
+  pathOptions: {},
+  codepoints: {},
+  round: undefined,
+  fontHeight: 300,
+  descent: undefined,
+  normalize: undefined,
+  selector: null,
+  tag: 'i',
+  prefix: 'icon',
+  fontsUrl: null
+}).then(results => console.log(results));
+```
+
 ### License
 
 Copyright (c) 2020 Tancredi Trugenberger. - Released under the [MIT license](https://github.com/tancredi/iconfont-tool/blob/master/LICENSE)
+
+```
+
+```
