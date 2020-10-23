@@ -1,6 +1,6 @@
 ![Logo](assets/logo.png)
 
-## Iconfont tool
+## Fantasticon
 
 ![Screenshot](assets/screenshot.png)
 
@@ -15,7 +15,7 @@ It also generates TypeScript types, JSON maps of the generated code-points, allo
 ### Install
 
 ```
-npm install -g iconfont-tool
+npm install -g fantasticon
 ```
 
 ## Use
@@ -23,17 +23,17 @@ npm install -g iconfont-tool
 ### Quick usage
 
 ```
-iconfont-tool my-icons/*.svg -o icon-dist
+fantasticon my-icons/*.svg -o icon-dist
 ```
 
 ### Command-line
 
 ```bash
-Usage: iconfont-tool [options] [input-dir]
+Usage: fantasticon [options] [input-dir]
 
 Options:
   -V, --version                output the version number
-  -c, --config <value>         custom config path (default: .iconfontrc | iconfontrc | .iconfontrc.json | iconfontrc.json | .iconfontrc.js | iconfontrc.js)
+  -c, --config <value>         custom config path (default: .fantasticonrc | fantasticonrc | .fantasticonrc.json | fantasticonrc.json | .fantasticonrc.js | fantasticonrc.js)
   -o, --output <value>         specify output directory
   -t, --font-types <value...>  specify font formats to generate (default: eot, woff2, woff, available: eot, woff2, woff, ttf, svg)
   -g --asset-types <value...>  specify other asset types to generate (default: css, html, json, ts, available: css, html, json, ts)
@@ -55,15 +55,15 @@ Some options (specifically, `formatOptions` and `pathOptions`) cannot be passed 
 
 To have more control and better readability, you can create a simple configuration file.
 
-By default, `iconfont-tool` will look for one of following files in the working directory:
+By default, `fantasticon` will look for one of following files in the working directory:
 
 ```
-.iconfontrc | iconfontrc | .iconfontrc.json | iconfontrc.json | .iconfontrc.js | iconfontrc.js
+.fantasticonrc | fantasticonrc | .fantasticonrc.json | fantasticonrc.json | .fantasticonrc.js | fantasticonrc.js
 ```
 
 You can specify a custom --config option with your configuration file path.
 
-Here's an example `.iconfontrc.js`:
+Here's an example `.fantasticonrc.js`:
 
 ```js
 module.exports = {
@@ -88,7 +88,7 @@ module.exports = {
 ### API
 
 ```js
-import { generateFonts } from 'iconfont-tool';
+import { generateFonts } from 'fantasticon';
 
 // Default options
 generateFonts({
@@ -116,4 +116,4 @@ generateFonts({
 
 ### License
 
-Copyright (c) 2020 Tancredi Trugenberger. - Released under the [MIT license](https://github.com/tancredi/iconfont-tool/blob/master/LICENSE)
+Copyright (c) 2020 Tancredi Trugenberger. - Released under the [MIT license](https://github.com/tancredi/fantasticon/blob/master/LICENSE)

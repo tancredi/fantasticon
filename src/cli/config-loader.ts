@@ -2,12 +2,12 @@ import { slashJoin } from '../utils/path';
 import { readFile, checkPath } from '../utils/fs-async';
 
 export const DEFAULT_FILEPATHS = [
-  '.iconfontrc',
-  'iconfontrc',
-  '.iconfontrc.json',
-  'iconfontrc.json',
-  '.iconfontrc.js',
-  'iconfontrc.js'
+  '.fantasticonrc',
+  'fantasticonrc',
+  '.fantasticonrc.json',
+  'fantasticonrc.json',
+  '.fantasticonrc.js',
+  'fantasticonrc.js'
 ];
 
 const attemptLoading = async (filepath: string): Promise<any | void> => {

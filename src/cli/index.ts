@@ -6,6 +6,8 @@ import { generateFonts } from '../core/runner';
 import { removeUndefined } from '../utils/validation';
 import { getLogger } from './logger';
 
+const { version } = require('../../package.json') as any;
+
 const cli = async () => {
   config();
   const input = commander.program.parse(process.argv);
@@ -31,7 +33,7 @@ const printConfigPaths = () => DEFAULT_FILEPATHS.join(' | ');
 
 const config = () => {
   commander.program
-    .version('0.0.1')
+    .version(version)
 
     .arguments('[input-dir]')
 
