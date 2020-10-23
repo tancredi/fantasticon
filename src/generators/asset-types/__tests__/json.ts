@@ -25,10 +25,10 @@ describe('`JSON` asset generator', () => {
   test('calls JSON.stringify with correct indentation', async () => {
     const stringifySpy = jest.spyOn(JSON, 'stringify');
 
-    await renderAndParse();
+    await renderAndParse({ indent: 2 });
 
     expect(stringifySpy).toHaveBeenCalledTimes(1);
-    expect(stringifySpy).toHaveBeenCalledWith(mockCodepoints, null, 4);
+    expect(stringifySpy).toHaveBeenCalledWith(mockCodepoints, null, 2);
 
     stringifySpy.mockClear();
 

@@ -10,7 +10,7 @@ export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
     OtherAssetType.JSON,
     OtherAssetType.TS
   ],
-  formatOptions: {},
+  formatOptions: { json: { indent: 4 } },
   pathOptions: {},
   codepoints: {},
   round: undefined,
