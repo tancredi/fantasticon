@@ -1,6 +1,6 @@
 {
   "name": "iconfont-tool",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "index.js",
   "bin": {
     "iconfont-tool": "lib/iconfont-tool"
@@ -11,6 +11,7 @@
     "build": "rm -rf lib && tsc --project ./tsconfig.json",
     "watch": "tsc --project ./tsconfig.json --watch"
   },
+  "prepublish": "build",
   "dependencies": {
     "change-case": "^4.1.1",
     "cli-color": "^2.0.0",
