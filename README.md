@@ -87,6 +87,16 @@ module.exports = {
 
 ### API
 
+#### Simple usage
+
+```js
+import { generateFonts } from 'fantasticon';
+
+generateFonts().then('Done');
+```
+
+#### Options
+
 ```js
 import { generateFonts } from 'fantasticon';
 
