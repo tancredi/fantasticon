@@ -28,7 +28,7 @@ iconfont-tool my-icons/*.svg -o icon-dist
 
 ### Command-line
 
-```
+```bash
 Usage: iconfont-tool [options] [input-dir]
 
 Options:
@@ -65,30 +65,29 @@ You can specify a custom --config option with your configuration file path.
 
 Here's an example `.iconfontrc.js`:
 
-```
+```js
 module.exports = {
-  inputDir: "./icons",
-  outputDir: "./dist",
-  fontTypes: ["ttf", "woff", "woff2"],
-  assetTypes: ["ts", "css", "json", "html"],
-  fontsUrl: "/static/fonts",
-  fontTypes: ["ttf"],
+  inputDir: './icons',
+  outputDir: './dist',
+  fontTypes: ['ttf', 'woff', 'woff2'],
+  assetTypes: ['ts', 'css', 'json', 'html'],
+  fontsUrl: '/static/fonts',
+  fontTypes: ['ttf'],
   formatOptions: {
     // Pass options directly to `svgicons2svgfont`
-    svg: { metadata: { foo: "bar" }, ascent: 0.5 },
-    json: { indent: 2 },
+    svg: { metadata: { foo: 'bar' }, ascent: 0.5 },
+    json: { indent: 2 }
   },
   pathOptions: {
-    ts: "./src/types/icon-types.ts",
-    json: "./misc/icon-codepoints.json",
-  },
+    ts: './src/types/icon-types.ts',
+    json: './misc/icon-codepoints.json'
+  }
 };
-
 ```
 
 ### API
 
-```
+```js
 import { generateFonts } from 'iconfont-tool';
 
 // Default options
@@ -105,8 +104,8 @@ generateFonts({
   pathOptions: {},
   codepoints: {},
   fontHeight: 300,
-  round: undefined,     // --
-  descent: undefined,   // Will use `svgicons2svgfont` defaults
+  round: undefined, // --
+  descent: undefined, // Will use `svgicons2svgfont` defaults
   normalize: undefined, // --
   selector: null,
   tag: 'i',
