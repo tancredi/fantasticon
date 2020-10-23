@@ -2,35 +2,29 @@ import { prefillOptions, getGeneratorOptions } from '../generator-options';
 import { AssetsMap } from '../../utils/assets';
 
 jest.mock('../../types/misc', () => ({
-  ASSET_TYPES: { svg: 'svg', eot: 'eot', ttf: 'ttf' }
+  FontAssetType: { TTF: 'TTF', EOT: 'eot' },
+  OtherAssetType: { CSS: 'css', HTML: 'html' },
+  ASSET_TYPES: { ttf: 'ttf', eot: 'eot', css: 'css', html: 'html' }
 }));
 
 describe('Font generator options', () => {
-  test('`prefillOptions` correctly ensures there’s at least one empty Object property for each font type key in its resulting value', () => {
-    expect(prefillOptions({}, { foo: 'bar' })).toEqual({
-      svg: { foo: 'bar' },
-      eot: { foo: 'bar' },
-      ttf: { foo: 'bar' }
-    });
-  });
-
-  test('`prefillOptions` keeps input values', () => {
-    const svg = { __mock: 'svgOptions__' };
-    const eot = { __mock: 'eotOptions__' };
-    const ttf = { __mock: 'ttfOptions__' };
-
+  test('`prefillOptions` correctly extends default values for each type and prefills missing ones', () => {
     expect(
-      prefillOptions({ svg, eot, ttf }, { __mock: 'remove_me__' })
+      prefillOptions(
+        { html: { a: 'a', c: 'c' } },
+        { ttf: { foo: 'default' }, html: { b: 'b', c: 'override-me' } }
+      )
     ).toEqual({
-      svg,
-      eot,
-      ttf
+      ttf: { foo: 'default' },
+      eot: {},
+      css: {},
+      html: { a: 'a', b: 'b', c: 'c' }
     });
   });
 
   test('`getGeneratorOptions` produces usable font generator options including given `assets` and sanitised `formatOptions`', () => {
     const outputDir = '/dev/null';
-    const formatOptions = { svg: { foo: 'bar' } } as any;
+    const formatOptions = { eot: { foo: 'bar' } } as any;
     const pathOptions = { eot: 'test' } as any;
     const options = {
       __mock: 'assetsMap__',
@@ -44,11 +38,11 @@ describe('Font generator options', () => {
       ...options,
       assets,
       formatOptions: {
-        svg: { foo: 'bar' },
-        eot: {},
-        ttf: {}
-      },
-      pathOptions: { svg: outputDir, eot: 'test', ttf: outputDir }
+        ttf: {},
+        eot: { foo: 'bar' },
+        css: {},
+        html: {}
+      }
     });
   });
 });

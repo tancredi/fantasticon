@@ -1,3 +1,4 @@
+import { DEFAULT_OPTIONS } from '../constants';
 import { RunnerOptions } from '../types/runner';
 import { FontGeneratorOptions } from '../types/generator';
 import { AssetType, ASSET_TYPES } from '../types/misc';
@@ -8,19 +9,21 @@ export const getGeneratorOptions = (
   assets: AssetsMap
 ): FontGeneratorOptions => ({
   ...options,
-  formatOptions: prefillOptions(options.formatOptions, {}),
-  pathOptions: prefillOptions(options.pathOptions, options.outputDir),
+  formatOptions: prefillOptions(
+    options.formatOptions,
+    DEFAULT_OPTIONS.formatOptions
+  ),
   assets
 });
 
-export const prefillOptions = <T>(
-  userOptions: { [key in AssetType]?: T } = {},
-  emptyValue: T
+export const prefillOptions = (
+  userOptions: { [key in AssetType]?: object } = {},
+  defaults: { [key in AssetType]?: object }
 ) =>
   Object.values(ASSET_TYPES).reduce(
     (cur = {}, type: AssetType) => ({
       ...cur,
-      [type]: userOptions[type] || emptyValue
+      [type]: { ...(defaults[type] || {}), ...(userOptions[type] || {}) }
     }),
     {}
-  ) as { [key in AssetType]: T };
+  ) as { [key in AssetType]: {} };
