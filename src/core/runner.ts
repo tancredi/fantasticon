@@ -28,10 +28,14 @@ export const generateFonts = async (
   mustWrite = false
 ): Promise<RunnerResults> => {
   const options = await sanitiseOptions(userOptions);
-  const { outputDir } = options;
+  const { outputDir, inputDir } = options;
+
+  if (!inputDir) {
+    throw new Error('You must specify an input directory');
+  }
 
   if (mustWrite && !outputDir) {
-    throw new Error('You must specify an output path');
+    throw new Error('You must specify an output directory');
   }
 
   const assetsIn = await loadAssets(options.inputDir);

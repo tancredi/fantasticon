@@ -64,11 +64,6 @@ describe('Config parser', () => {
       'inputDir',
       '[object Object] is not a string'
     );
-    await testError(
-      { inputDir: undefined },
-      'inputDir',
-      'undefined is not a string'
-    );
     await testError({ name: 3 }, 'name', '3 is not a string');
     await testError(
       { fontTypes: ['x'] },

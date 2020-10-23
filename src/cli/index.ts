@@ -33,6 +33,8 @@ const config = () => {
   commander.program
     .version('0.0.1')
 
+    .arguments('[input-dir]')
+
     .option(
       '-c, --config <value>',
       `custom config path (default: ${printConfigPaths()})`

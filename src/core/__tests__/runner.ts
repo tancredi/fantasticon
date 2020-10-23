@@ -37,8 +37,8 @@ describe('Runner', () => {
   });
 
   test('`generateFonts` resolves with expected results', async () => {
-    const optionsIn = {} as any;
-    const optionsOut = { hasDefaults: true, parsed: true };
+    const optionsIn = { inputDir: 'foo' } as any;
+    const optionsOut = { hasDefaults: true, parsed: true, inputDir: 'foo' };
 
     expect(await generateFonts(optionsIn)).toEqual({
       options: optionsOut,
@@ -49,8 +49,13 @@ describe('Runner', () => {
   });
 
   test('`generateFonts` resolves with asset write result if `outputDir` was passed', async () => {
-    const optionsIn = { outputDir: 'foo' } as any;
-    const optionsOut = { hasDefaults: true, parsed: true, outputDir: 'foo' };
+    const optionsIn = { inputDir: 'foo', outputDir: 'foo' } as any;
+    const optionsOut = {
+      hasDefaults: true,
+      parsed: true,
+      inputDir: 'foo',
+      outputDir: 'foo'
+    };
 
     expect(await generateFonts(optionsIn)).toEqual({
       options: optionsOut,
@@ -61,15 +66,23 @@ describe('Runner', () => {
   });
 
   test('`generateFonts` throws error if `outputDir` is not given and `mustWrite` is `true`', async () => {
-    const optionsIn = {} as any;
+    const optionsIn = { inputDir: 'foo' } as any;
 
     await expect(() => generateFonts(optionsIn, true)).rejects.toThrow(
-      'You must specify an output path'
+      'You must specify an output directory'
+    );
+  });
+
+  test('`generateFonts` throws error if `inputDir` is not given', async () => {
+    const optionsIn = {} as any;
+
+    await expect(() => generateFonts(optionsIn)).rejects.toThrow(
+      'You must specify an input directory'
     );
   });
 
   test('`generateFonts` calls `parseConfig` correctly', async () => {
-    const optionsIn = { foo: 'bar' } as any;
+    const optionsIn = { inputDir: 'foo', foo: 'bar' } as any;
 
     await generateFonts(optionsIn);
 
@@ -91,31 +104,31 @@ describe('Runner', () => {
   });
 
   test('`generateFonts` calls `generateAssets` correctly', async () => {
-    const optionsIn = { foo: 'bar' } as any;
+    const optionsIn = { inputDir: 'foo', foo: 'bar' } as any;
 
     await generateFonts(optionsIn);
 
     expect(generateAssetsMock).toHaveBeenCalledTimes(1);
     expect(generateAssetsMock).toHaveBeenCalledWith(
       { mock: 'assets' },
-      { foo: 'bar', hasDefaults: true, parsed: true }
+      { foo: 'bar', inputDir: 'foo', hasDefaults: true, parsed: true }
     );
   });
 
   test('`generateFonts` calls `writeAssets` correctly', async () => {
-    const optionsIn = { outputDir: 'foo/bar' } as any;
+    const optionsIn = { outputDir: 'foo/bar', inputDir: 'foo' } as any;
 
     await generateFonts(optionsIn);
 
     expect(writeAssetsMock).toHaveBeenCalledTimes(1);
     expect(writeAssetsMock).toHaveBeenCalledWith(
       { mockGenerated: { assets: {}, options: { mock: 'assets' } } },
-      { hasDefaults: true, outputDir: 'foo/bar', parsed: true }
+      { hasDefaults: true, inputDir: 'foo', outputDir: 'foo/bar', parsed: true }
     );
   });
 
   test('`generateFonts` does not call `writeAssets` if `outputDir` is not specified', async () => {
-    const optionsIn = {} as any;
+    const optionsIn = { inputDir: 'foo' } as any;
 
     await generateFonts(optionsIn);
 

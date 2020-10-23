@@ -15,8 +15,8 @@ import { FontAssetType, OtherAssetType } from '../types/misc';
 const CONFIG_VALIDATORS: {
   [key in keyof RunnerOptions]: Array<(val: any, cur: any) => any>;
 } = {
-  inputDir: [parseString, parseDir],
-  outputDir: [optional(parseDir)],
+  inputDir: [optional(parseString), optional(parseDir)],
+  outputDir: [optional(parseString), optional(parseDir)],
   name: [parseString],
   fontTypes: [listMembersParser(Object.values(FontAssetType))],
   assetTypes: [listMembersParser(Object.values(OtherAssetType))],
