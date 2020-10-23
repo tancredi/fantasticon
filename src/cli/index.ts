@@ -99,7 +99,6 @@ const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
   const [inputDir] = cmd.args;
 
   return {
-    ...loadedConfig,
     ...removeUndefined({
       inputDir,
       outputDir: cmd.output,
@@ -112,7 +111,8 @@ const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
       selector: cmd.selector,
       tag: cmd.tag,
       fontsUrl: cmd.fontsUrl
-    })
+    }),
+    ...loadedConfig
   };
 };
 
