@@ -104,10 +104,10 @@ generateFonts({
   formatOptions: {},
   pathOptions: {},
   codepoints: {},
-  round: undefined,
   fontHeight: 300,
-  descent: undefined,
-  normalize: undefined,
+  round: undefined,     // --
+  descent: undefined,   // Will use `svgicons2svgfont` defaults
+  normalize: undefined, // --
   selector: null,
   tag: 'i',
   prefix: 'icon',
@@ -118,7 +118,3 @@ generateFonts({
 ### License
 
 Copyright (c) 2020 Tancredi Trugenberger. - Released under the [MIT license](https://github.com/tancredi/iconfont-tool/blob/master/LICENSE)
-
-```
-
-```
