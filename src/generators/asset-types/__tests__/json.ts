@@ -1,5 +1,6 @@
 import jsonGen from '../json';
 import { OtherAssetType } from '../../../types/misc';
+import { DEFAULT_OPTIONS } from '../../../constants';
 
 const mockCodepoints = { foo: 'oof', bar: 'baz' };
 
@@ -25,10 +26,14 @@ describe('`JSON` asset generator', () => {
   test('calls JSON.stringify with correct indentation', async () => {
     const stringifySpy = jest.spyOn(JSON, 'stringify');
 
-    await renderAndParse({ indent: 2 });
+    await renderAndParse(DEFAULT_OPTIONS.formatOptions.json);
 
     expect(stringifySpy).toHaveBeenCalledTimes(1);
-    expect(stringifySpy).toHaveBeenCalledWith(mockCodepoints, null, 2);
+    expect(stringifySpy).toHaveBeenCalledWith(
+      mockCodepoints,
+      null,
+      expect.any(Number)
+    );
 
     stringifySpy.mockClear();
 
