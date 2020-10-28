@@ -18,7 +18,7 @@ const resolve = (...paths: string[]) => {
   } else {
     if (startsWith(path, './')) {
       path = _path.join('/root/project/', path.substr(2));
-    } else {
+    } else if (!startsWith(path, '/')) {
       path = _path.join('/root/project/', path);
     }
   }
