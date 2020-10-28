@@ -30,7 +30,7 @@ describe('Template utilities', () => {
 
     expect(readFileMock).toHaveBeenCalledTimes(1);
     expect(readFileMock).toHaveBeenCalledWith(
-      '[root]/project/src/utils/my-template.hbs',
+      'R://project/src/utils/my-template.hbs',
       'utf8'
     );
 
