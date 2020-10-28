@@ -52,22 +52,22 @@ describe('Assets utilities', () => {
     expect(await loadAssets('./valid')).toEqual({
       foo: {
         relativePath: 'foo.svg',
-        absolutePath: 'R://project/valid/foo.svg',
+        absolutePath: '/root/project/valid/foo.svg',
         id: 'foo'
       },
       bar: {
         relativePath: 'bar.svg',
-        absolutePath: 'R://project/valid/bar.svg',
+        absolutePath: '/root/project/valid/bar.svg',
         id: 'bar'
       },
       'sub-nested': {
         relativePath: 'sub/nested.svg',
-        absolutePath: 'R://project/valid/sub/nested.svg',
+        absolutePath: '/root/project/valid/sub/nested.svg',
         id: 'sub-nested'
       },
       'sub-sub-nested': {
         relativePath: 'sub/sub/nested.svg',
-        absolutePath: 'R://project/valid/sub/sub/nested.svg',
+        absolutePath: '/root/project/valid/sub/sub/nested.svg',
         id: 'sub-sub-nested'
       }
     });
