@@ -8,7 +8,7 @@ const resolve = (...paths: string[]) => {
   let path = '';
 
   for (const cur of paths) {
-    path = _path.join(path, cur);
+    path = !path ? normalise(cur) : _path.join(path, normalise(cur));
   }
 
   if (startsWith(path, projectDir)) {
