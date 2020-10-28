@@ -29,10 +29,10 @@ describe('Assets utilities', () => {
 
   test('`loadPaths` resolves an Array of the correct filepaths within the given directory', async () => {
     expect(await loadPaths('./valid')).toEqual([
-      '/root/valid/foo.svg',
-      '/root/valid/bar.svg',
-      '/root/valid/sub/nested.svg',
-      '/root/valid/sub/sub/nested.svg'
+      '/project/valid/foo.svg',
+      '/project/valid/bar.svg',
+      '/project/valid/sub/nested.svg',
+      '/project/valid/sub/sub/nested.svg'
     ]);
   });
 
@@ -52,22 +52,22 @@ describe('Assets utilities', () => {
     expect(await loadAssets('./valid')).toEqual({
       foo: {
         relativePath: 'foo.svg',
-        absolutePath: '/root/valid/foo.svg',
+        absolutePath: '[root]/project/valid/foo.svg',
         id: 'foo'
       },
       bar: {
         relativePath: 'bar.svg',
-        absolutePath: '/root/valid/bar.svg',
+        absolutePath: '[root]/project/valid/bar.svg',
         id: 'bar'
       },
       'sub-nested': {
         relativePath: 'sub/nested.svg',
-        absolutePath: '/root/valid/sub/nested.svg',
+        absolutePath: '[root]/project/valid/sub/nested.svg',
         id: 'sub-nested'
       },
       'sub-sub-nested': {
         relativePath: 'sub/sub/nested.svg',
-        absolutePath: '/root/valid/sub/sub/nested.svg',
+        absolutePath: '[root]/project/valid/sub/sub/nested.svg',
         id: 'sub-sub-nested'
       }
     });

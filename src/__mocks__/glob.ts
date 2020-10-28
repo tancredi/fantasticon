@@ -1,16 +1,16 @@
 const mockGlobs = {
   './valid/**/*.svg': [
-    '/root/valid/foo.svg',
-    '/root/valid/bar.svg',
-    '/root/valid/sub/nested.svg',
-    '/root/valid/sub/sub/nested.svg'
+    '/project/valid/foo.svg',
+    '/project/valid/bar.svg',
+    '/project/valid/sub/nested.svg',
+    '/project/valid/sub/sub/nested.svg'
   ],
   './empty/**/*.svg': []
 };
 
 module.exports = (
   glob: string,
-  config: {},
+  _: {},
   callback: (err: Error | null, paths: string[] | null) => void
 ) => {
   setTimeout(() => {
