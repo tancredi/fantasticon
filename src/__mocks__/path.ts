@@ -29,6 +29,27 @@ const resolve = (...paths: string[]) => {
 const relative = (a: string, b: string) =>
   normalise(_relative(_path.normalize(a), _path.normalize(b)));
 
+const join = (...segments: string[]): string => {
+  const trimmed: string[] = [];
+
+  segments.forEach((current, i) => {
+    const isFirst = i === 0;
+    const isLast = i === segments.length - 1;
+
+    if (!isFirst && current.substr(0, 1) === '/') {
+      current = current.substr(1);
+    }
+
+    if (!isLast && current.substr(-1) === '/') {
+      current = current.substring(0, current.length - 1);
+    }
+
+    trimmed.push(current);
+  });
+
+  return trimmed.join('/');
+};
+
 const normalise = (path: string) => path.replace(/\\/g, '/');
 
-module.exports = { resolve, relative };
+module.exports = { resolve, relative, join };

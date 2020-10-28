@@ -15,11 +15,11 @@ describe('CSS utilities', () => {
 
     expect(renderSrcAttribute(options as any, font)).toEqual(
       [
-        'url("./my-font.eot?::hashed(::font-content::)::#iefix") format("embedded-opentype"),',
-        'url("./my-font.woff2?::hashed(::font-content::)::") format("woff2"),',
-        'url("./my-font.woff?::hashed(::font-content::)::") format("woff"),',
-        'url("./my-font.ttf?::hashed(::font-content::)::") format("truetype"),',
-        'url("./my-font.svg?::hashed(::font-content::)::#my-font") format("svg")'
+        'url("my-font.eot?::hashed(::font-content::)::#iefix") format("embedded-opentype"),',
+        'url("my-font.woff2?::hashed(::font-content::)::") format("woff2"),',
+        'url("my-font.woff?::hashed(::font-content::)::") format("woff"),',
+        'url("my-font.ttf?::hashed(::font-content::)::") format("truetype"),',
+        'url("my-font.svg?::hashed(::font-content::)::#my-font") format("svg")'
       ].join('\n')
     );
   });
@@ -33,8 +33,8 @@ describe('CSS utilities', () => {
 
     expect(renderSrcAttribute(options as any, font)).toEqual(
       [
-        'url("./my-font.eot?::hashed(::font-content::)::#iefix") format("embedded-opentype"),',
-        'url("./my-font.svg?::hashed(::font-content::)::#my-font") format("svg")'
+        'url("my-font.eot?::hashed(::font-content::)::#iefix") format("embedded-opentype"),',
+        'url("my-font.svg?::hashed(::font-content::)::#my-font") format("svg")'
       ].join('\n')
     );
   });

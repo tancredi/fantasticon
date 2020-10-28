@@ -1,7 +1,6 @@
-import { slashJoin } from './path';
 import glob from 'glob';
 import { promisify } from 'util';
-import { resolve, relative } from 'path';
+import { resolve, relative, join } from 'path';
 import { getIconId } from './icon-id';
 import { writeFile } from '../utils/fs-async';
 import { RunnerOptions } from '../types/runner';
@@ -24,7 +23,7 @@ export interface AssetsMap {
 export const ASSETS_EXTENSION = 'svg';
 
 export const loadPaths = async (dir: string): Promise<string[]> => {
-  const globPath = slashJoin(dir, `**/*.${ASSETS_EXTENSION}`);
+  const globPath = join(dir, `**/*.${ASSETS_EXTENSION}`);
 
   const files = await promisify(glob)(globPath, {});
 
@@ -60,7 +59,7 @@ export const writeAssets = async (
 
   for (const ext of Object.keys(assets)) {
     const filename = [name, ext].join('.');
-    const writePath = pathOptions[ext] || slashJoin(outputDir, filename);
+    const writePath = pathOptions[ext] || join(outputDir, filename);
     results.push({ content: assets[ext], writePath });
     await writeFile(writePath, assets[ext]);
   }

@@ -1,7 +1,6 @@
+import { join } from 'path';
 import { FontGeneratorOptions } from '../types/generator';
 import { getHash } from './hash';
-import { slashJoin } from '../utils/path';
-
 import { FontAssetType } from '../types/misc';
 
 interface RenderSrcOptions {
@@ -32,7 +31,7 @@ export const renderSrcAttribute = (
 
       return [
         'url("',
-        `${slashJoin(fontsUrl || '.', name)}.${fontType}?${hash}${suffix}`,
+        `${join(fontsUrl || '.', name)}.${fontType}?${hash}${suffix}`,
         `") format("${formatValue}")`
       ].join('');
     })

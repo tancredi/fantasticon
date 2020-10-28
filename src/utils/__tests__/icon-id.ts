@@ -11,6 +11,6 @@ describe('Icon ID utilities', () => {
   });
 
   test('`getIconId` support backslashes as well as forward slashes', () => {
-    expect(getIconId('./foo/bar\\icon.svg', 'foo/bar')).toBe('bar-icon');
+    expect(getIconId('./foo/bar\\icon.svg', 'foo')).toBe('bar-icon');
   });
 });

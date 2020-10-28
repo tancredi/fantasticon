@@ -1,4 +1,4 @@
-import { slashJoin } from '../utils/path';
+import { join } from 'path';
 import { readFile, checkPath } from '../utils/fs-async';
 
 export const DEFAULT_FILEPATHS = [
@@ -13,7 +13,7 @@ export const DEFAULT_FILEPATHS = [
 const attemptLoading = async (filepath: string): Promise<any | void> => {
   if (await checkPath(filepath, 'file')) {
     try {
-      return require(slashJoin(process.cwd(), filepath));
+      return require(join(process.cwd(), filepath));
     } catch (err) {}
 
     try {
