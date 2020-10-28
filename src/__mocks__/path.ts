@@ -13,7 +13,7 @@ const resolve = (...paths: string[]) => {
 
   if (startsWith(path, projectDir)) {
     path = _path.join('/root/project', path.substr(projectDir.length));
-  } else if (startsWith(path, '/')) {
+  } else if (startsWith(path, '/') && !startsWith(path, '/root')) {
     path = _path.join('/root/', path.substr(1));
   } else {
     if (startsWith(path, './')) {
