@@ -2168,7 +2168,7 @@
     "execa" "^4.0.0"
     "throat" "^5.0.0"
 
-"jest-cli@^26.6.0", "jest-cli@^26.6.1":
+"jest-cli@^26.6.0":
   "integrity" "sha512-aPLoEjlwFrCWhiPpW5NUxQA1X1kWsAnQcQ0SO/fHsCvczL3W75iVAcH9kP6NN+BNqZcHNEvkhxT5cDmBfEAh+w=="
   "resolved" "https://registry.npmjs.org/jest-cli/-/jest-cli-26.6.1.tgz"
   "version" "26.6.1"
