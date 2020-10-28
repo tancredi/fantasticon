@@ -26,7 +26,8 @@ const resolve = (...paths: string[]) => {
   return normalise(path);
 };
 
-const relative = (a: string, b: string) => normalise(_relative(a, b));
+const relative = (a: string, b: string) =>
+  normalise(_relative(normalise(a), normalise(b)));
 
 const normalise = (path: string) => path.replace(/\\/g, '/');
 
