@@ -1,6 +1,6 @@
 {
   "name": "fantasticon",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "lib/index.js",
   "bin": {
     "fantasticon": "bin/fantasticon"
@@ -15,7 +15,7 @@
   "dependencies": {
     "change-case": "^4.1.1",
     "cli-color": "^2.0.0",
-    "commander": "^6.1.0",
+    "commander": "^6.2.0",
     "glob": "^7.1.6",
     "handlebars": "^4.7.6",
     "lodash": "^4.17.20",

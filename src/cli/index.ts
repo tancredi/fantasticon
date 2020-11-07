@@ -6,15 +6,22 @@ import { generateFonts } from '../core/runner';
 import { removeUndefined } from '../utils/validation';
 import { getLogger } from './logger';
 
-const { version } = require('../../package.json') as any;
+const {
+  bin,
+  name: packageName,
+  version
+} = require('../../package.json') as any;
+
+const getCommandName = () => (bin && Object.keys(bin)[0]) || packageName;
 
 const cli = async () => {
   config();
   const input = commander.program.parse(process.argv);
-  const logger = getLogger(input.debug, input.silent);
+  const { debug, silent, config: configPath } = input.opts();
+  const logger = getLogger(debug, silent);
 
   try {
-    const { loadedConfig, loadedConfigPath } = await loadConfig(input.config);
+    const { loadedConfig, loadedConfigPath } = await loadConfig(configPath);
     const results = await run(await buildOptions(input, loadedConfig));
     logger.start(loadedConfigPath);
     logger.results(results);
@@ -29,10 +36,28 @@ const printList = (available: { [key: string]: string }, defaults: string[]) =>
     available
   ).join(', ')})`;
 
+const printDefaultValue = (value: any) => {
+  let printVal = String(value);
+
+  if (typeof value === 'undefined') {
+    return '';
+  }
+
+  return ` (default: ${printVal})`;
+};
+
+const printDefaultOption = (key: string) =>
+  printDefaultValue(DEFAULT_OPTIONS[key]);
+
 const printConfigPaths = () => DEFAULT_FILEPATHS.join(' | ');
 
 const config = () => {
   commander.program
+    .storeOptionsAsProperties(false)
+    .passCommandToAction(false)
+
+    .name(getCommandName())
+
     .version(version)
 
     .arguments('[input-dir]')
@@ -43,6 +68,12 @@ const config = () => {
     )
 
     .option('-o, --output <value>', 'specify output directory')
+
+    .option(
+      '-n, --name <value>',
+      'base name of the font set used both as default asset name and classname prefix' +
+        printDefaultOption('name')
+    )
 
     .option(
       '-t, --font-types <value...>',
@@ -58,59 +89,63 @@ const config = () => {
 
     .option(
       '-h, --font-height <value>',
-      'the output font height (icons will be scaled so the highest has this height)',
-      DEFAULT_OPTIONS.fontHeight as any
+      'the output font height (icons will be scaled so the highest has this height)' +
+        printDefaultOption('fontHeight')
     )
 
     .option(
       '--descent <value>',
-      'the font descent',
-      DEFAULT_OPTIONS.descent as any
+      'the font descent' + printDefaultOption('descent' as any)
     )
 
     .option(
-      '-n, --normalize',
-      'normalize icons by scaling them to the height of the highest icon',
-      DEFAULT_OPTIONS.normalize
+      '--normalize [bool]',
+      'normalize icons by scaling them to the height of the highest icon' +
+        printDefaultOption('normalize')
     )
 
-    .option('-r, --round', 'setup the SVG path rounding [10e12]')
+    .option('-r, --round [bool]', 'setup the SVG path rounding [10e12]')
 
     .option(
       '--selector <value>',
-      "use a CSS selector instead of 'tag + prefix'",
-      DEFAULT_OPTIONS.selector
+      "use a CSS selector instead of 'tag + prefix'" +
+        printDefaultOption('selector')
     )
 
-    .option('-t, --tag <value>', 'CSS base tag for icons', DEFAULT_OPTIONS.tag)
+    .option(
+      '--tag <value>',
+      'CSS base tag for icons' + printDefaultOption('tag')
+    )
 
     .option(
       '-u, --fonts-url <value>',
       'public url to the fonts directory (used in the generated CSS)'
     )
 
-    .option('--debug', 'display errors stack trace', false)
+    .option('--debug', 'display errors stack trace' + printDefaultValue(false))
 
-    .option('--silent', 'run with no logs', false);
+    .option('--silent', 'run with no logs' + printDefaultValue(false));
 };
 
 const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
   const [inputDir] = cmd.args;
+  const opts = cmd.opts();
 
   return {
     ...loadedConfig,
     ...removeUndefined({
       inputDir,
-      outputDir: cmd.output,
-      fontTypes: cmd.fontTypes,
-      assetTypes: cmd.assetTypes,
-      fontHeight: cmd.fontHeight,
-      descent: cmd.descent,
-      normalize: cmd.normalize,
-      round: cmd.round,
-      selector: cmd.selector,
-      tag: cmd.tag,
-      fontsUrl: cmd.fontsUrl
+      outputDir: opts.output,
+      name: opts.name,
+      fontTypes: opts.fontTypes,
+      assetTypes: opts.assetTypes,
+      fontHeight: opts.fontHeight,
+      descent: opts.descent,
+      normalize: opts.normalize,
+      round: opts.round,
+      selector: opts.selector,
+      tag: opts.tag,
+      fontsUrl: opts.fontsUrl
     })
   };
 };

@@ -17,7 +17,7 @@ const CONFIG_VALIDATORS: {
 } = {
   inputDir: [optional(parseString), optional(parseDir)],
   outputDir: [optional(parseString), optional(parseDir)],
-  name: [parseString],
+  name: [optional(parseString)],
   fontTypes: [listMembersParser(Object.values(FontAssetType))],
   assetTypes: [listMembersParser(Object.values(OtherAssetType))],
   formatOptions: [],
