@@ -113,7 +113,7 @@ const config = () => {
     )
 
     .option(
-      '-t, --tag <value>',
+      '--tag <value>',
       'CSS base tag for icons' + printDefaultOption('tag')
     )
 
