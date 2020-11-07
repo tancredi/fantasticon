@@ -6,15 +6,22 @@ import { generateFonts } from '../core/runner';
 import { removeUndefined } from '../utils/validation';
 import { getLogger } from './logger';
 
-const { version } = require('../../package.json') as any;
+const {
+  bin,
+  name: packageName,
+  version
+} = require('../../package.json') as any;
+
+const getCommandName = () => (bin && Object.keys(bin)[0]) || packageName;
 
 const cli = async () => {
   config();
   const input = commander.program.parse(process.argv);
-  const logger = getLogger(input.debug, input.silent);
+  const { debug, silent, config: configPath } = input.opts();
+  const logger = getLogger(debug, silent);
 
   try {
-    const { loadedConfig, loadedConfigPath } = await loadConfig(input.config);
+    const { loadedConfig, loadedConfigPath } = await loadConfig(configPath);
     const results = await run(await buildOptions(input, loadedConfig));
     logger.start(loadedConfigPath);
     logger.results(results);
@@ -33,9 +40,14 @@ const printConfigPaths = () => DEFAULT_FILEPATHS.join(' | ');
 
 const config = () => {
   commander.program
+    .storeOptionsAsProperties(false)
+    .passCommandToAction(false)
+
+    .name(getCommandName())
+
     .version(version)
 
-    .arguments('[input-dir]')
+    .arguments('[inputDir]')
 
     .option(
       '-c, --config <value>',
@@ -43,6 +55,12 @@ const config = () => {
     )
 
     .option('-o, --output <value>', 'specify output directory')
+
+    .option(
+      '-n, --name <value>',
+      'base name of the font set used both as default asset name and classname prefix',
+      DEFAULT_OPTIONS.name
+    )
 
     .option(
       '-t, --font-types <value...>',
@@ -69,12 +87,12 @@ const config = () => {
     )
 
     .option(
-      '-n, --normalize',
+      '--normalize [bool]',
       'normalize icons by scaling them to the height of the highest icon',
       DEFAULT_OPTIONS.normalize
     )
 
-    .option('-r, --round', 'setup the SVG path rounding [10e12]')
+    .option('-r, --round [bool]', 'setup the SVG path rounding [10e12]')
 
     .option(
       '--selector <value>',
@@ -96,21 +114,23 @@ const config = () => {
 
 const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
   const [inputDir] = cmd.args;
+  const opts = cmd.opts();
 
   return {
     ...loadedConfig,
     ...removeUndefined({
       inputDir,
-      outputDir: cmd.output,
-      fontTypes: cmd.fontTypes,
-      assetTypes: cmd.assetTypes,
-      fontHeight: cmd.fontHeight,
-      descent: cmd.descent,
-      normalize: cmd.normalize,
-      round: cmd.round,
-      selector: cmd.selector,
-      tag: cmd.tag,
-      fontsUrl: cmd.fontsUrl
+      outputDir: opts.output,
+      name: opts.name,
+      fontTypes: opts.fontTypes,
+      assetTypes: opts.assetTypes,
+      fontHeight: opts.fontHeight,
+      descent: opts.descent,
+      normalize: opts.normalize,
+      round: opts.round,
+      selector: opts.selector,
+      tag: opts.tag,
+      fontsUrl: opts.fontsUrl
     })
   };
 };
