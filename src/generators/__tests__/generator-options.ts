@@ -1,5 +1,8 @@
 import { prefillOptions, getGeneratorOptions } from '../generator-options';
 import { AssetsMap } from '../../utils/assets';
+import { getCodepoints } from '../../utils/codepoints';
+
+const getCodepointsMock = (getCodepoints as any) as jest.Mock;
 
 jest.mock('../../types/misc', () => ({
   FontAssetType: { TTF: 'TTF', EOT: 'eot' },
@@ -7,7 +10,15 @@ jest.mock('../../types/misc', () => ({
   ASSET_TYPES: { ttf: 'ttf', eot: 'eot', css: 'css', html: 'html' }
 }));
 
+jest.mock('../../utils/codepoints', () => ({
+  getCodepoints: jest.fn(() => ({ __mock: 'processed-codepoint__' }))
+}));
+
 describe('Font generator options', () => {
+  beforeEach(() => {
+    getCodepointsMock.mockClear();
+  });
+
   test('`prefillOptions` correctly extends default values for each type and prefills missing ones', () => {
     expect(
       prefillOptions(
@@ -37,6 +48,7 @@ describe('Font generator options', () => {
     expect(getGeneratorOptions(options, assets)).toEqual({
       ...options,
       assets,
+      codepoints: { __mock: 'processed-codepoint__' },
       formatOptions: {
         ttf: {},
         eot: { foo: 'bar' },
@@ -44,5 +56,16 @@ describe('Font generator options', () => {
         html: {}
       }
     });
+  });
+
+  test('`getGeneratorOptions` calls `getCodepoints` with input assets and codepoints', () => {
+    const codepointsIn = { foo: 'bar' };
+    const options = { codepoints: codepointsIn } as any;
+    const assets = ({} as unknown) as AssetsMap;
+
+    getGeneratorOptions(options, assets);
+
+    expect(getCodepointsMock).toHaveBeenCalledTimes(1);
+    expect(getCodepointsMock).toHaveBeenCalledWith(assets, codepointsIn);
   });
 });

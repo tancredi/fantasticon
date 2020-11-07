@@ -8,7 +8,6 @@ export const getCodepoints = (
   predefined: CodepointsMap = {},
   start = DEFAULT_START_CODEPOINT
 ): CodepointsMap => {
-  2;
   const out: CodepointsMap = {};
   const used = Object.values(predefined);
   let current: number = start;

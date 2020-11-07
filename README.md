@@ -93,7 +93,7 @@ module.exports = {
 ```js
 import { generateFonts } from 'fantasticon';
 
-generateFonts().then('Done');
+generateFonts().then(results => console.log('Done', results));
 ```
 
 #### Options
