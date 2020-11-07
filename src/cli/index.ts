@@ -60,7 +60,7 @@ const config = () => {
 
     .version(version)
 
-    .arguments('[inputDir]')
+    .arguments('[input-dir]')
 
     .option(
       '-c, --config <value>',
