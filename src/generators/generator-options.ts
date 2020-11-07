@@ -1,5 +1,6 @@
 import { DEFAULT_OPTIONS } from '../constants';
 import { RunnerOptions } from '../types/runner';
+import { getCodepoints } from '../utils/codepoints';
 import { FontGeneratorOptions } from '../types/generator';
 import { AssetType, ASSET_TYPES } from '../types/misc';
 import { AssetsMap } from '../utils/assets';
@@ -9,6 +10,7 @@ export const getGeneratorOptions = (
   assets: AssetsMap
 ): FontGeneratorOptions => ({
   ...options,
+  codepoints: getCodepoints(assets, options.codepoints),
   formatOptions: prefillOptions(
     options.formatOptions,
     DEFAULT_OPTIONS.formatOptions

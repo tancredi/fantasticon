@@ -1,6 +1,7 @@
 import { generateFonts } from '../runner';
 import { writeAssets, loadAssets } from '../../utils/assets';
 import { generateAssets } from '../../generators';
+import { getGeneratorOptions } from '../../generators/generator-options';
 import { parseConfig } from '../config-parser';
 import { DEFAULT_OPTIONS } from '../../constants';
 
@@ -8,6 +9,7 @@ const generateAssetsMock = (generateAssets as any) as jest.Mock;
 const parseConfigMock = (parseConfig as any) as jest.Mock;
 const writeAssetsMock = (writeAssets as any) as jest.Mock;
 const loadAssetsMock = (loadAssets as any) as jest.Mock;
+const getGeneratorOptionsMock = (getGeneratorOptions as any) as jest.Mock;
 
 jest.mock('../../constants', () => ({
   DEFAULT_OPTIONS: { hasDefaults: true, parsed: false }
@@ -17,6 +19,10 @@ jest.mock('../../generators', () => ({
   generateAssets: jest.fn(options =>
     Promise.resolve({ mockGenerated: { assets: {}, options } })
   )
+}));
+
+jest.mock('../../generators/generator-options', () => ({
+  getGeneratorOptions: jest.fn(() => ({ mock: 'generator-options' }))
 }));
 
 jest.mock('../../utils/assets', () => ({
@@ -34,6 +40,7 @@ describe('Runner', () => {
     loadAssetsMock.mockClear();
     generateAssetsMock.mockClear();
     parseConfigMock.mockClear();
+    getGeneratorOptionsMock.mockClear();
   });
 
   test('`generateFonts` resolves with expected results', async () => {
@@ -44,7 +51,12 @@ describe('Runner', () => {
       options: optionsOut,
       writeResults: [],
       assetsIn: { mock: 'assets' },
-      assetsOut: { mockGenerated: { assets: {}, options: { mock: 'assets' } } }
+      assetsOut: {
+        mockGenerated: {
+          assets: {},
+          options: { mock: 'generator-options' }
+        }
+      }
     });
   });
 
@@ -61,7 +73,9 @@ describe('Runner', () => {
       options: optionsOut,
       writeResults: [{ mock: 'writeResult' }],
       assetsIn: { mock: 'assets' },
-      assetsOut: { mockGenerated: { assets: {}, options: { mock: 'assets' } } }
+      assetsOut: {
+        mockGenerated: { assets: {}, options: { mock: 'generator-options' } }
+      }
     });
   });
 
@@ -103,16 +117,31 @@ describe('Runner', () => {
     expect(loadAssetsMock).toHaveBeenCalledWith(inputDir);
   });
 
+  test('`generateFonts` calls `getGeneratorOptions` correctly', async () => {
+    const optionsIn = { inputDir: '/dev/in' } as any;
+
+    await generateFonts(optionsIn);
+
+    expect(getGeneratorOptionsMock).toHaveBeenCalledTimes(1);
+    expect(getGeneratorOptionsMock).toHaveBeenCalledWith(
+      {
+        hasDefaults: true,
+        inputDir: '/dev/in',
+        parsed: true
+      },
+      { mock: 'assets' }
+    );
+  });
+
   test('`generateFonts` calls `generateAssets` correctly', async () => {
     const optionsIn = { inputDir: 'foo', foo: 'bar' } as any;
 
     await generateFonts(optionsIn);
 
     expect(generateAssetsMock).toHaveBeenCalledTimes(1);
-    expect(generateAssetsMock).toHaveBeenCalledWith(
-      { mock: 'assets' },
-      { foo: 'bar', inputDir: 'foo', hasDefaults: true, parsed: true }
-    );
+    expect(generateAssetsMock).toHaveBeenCalledWith({
+      mock: 'generator-options'
+    });
   });
 
   test('`generateFonts` calls `writeAssets` correctly', async () => {
@@ -122,7 +151,7 @@ describe('Runner', () => {
 
     expect(writeAssetsMock).toHaveBeenCalledTimes(1);
     expect(writeAssetsMock).toHaveBeenCalledWith(
-      { mockGenerated: { assets: {}, options: { mock: 'assets' } } },
+      { mockGenerated: { assets: {}, options: { mock: 'generator-options' } } },
       { hasDefaults: true, inputDir: 'foo', outputDir: 'foo/bar', parsed: true }
     );
   });

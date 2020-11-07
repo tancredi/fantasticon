@@ -6,6 +6,8 @@ import {
   AssetsMap,
   WriteResults
 } from '../utils/assets';
+import { CodepointsMap } from '../utils/codepoints';
+import { getGeneratorOptions } from '../generators/generator-options';
 import { GeneratedAssets } from '../generators/generate-assets';
 import { parseConfig } from './config-parser';
 import { generateAssets } from '../generators';
@@ -15,6 +17,7 @@ export interface RunnerResults {
   writeResults: WriteResults;
   assetsIn: AssetsMap;
   assetsOut: GeneratedAssets;
+  codepoints: CodepointsMap;
 }
 
 export const sanitiseOptions = (userOptions: any) =>
@@ -39,8 +42,16 @@ export const generateFonts = async (
   }
 
   const assetsIn = await loadAssets(options.inputDir);
-  const assetsOut = await generateAssets(assetsIn, options);
+  const generatorOptions = getGeneratorOptions(options, assetsIn);
+  const assetsOut = await generateAssets(generatorOptions);
   const writeResults = outputDir ? await writeAssets(assetsOut, options) : [];
+  const { codepoints } = generatorOptions;
 
-  return { options, assetsIn, assetsOut, writeResults };
+  return {
+    options,
+    assetsIn,
+    assetsOut,
+    writeResults,
+    codepoints
+  };
 };
