@@ -36,6 +36,19 @@ const printList = (available: { [key: string]: string }, defaults: string[]) =>
     available
   ).join(', ')})`;
 
+const printDefaultValue = (value: any) => {
+  let printVal = String(value);
+
+  if (typeof value === 'undefined') {
+    return '';
+  }
+
+  return ` (default: ${printVal})`;
+};
+
+const printDefaultOption = (key: string) =>
+  printDefaultValue(DEFAULT_OPTIONS[key]);
+
 const printConfigPaths = () => DEFAULT_FILEPATHS.join(' | ');
 
 const config = () => {
@@ -58,8 +71,8 @@ const config = () => {
 
     .option(
       '-n, --name <value>',
-      'base name of the font set used both as default asset name and classname prefix',
-      DEFAULT_OPTIONS.name
+      'base name of the font set used both as default asset name and classname prefix' +
+        printDefaultOption('name')
     )
 
     .option(
@@ -76,40 +89,42 @@ const config = () => {
 
     .option(
       '-h, --font-height <value>',
-      'the output font height (icons will be scaled so the highest has this height)',
-      DEFAULT_OPTIONS.fontHeight as any
+      'the output font height (icons will be scaled so the highest has this height)' +
+        printDefaultOption('fontHeight')
     )
 
     .option(
       '--descent <value>',
-      'the font descent',
-      DEFAULT_OPTIONS.descent as any
+      'the font descent' + printDefaultOption('descent' as any)
     )
 
     .option(
       '--normalize [bool]',
-      'normalize icons by scaling them to the height of the highest icon',
-      DEFAULT_OPTIONS.normalize
+      'normalize icons by scaling them to the height of the highest icon' +
+        printDefaultOption('normalize')
     )
 
     .option('-r, --round [bool]', 'setup the SVG path rounding [10e12]')
 
     .option(
       '--selector <value>',
-      "use a CSS selector instead of 'tag + prefix'",
-      DEFAULT_OPTIONS.selector
+      "use a CSS selector instead of 'tag + prefix'" +
+        printDefaultOption('selector')
     )
 
-    .option('-t, --tag <value>', 'CSS base tag for icons', DEFAULT_OPTIONS.tag)
+    .option(
+      '-t, --tag <value>',
+      'CSS base tag for icons' + printDefaultOption('tag')
+    )
 
     .option(
       '-u, --fonts-url <value>',
       'public url to the fonts directory (used in the generated CSS)'
     )
 
-    .option('--debug', 'display errors stack trace', false)
+    .option('--debug', 'display errors stack trace' + printDefaultValue(false))
 
-    .option('--silent', 'run with no logs', false);
+    .option('--silent', 'run with no logs' + printDefaultValue(false));
 };
 
 const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
