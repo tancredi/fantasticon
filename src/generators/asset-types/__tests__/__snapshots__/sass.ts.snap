@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`\`SASS\` asset generator renders SASS correctly with \`selector\` option 1`] = `
+"$tf-test-font-font-family: \\"test-font\\"
+
+@font-face
+    font-family: $tf-test-font-font-family
+    src: \\"::src-attr::\\"
+
+.my-selector:before
+    font-family: test-font !important
+    font-style: normal
+    font-weight: normal !important
+    font-variant: normal
+    text-transform: none
+    line-height: 1
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+$tf-my-icon: \\"\\\\f101\\"
+.my-selector.tf-my-icon:before
+    content: $tf-my-icon
+"
+`;
+
+exports[`\`SASS\` asset generator renders SASS correctly with prefix and tag name options 1`] = `
+"$tf-test-font-font-family: \\"test-font\\"
+
+@font-face
+    font-family: $tf-test-font-font-family
+    src: \\"::src-attr::\\"
+
+b[class^=\\"tf-\\"]:before, b[class*=\\" tf-\\"]:before
+    font-family: test-font !important
+    font-style: normal
+    font-weight: normal !important
+    font-variant: normal
+    text-transform: none
+    line-height: 1
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+$tf-my-icon: \\"\\\\f101\\"
+.tf-my-icon:before
+    content: $tf-my-icon
+"
+`;
