@@ -44,8 +44,13 @@ describe('Font generator options', () => {
       pathOptions
     } as any;
     const assets = ({ __mock: 'runnerOptions__' } as unknown) as AssetsMap;
+    const generatorOptions = getGeneratorOptions(options, assets);
 
-    expect(getGeneratorOptions(options, assets)).toEqual({
+    // templates contain resolved paths so they are absolute and we won't test the path equality
+    const templates = generatorOptions.templates;
+    delete generatorOptions.templates;
+
+    expect(generatorOptions).toEqual({
       ...options,
       assets,
       codepoints: { __mock: 'processed-codepoint__' },
@@ -56,6 +61,7 @@ describe('Font generator options', () => {
         html: {}
       }
     });
+    expect(Object.keys(templates)).toHaveLength(4);
   });
 
   test('`getGeneratorOptions` calls `getCodepoints` with input assets and codepoints', () => {

@@ -2,7 +2,7 @@ import { DEFAULT_OPTIONS } from '../constants';
 import { RunnerOptions } from '../types/runner';
 import { getCodepoints } from '../utils/codepoints';
 import { FontGeneratorOptions } from '../types/generator';
-import { AssetType, ASSET_TYPES } from '../types/misc';
+import { AssetType, AssetWithTemplateType, ASSET_TYPES } from '../types/misc';
 import { AssetsMap } from '../utils/assets';
 
 export const getGeneratorOptions = (
@@ -15,6 +15,10 @@ export const getGeneratorOptions = (
     options.formatOptions,
     DEFAULT_OPTIONS.formatOptions
   ),
+  templates: {
+    ...DEFAULT_OPTIONS.templates,
+    ...options.templates
+  } as { [key in AssetWithTemplateType]: string },
   assets
 });
 

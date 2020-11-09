@@ -8,6 +8,8 @@ export enum FontAssetType {
 
 export enum OtherAssetType {
   CSS = 'css',
+  SCSS = 'scss',
+  SASS = 'sass',
   HTML = 'html',
   JSON = 'json',
   TS = 'ts'
@@ -19,3 +21,10 @@ export const ASSET_TYPES = {
 };
 
 export type AssetType = FontAssetType | OtherAssetType;
+
+// Asset types which support a custom template
+export type AssetWithTemplateType =
+  | OtherAssetType.CSS
+  | OtherAssetType.SASS
+  | OtherAssetType.SCSS
+  | OtherAssetType.HTML;

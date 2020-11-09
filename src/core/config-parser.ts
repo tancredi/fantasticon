@@ -29,6 +29,7 @@ const CONFIG_VALIDATORS: {
   round: [optional(parseNumeric)],
   selector: [nullable(parseString)],
   tag: [parseString],
+  templates: [],
   prefix: [parseString],
   fontsUrl: [optional(parseString)]
 };
