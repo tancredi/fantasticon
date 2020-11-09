@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import { resolve } from 'path';
+import { resolve, isAbsolute } from 'path';
 import { readFile } from './fs-async';
 
 export type CompileOptions = {
@@ -7,11 +7,12 @@ export type CompileOptions = {
 };
 
 export const renderTemplate = async (
-  filePath: string,
+  templatePath: string,
   context: object,
   options?: CompileOptions
 ) => {
-  const template = await readFile(resolve(filePath), 'utf8');
+  const absoluteTemplatePath = isAbsolute(templatePath) ? templatePath : resolve(process.cwd(), templatePath);
+  const template = await readFile(absoluteTemplatePath, 'utf8');
 
   return Handlebars.compile(template)(context, options);
 };

@@ -1,13 +1,19 @@
+import Handlebars from 'handlebars';
 import { renderTemplate } from '../template';
 import { readFile } from '../fs-async';
-import Handlebars from 'handlebars';
 
 const readFileMock = (readFile as any) as jest.Mock;
 const hbsCompileMock = (Handlebars.compile as any) as jest.Mock;
 
 jest.mock('../fs-async', () => ({ readFile: jest.fn() }));
 jest.mock('handlebars', () => ({ compile: jest.fn() }));
-jest.mock('path');
+jest.mock('path', () => ({
+  ...jest.requireActual("path"),
+  isAbsolute: () => false,
+  resolve: () => '/root/project/my-template.hbs'
+}));
+
+
 
 describe('Template utilities', () => {
   beforeEach(() => {
