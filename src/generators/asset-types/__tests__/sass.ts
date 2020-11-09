@@ -50,26 +50,26 @@ describe('`SASS` asset generator', () => {
   });
 
   test('renders expected selector blocks', async () => {
-    const scss = await sassGen.generate(mockOptions, Buffer.from(''));
+    const sass = await sassGen.generate(mockOptions, Buffer.from(''));
 
-    expect(scss).toContain('b[class^="tf-"]:before, b[class*=" tf-"]:before');
-    expect(scss).toContain('.tf-my-icon:before');
+    expect(sass).toContain('b[class^="tf-"]:before, b[class*=" tf-"]:before');
+    expect(sass).toContain('.tf-my-icon:before');
   });
 
   test('renders expected variables', async () => {
-    const scss = await sassGen.generate(mockOptions, Buffer.from(''));
+    const sass = await sassGen.generate(mockOptions, Buffer.from(''));
 
-    expect(scss).toContain('$tf-test-font-font-family:');
-    expect(scss).toContain('$tf-my-icon:');
+    expect(sass).toContain('$tf-test-font-font-family:');
+    expect(sass).toContain('$tf-my-icon:');
   });
 
   test('renders expected selector blocks with `selector` option', async () => {
-    const scss = await sassGen.generate(
+    const sass = await sassGen.generate(
       { ...mockOptions, selector: '.my-selector' },
       Buffer.from('')
     );
 
-    expect(scss).toContain('.my-selector:before');
-    expect(scss).toContain('.my-selector.tf-my-icon:before');
+    expect(sass).toContain('.my-selector:before');
+    expect(sass).toContain('.my-selector.tf-my-icon:before');
   });
 });
