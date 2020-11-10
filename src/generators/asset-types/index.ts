@@ -9,6 +9,8 @@ import css from './css';
 import html from './html';
 import json from './json';
 import ts from './ts';
+import sass from './sass';
+import scss from './scss';
 
 const generators: { [key in AssetType]: FontGenerator<any> } = {
   [FontAssetType.SVG]: svg,
@@ -19,7 +21,9 @@ const generators: { [key in AssetType]: FontGenerator<any> } = {
   [OtherAssetType.CSS]: css,
   [OtherAssetType.HTML]: html,
   [OtherAssetType.JSON]: json,
-  [OtherAssetType.TS]: ts
+  [OtherAssetType.TS]: ts,
+  [OtherAssetType.SASS]: sass,
+  [OtherAssetType.SCSS]: scss,
 };
 
 export default generators;
