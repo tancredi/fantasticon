@@ -1,7 +1,7 @@
-${{ prefix }}-{{ name }}-font-family: "{{ name }}";
+${{ name }}-font: "{{ name }}";
 
 @font-face {
-    font-family: ${{ prefix }}-{{ name }}-font-family;
+    font-family: ${{ name }}-font;
     src: {{{ fontSrc }}};
 }
 
@@ -20,13 +20,18 @@ ${{ prefix }}-{{ name }}-font-family: "{{ name }}";
     -moz-osx-font-smoothing: grayscale;
 }
 
+${{ name }}-map: (
 {{# each codepoints }}
-${{ ../prefix }}-{{ @key }}: "\\{{ codepoint this }}";
+    "{{ @key }}": "\\{{ codepoint this }}",
+{{/ each }}
+);
+
+{{# each codepoints }}
 {{# if ../selector }}
 {{ ../selector }}.{{ ../prefix }}-{{ @key }}:before {
 {{ else }}
 {{ tag }}.{{ ../prefix }}-{{ @key }}:before {
 {{/ if }}
-    content: ${{ ../prefix }}-{{ @key }};
+    content: map-get(${{ ../name }}-map, "{{ @key }}");
 }
 {{/ each }}
