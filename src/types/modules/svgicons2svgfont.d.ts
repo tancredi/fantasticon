@@ -1,7 +1,7 @@
 declare module 'svgicons2svgfont' {
   import { Transform } from 'stream';
 
-  interface Options {
+  export interface SvgIcons2FontOptions {
     fontName?: string;
     fontId?: string;
     fontStyle?: string;
@@ -18,7 +18,7 @@ declare module 'svgicons2svgfont' {
   }
 
   class svgicons2svgfont extends Transform {
-    constructor(options: Options);
+    constructor(options: SvgIcons2FontOptions);
   }
 
   export default svgicons2svgfont;

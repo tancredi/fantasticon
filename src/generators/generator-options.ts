@@ -1,5 +1,5 @@
 import { DEFAULT_OPTIONS } from '../constants';
-import { RunnerOptions } from '../types/runner';
+import { FormatOptions, RunnerOptions } from '../types/runner';
 import { getCodepoints } from '../utils/codepoints';
 import { FontGeneratorOptions } from '../types/generator';
 import { AssetType, ASSET_TYPES } from '../types/misc';
@@ -28,4 +28,4 @@ export const prefillOptions = (
       [type]: { ...(defaults[type] || {}), ...(userOptions[type] || {}) }
     }),
     {}
-  ) as { [key in AssetType]: {} };
+  ) as FormatOptions;
