@@ -20,6 +20,7 @@ export interface FormatOptions {
     | 'fixedWidth'
     | 'centerHorizontally'
     | 'metadata'
+    | 'log'
   >;
   css?: any;
   html?: any;
@@ -33,14 +34,28 @@ export interface FormatOptions {
 }
 
 export type RunnerOptionalOptions = {
+  /**
+   * The font family name you want.
+   */
   name: string;
   fontTypes: FontAssetType[];
   assetTypes: OtherAssetType[];
   formatOptions: FormatOptions;
   pathOptions: { [key in AssetType]?: string };
   codepoints: CodepointsMap;
+  /**
+   * The outputted font height (defaults to the height of the highest input icon).
+   */
   fontHeight: number;
+  /**
+   * The font descent.
+   *
+   * It is usefull to fix the font baseline yourself.
+   */
   descent: number;
+  /**
+   * Normalize icons by scaling them to the height of the highest icon.
+   */
   normalize: boolean;
   round: boolean; // FIXME: SVGIcons2SVGFontStream wants a number here
   selector: string;

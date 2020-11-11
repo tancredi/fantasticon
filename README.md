@@ -68,16 +68,24 @@ Here's an example `.fantasticonrc.js`:
 
 ```js
 module.exports = {
-  inputDir: './icons',
-  outputDir: './dist',
+  inputDir: './icons', // (required)
+  outputDir: './dist', // (required)
   fontTypes: ['ttf', 'woff', 'woff2'],
   assetTypes: ['ts', 'css', 'json', 'html'],
   fontsUrl: '/static/fonts',
-  fontTypes: ['ttf'],
   formatOptions: {
     // Pass options directly to `svgicons2svgfont`
     svg: { metadata: { foo: 'bar' }, ascent: 0.5 },
-    json: { indent: 2 }
+    json: {
+      // render the JSON human readable with two spaces indent (default is none, so minified)
+      indent: 2
+    },
+    ts: {
+      // select what kind of types you want to generate (default `['enum', 'constant', 'literalId', 'literalKey']`)
+      types: ['constant', 'literalId'], 
+      // render the types with `'` instead of `"` (default is `"`)
+      singleQuotes: true 
+    }
   },
   pathOptions: {
     ts: './src/types/icon-types.ts',
