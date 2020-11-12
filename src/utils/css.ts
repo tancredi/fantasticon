@@ -1,7 +1,10 @@
 import { join } from 'path';
+
 import { FontGeneratorOptions } from '../types/generator';
 import { getHash } from './hash';
 import { FontAssetType } from '../types/misc';
+import { DEFAULT_OPTIONS } from '../constants';
+import { kebabCase, snakeCase } from 'lodash';
 
 interface RenderSrcOptions {
   formatValue: string;

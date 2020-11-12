@@ -1,12 +1,8 @@
 import { FontGenerator } from '../../types/generator';
-import { OtherAssetType } from '../../types/misc';
 
 const generator: FontGenerator = {
-  generate: async ({ formatOptions, codepoints }) => {
-    const { indent } = formatOptions[OtherAssetType.JSON];
-
-    return JSON.stringify(codepoints, null, indent);
-  }
+  generate: async ({ formatOptions: { json } = {}, codepoints }) =>
+    JSON.stringify(codepoints, null, json?.indent)
 };
 
 export default generator;

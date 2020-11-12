@@ -1,20 +1,52 @@
 import Handlebars from 'handlebars';
-import { resolve, join } from 'path';
 import { readFile } from './fs-async';
 
-export type CompileOptions = {
-  helpers?: { [key: string]: (...args: any[]) => string };
+type BuiltinHelperName =
+  | 'helperMissing'
+  | 'blockHelperMissing'
+  | 'each'
+  | 'if'
+  | 'unless'
+  | 'with'
+  | 'log'
+  | 'lookup';
+
+type CustomHelperName = string;
+
+type KnownHelpers = {
+  [name in BuiltinHelperName | CustomHelperName]: boolean;
 };
 
-const TEMPLATES_PATH = resolve(__dirname, '../../templates');
+export interface CompileOptions {
+  data?: boolean;
+  compat?: boolean;
+  knownHelpers?: KnownHelpers;
+  knownHelpersOnly?: boolean;
+  noEscape?: boolean;
+  strict?: boolean;
+  assumeObjects?: boolean;
+  preventIndent?: boolean;
+  ignoreStandalone?: boolean;
+  explicitPartialContext?: boolean;
+  helpers?: {
+    contentSelector?: (key: string) => string;
+    codepoint?: (hexNumber: number) => string;
+    foo?: () => string;
+  };
+}
 
-export const renderTemplate = async (
-  filename: string,
-  context: object,
-  options?: CompileOptions
-) => {
-  const filepath = join(TEMPLATES_PATH, filename);
-  const template = await readFile(filepath, 'utf8');
-
-  return Handlebars.compile(template)(context, options);
+export const renderTemplate = async ({
+  path,
+  context: { selector, tag, ...context },
+  compilerOptions
+}: {
+  path: string;
+  context: Record<string, any>;
+  compilerOptions?: CompileOptions;
+}) => {
+  const template = await readFile(path, 'utf8');
+  return Handlebars.compile(template)(
+    { baseName: selector || tag, selector, tag, ...context },
+    compilerOptions
+  );
 };

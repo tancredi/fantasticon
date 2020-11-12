@@ -23,6 +23,7 @@ const CONFIG_VALIDATORS: {
   formatOptions: [],
   pathOptions: [],
   codepoints: [],
+  customTemplate: [],
   fontHeight: [optional(parseNumeric)],
   descent: [optional(parseNumeric)],
   normalize: [optional(parseBoolean)],

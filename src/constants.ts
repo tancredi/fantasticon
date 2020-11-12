@@ -1,3 +1,4 @@
+import { resolve, join } from 'path';
 import { RunnerOptionalOptions } from './types/runner';
 import { FontAssetType, OtherAssetType } from './types/misc';
 
@@ -24,3 +25,11 @@ export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
 };
 
 export const DEFAULT_START_CODEPOINT = 0xf101;
+
+export const TEMPLATES_PATH = resolve(__dirname, '../templates');
+
+export const TEMPLATE_PATHS = {
+  css: join(TEMPLATES_PATH, 'css.hbs'),
+  scss: join(TEMPLATES_PATH, 'scss.hbs'),
+  html: join(TEMPLATES_PATH, 'html.hbs')
+};

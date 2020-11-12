@@ -33,7 +33,6 @@ export const generateAssets = async (
   for (const type of generateTypes) {
     await generateAsset(type);
   }
-
   return generateTypes.reduce(
     (out, type: AssetType) => ({ ...out, [type]: generated[type] }),
     {}

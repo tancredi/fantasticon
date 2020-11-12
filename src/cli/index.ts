@@ -88,12 +88,6 @@ const config = () => {
     )
 
     .option(
-      '-h, --font-height <value>',
-      'the output font height (icons will be scaled so the highest has this height)' +
-        printDefaultOption('fontHeight')
-    )
-
-    .option(
       '--descent <value>',
       'the font descent' + printDefaultOption('descent' as any)
     )
@@ -122,6 +116,27 @@ const config = () => {
       'public url to the fonts directory (used in the generated CSS)'
     )
 
+    .option(
+      '-h, --font-height <value>',
+      'the output font height (icons will be scaled so the highest has this height)' +
+        printDefaultOption('fontHeight')
+    )
+
+    .option(
+      '--custom-template-css <value>',
+      'use your own handlebar template intead of the default one'
+    )
+
+    .option(
+      '--custom-template-scss <value>',
+      'use your own handlebar template intead of the default one'
+    )
+
+    .option(
+      '--custom-template-html <value>',
+      'use your own handlebar template intead of the default one'
+    )
+
     .option('--debug', 'display errors stack trace' + printDefaultValue(false))
 
     .option('--silent', 'run with no logs' + printDefaultValue(false));
@@ -130,6 +145,11 @@ const config = () => {
 const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
   const [inputDir] = cmd.args;
   const opts = cmd.opts();
+  const {
+    customTemplateCss: css,
+    customTemplateScss: scss,
+    customTemplateHtml: html
+  } = opts;
 
   return {
     ...loadedConfig,
@@ -140,6 +160,7 @@ const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
       fontTypes: opts.fontTypes,
       assetTypes: opts.assetTypes,
       fontHeight: opts.fontHeight,
+      customTemplate: { css, scss, html },
       descent: opts.descent,
       normalize: opts.normalize,
       round: opts.round,

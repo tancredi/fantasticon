@@ -16,7 +16,7 @@ describe('Template utilities', () => {
   });
 
   test('`renderTemplate` correctly reads the expected template content from the filesystem and passes it to `Handlebars.compile`', async () => {
-    const filename = 'my-template.hbs';
+    const path = '/root/project/templates/my-template.hbs';
     const template = '::template::';
     const templateOut = '::rendered::';
     const templateFn = jest.fn(() => templateOut);
@@ -26,7 +26,9 @@ describe('Template utilities', () => {
     readFileMock.mockImplementation(async () => template);
     hbsCompileMock.mockImplementation(() => templateFn);
 
-    expect(await renderTemplate(filename, context, options)).toBe(templateOut);
+    expect(
+      await renderTemplate({ path, context, compilerOptions: options })
+    ).toBe(templateOut);
 
     expect(readFileMock).toHaveBeenCalledTimes(1);
     expect(readFileMock).toHaveBeenCalledWith(

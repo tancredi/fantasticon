@@ -11,17 +11,17 @@ const generator: FontGenerator<Buffer> = {
   generate: (
     { customTemplate, selector, tag, prefix, ...options },
     svg: Buffer
-  ) => {
-    const fontSrc = renderSrcAttribute(options, svg);
-    return renderTemplate({
-      path: customTemplate?.css || TEMPLATE_PATHS.css,
+  ) =>
+    renderTemplate({
+      path: customTemplate?.scss || TEMPLATE_PATHS.scss,
       context: {
-        fontSrc,
+        fontSrc: renderSrcAttribute({ ...options }, svg),
         ...buildMainSelector({
           name: options.name,
           selector,
           tag,
-          prefix
+          prefix,
+          scss: true
         }),
         ...options
       },
@@ -29,11 +29,11 @@ const generator: FontGenerator<Buffer> = {
         helpers: buildHelpers({
           selector,
           tag,
-          prefix
+          prefix,
+          scss: true
         })
       }
-    });
-  }
+    })
 };
 
 export default generator;

@@ -4,7 +4,6 @@ import { RunnerOptions } from './runner';
 
 export type FontGeneratorOptions = RunnerOptions & {
   assets: AssetsMap;
-  formatOptions: { [key in AssetType]: any };
 };
 
 export type Result = Promise<string | Buffer>;

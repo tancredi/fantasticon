@@ -1,0 +1,166 @@
+//// Generated scss for the font "{{ name }}"
+//
+// All variables are prefixed with the kebab-case-version of "{{ name }}".
+// In this case that would be "{{ nameKebab }}".
+
+// Optionally disable the css classes to be written
+//
+// This would allow you to just use the mixins and variables generated within
+// your SCSS where needed, instead of generating the whole load of css definitions.
+//
+// By default the classes are rendered.
+// You need to specifically overwrite this default value to achieve this:
+//
+// ${{ nameKebab }}-render-classes: false;
+//
+${{ nameKebab }}-render-classes: true !default;
+
+// Optionally disable the @font-face declaration to be rendered
+//
+// This would allow you to use the mixin "{{ nameKebab }}-font-face" where
+// you prefer, instead of at the bottom of this file.
+//
+// By default the @font-face declaration is rendered.
+// You need to specifically overwrite this default value to achieve this:
+//
+// ${{ nameKebab }}-render-font-face: false;
+//
+${{ nameKebab }}-render-font-face: true !default;
+
+${{ nameKebab }}-name: '{{ name }}';
+${{ nameKebab }}-selector: '{{ selector }}';
+${{ nameKebab }}-tag: '{{ tag }}';
+${{ nameKebab }}-start-selector: '{{ startSelector }}';
+${{ nameKebab }}-prefix: '{{ prefix }}';
+
+@function font-srcs-for-types(
+  $types: ${{ nameKebab }}-types,
+  $path: '{{ fontsUrl }}',
+  $filename: '{{ name }}'
+) {
+  $srcs: '';
+  @each $format in $types {
+    $srcs: "#{$srcs}url('#{$path}/#{$filename}.#{$format}') format('#{$format}')";
+    @if index($types, $format) < length($types) {
+      $srcs: "#{$srcs}, ";
+    }
+  }
+  @return $srcs;
+}
+
+@mixin {{ nameKebab }}-font-face(
+  $path: '{{ fontsUrl }}',
+  $family: '{{ name }}',
+  $types: ${{ nameKebab }}-types,
+  $filename: '{{ name }}',
+  $weight: normal,
+  $style: normal,
+  $display: swap
+) {
+  @font-face {
+    font-weight: $weight;
+    font-family: $family;
+    font-style: $style;
+    src: #{font-srcs-for-types($path: $path, $types: $types, $filename: $filename)};
+    font-display: $display;
+  }
+}
+
+@mixin codepoint-content($codeid: '', $codepoints: ${{ nameKebab }}-codepoints) {
+  content: '#{map-get($codepoints, $codeid)}';
+}
+
+// Allows making any css declaration do an icon
+@mixin {{ nameKebab }}-before(
+  $codeid: '',
+  $size: '',
+  $codepoints: ${{ nameKebab }}-codepoints
+) {
+  @if $size != '' {
+    font-size: $size;
+  }
+  &::before {
+    font-family: {{ name }} !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @if $size != '' {
+      font-size: $size;
+    }
+    @if $codeid != '' {
+      @include codepoint-content($codeid: $codeid, $codepoints: $codepoints);
+    }
+  }
+}
+
+@mixin {{ nameKebab }}-classes(
+  $tagorselector: ${{ nameKebab }}-start-selector,
+  $selector: ${{ nameKebab }}-selector,
+  $prefix: ${{ nameKebab }}-prefix,
+  $codepoints: ${{ nameKebab }}-codepoints
+) {
+  #{$tagorselector} {
+    @if $selector == '' {
+      &[class^='#{$prefix}'],
+      &[class*=' #{$prefix}'] {
+        @include {{ nameKebab }}-before;
+      }
+    } @else {
+      @include {{ nameKebab }}-before;
+    }
+
+    @each $codeid, $codepoint in $codepoints {
+      &#{$prefix} {
+        &-#{$codeid}::before {
+          @include codepoint-content($codeid: $codeid, $codepoints: $codepoints);
+        }
+      }
+    }
+  }
+}
+
+// Font types generated
+${{ nameKebab }}-types: (
+{{#each fontTypes}}
+  {{ this }},
+{{/each}}
+);
+// Codepoints with key map
+${{ nameKebab }}-codepoints: (
+{{#each codepoints}}
+  '{{ @key }}': '{{ codepoint this }}',
+{{/each}}
+);
+
+// Render the css. Until here nothing would go out to the browser without you
+// setting it so. By default both, @font-face and the classes are rendered.
+// See the docu at the start of this file.
+
+@if ${{ nameKebab }}-render-font-face {
+  @include {{ nameKebab }}-font-face(
+    $path: '{{ fontsUrl }}',
+    $family: '{{ name }}',
+    $types: ${{ nameKebab }}-types,
+    $filename: '{{ name }}',
+    $weight: normal,
+    $style: normal,
+    $display: swap
+  );
+  // prevent font-face from being rendered for every other import statement
+  ${{ nameKebab }}-render-font-face: false;
+}
+
+@if ${{ nameKebab }}-render-classes {
+  @include {{ nameKebab }}-classes(
+    $tagorselector: ${{ nameKebab }}-start-selector,
+    $selector: ${{ nameKebab }}-selector,
+    $prefix: ${{ nameKebab }}-prefix,
+    $codepoints: ${{ nameKebab }}-codepoints
+  );
+  // prevent classes from being rendered for every other import statement
+  ${{ nameKebab }}-render-classes: false;
+}
