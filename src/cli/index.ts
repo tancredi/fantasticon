@@ -121,6 +121,22 @@ const config = () => {
       '-u, --fonts-url <value>',
       'public url to the fonts directory (used in the generated CSS)'
     )
+    .option(
+      '--css-template <value>',
+      'use your own custom handlebars template for the CSS file generation'
+    )
+    .option(
+      '--html-template <value>',
+      'use your own custom handlebars template for the HTML file generation'
+    )
+    .option(
+      '--sass-template <value>',
+      'use your own custom handlebars template for the SASS file generation'
+    )
+    .option(
+      '--scss-template <value>',
+      'use your own custom handlebars template for the SCSS file generation'
+    )
 
     .option('--debug', 'display errors stack trace' + printDefaultValue(false))
 
@@ -145,7 +161,13 @@ const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
       round: opts.round,
       selector: opts.selector,
       tag: opts.tag,
-      fontsUrl: opts.fontsUrl
+      fontsUrl: opts.fontsUrl,
+      templates: {
+        css: opts.cssTemplate,
+        html: opts.htmlTemplate,
+        sass: opts.sassTemplate,
+        scss: opts.scssTemplate,
+      }
     })
   };
 };

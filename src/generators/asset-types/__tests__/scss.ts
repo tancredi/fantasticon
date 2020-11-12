@@ -5,7 +5,7 @@ import { resolve } from 'path';
 const renderSrcMock = (renderSrcAttribute as any) as jest.Mock;
 
 const mockOptions = {
-  name: 'test-font',
+  name: 'test',
   prefix: 'tf',
   tag: 'b',
   codepoints: { 'my-icon': 0xf101 },
@@ -59,8 +59,8 @@ describe('`SCSS` asset generator', () => {
   test('renders expected variables', async () => {
     const scss = await scssGen.generate(mockOptions, Buffer.from(''));
 
-    expect(scss).toContain('$tf-test-font-font-family:');
-    expect(scss).toContain('$tf-my-icon:');
+    expect(scss).toContain('$test-font:');
+    expect(scss).toContain('$test-map:');
   });
 
   test('renders expected selector blocks with `selector` option', async () => {
