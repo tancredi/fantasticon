@@ -1,30 +1,130 @@
-import { FontGenerator } from '../../types/generator';
 import { pascalCase, constantCase } from 'change-case';
+import { FontGenerator } from '../../types/generator';
+
+const generateEnumKeys = (assetKeys: string[]): Record<string, string> =>
+  assetKeys
+    .map(name => {
+      const enumName = pascalCase(name);
+      const prefix = enumName.match(/^\d/) ? 'i' : '';
+
+      return {
+        [name]: `${prefix}${enumName}`
+      };
+    })
+    .reduce((prev, curr) => Object.assign(prev, curr), {});
+
+const generateEnums = (
+  enumName: string,
+  enumKeys: { [eKey: string]: string },
+  quote = '"'
+): string =>
+  [
+    `export enum ${enumName} {`,
+    ...Object.entries(enumKeys).map(
+      ([enumValue, enumKey]) => `  ${enumKey} = ${quote}${enumValue}${quote},`
+    ),
+    '}\n'
+  ].join('\n');
+
+const generateConstant = ({
+  codepointsName,
+  enumName,
+  literalIdName,
+  literalKeyName,
+  enumKeys,
+  codepoints,
+  quote = '"',
+  kind = {}
+}: {
+  codepointsName: string;
+  enumName: string;
+  literalIdName: string;
+  literalKeyName: string;
+  enumKeys: { [eKey: string]: string };
+  codepoints: Record<string, number>;
+  quote?: '"' | "'";
+  kind: Record<string, boolean>;
+}): string => {
+  let varType = ': Record<string, string>';
+
+  if (kind.enum) {
+    varType = `: { [key in ${enumName}]: string }`;
+  } else if (kind.literalId) {
+    varType = `: { [key in ${literalIdName}]: string }`;
+  } else if (kind.literalKey) {
+    varType = `: { [key in ${literalKeyName}]: string }`;
+  }
+
+  return [
+    `export const ${codepointsName}${varType} = {`,
+    Object.entries(enumKeys)
+      .map(([enumValue, enumKey]) => {
+        const key = kind.enum
+          ? `[${enumName}.${enumKey}]`
+          : `${quote}${enumValue}${quote}`;
+        return `  ${key}: ${quote}${codepoints[enumValue]}${quote},`;
+      })
+      .join('\n'),
+    '};\n'
+  ].join('\n');
+};
+
+const generateStringLiterals = (
+  typeName: string,
+  literals: string[],
+  quote = '"'
+): string =>
+  [
+    `export type ${typeName} =`,
+    `${literals.map(key => `  | ${quote}${key}${quote}`).join('\n')};\n`
+  ].join('\n');
 
 const generator: FontGenerator = {
-  generate: async ({ name, codepoints, assets }) => {
+  generate: async ({
+    name,
+    codepoints,
+    assets,
+    formatOptions: { ts } = {}
+  }) => {
+    const quote = Boolean(ts?.singleQuotes) ? "'" : '"';
+    const generateKind: Record<string, boolean> = (Boolean(ts?.types?.length)
+      ? ts.types
+      : ['enum', 'constant', 'literalId', 'literalKey']
+    )
+      .map(kind => ({ [kind]: true }))
+      .reduce((prev, curr) => Object.assign(prev, curr), {});
+
     const enumName = pascalCase(name);
     const codepointsName = `${constantCase(name)}_CODEPOINTS`;
-    const typeName = `${pascalCase(name)}Id`;
+    const literalIdName = `${pascalCase(name)}Id`;
+    const literalKeyName = `${pascalCase(name)}Key`;
+    const names = { enumName, codepointsName, literalIdName, literalKeyName };
 
-    return [
-      `export enum ${enumName} {`,
-      ...Object.keys(assets).map(key => `  ${pascalCase(key)} = "${key}",`),
-      '}\n',
+    const enumKeys = generateEnumKeys(Object.keys(assets));
 
-      `export const ${codepointsName}: { [key in ${enumName}]: string } = {`,
-      ...Object.keys(assets).map(
-        key => `  [${enumName}.${pascalCase(key)}]: "${codepoints[key]}",`
-      ),
-      '};\n',
+    const stringLiteralId = generateKind.literalId
+      ? generateStringLiterals(literalIdName, Object.keys(enumKeys), quote)
+      : null;
+    const stringLiteralKey = generateKind.literalKey
+      ? generateStringLiterals(literalKeyName, Object.values(enumKeys), quote)
+      : null;
 
-      `export type ${typeName} =`,
-      Object.keys(assets)
-        .map(key => `  | "${key}"`)
-        .join('\n') + ';',
+    const enums = generateKind.enum
+      ? generateEnums(enumName, enumKeys, quote)
+      : null;
+    const constant = generateKind.constant
+      ? generateConstant({
+          ...names,
+          enumKeys,
+          codepoints,
+          quote,
+          kind: generateKind
+        })
+      : null;
 
-      ''
-    ].join('\n');
+    return [stringLiteralId, stringLiteralKey, enums, constant]
+      .filter(Boolean)
+      .join('\n');
   }
 };
 

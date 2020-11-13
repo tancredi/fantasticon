@@ -31,7 +31,7 @@ const mockConfig = {
     css: 'css',
     sass: 'sass',
     scss: 'scss',
-    html: 'html',
+    html: 'html'
   }
 };
 

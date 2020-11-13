@@ -3,7 +3,10 @@ import { checkPath } from '../utils/fs-async';
 export const parseNumeric = (value: string) => {
   const out = Number(value);
 
-  if (Number.isNaN(out)) {
+  if (
+    (typeof value !== 'number' && typeof value !== 'string') ||
+    Number.isNaN(out)
+  ) {
     throw new Error(`${value} is not a valid number`);
   }
 
