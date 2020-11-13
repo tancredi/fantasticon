@@ -23,6 +23,8 @@ export interface FormatOptions {
     | 'log'
   >;
   css?: any;
+  sass?: any;
+  scss?: any;
   html?: any;
   json?: {
     indent?: number;
