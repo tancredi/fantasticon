@@ -28,8 +28,10 @@ fantasticon my-icons -o icon-dist
 
 ### Command-line
 
+**Note:** Not all options can be specified through the command line - for `formatOptions`, `pathOptions` and `templates` use a [configuration file](#configuration-file) or the javaScript API.
+
 ```bash
-Usage: fantasticon [options] [inputDir]
+Usage: fantasticon [options] [input-dir]
 
 Options:
   -V, --version                output the version number
@@ -37,7 +39,7 @@ Options:
   -o, --output <value>         specify output directory
   -n, --name <value>           base name of the font set used both as default asset name and classname prefix (default: icons)
   -t, --font-types <value...>  specify font formats to generate (default: eot, woff2, woff, available: eot, woff2, woff, ttf, svg)
-  -g --asset-types <value...>  specify other asset types to generate (default: css, html, json, ts, available: css, html, json, ts)
+  -g --asset-types <value...>  specify other asset types to generate (default: css, html, json, ts, available: css, scss, sass, html, json, ts)
   -h, --font-height <value>    the output font height (icons will be scaled so the highest has this height) (default: 300)
   --descent <value>            the font descent
   --normalize [bool]           normalize icons by scaling them to the height of the highest icon
