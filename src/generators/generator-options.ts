@@ -18,7 +18,9 @@ export const getGeneratorOptions = (
     assetType => DEFAULT_OPTIONS.formatOptions[assetType] || {}
   ),
   templates: prefillOptions<AssetType, string>(
-    Object.values(OtherAssetType),
+    Object.values(OtherAssetType).filter(assetType =>
+      ['css', 'html', 'sass', 'scss'].includes(assetType)
+    ),
     options.templates,
     assetType => resolve(__dirname, `../../templates/${assetType}.hbs`)
   ),
