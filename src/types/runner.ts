@@ -19,6 +19,7 @@ export type RunnerOptionalOptions = {
   round: boolean;
   selector: string;
   tag: string;
+  templates?: { [key in AssetType]?: string };
   prefix: string;
   fontsUrl: string;
 };

@@ -1,20 +1,26 @@
 import Handlebars from 'handlebars';
-import { resolve, join } from 'path';
+import { resolve, isAbsolute } from 'path';
+import { AssetType } from '../types/misc';
 import { readFile } from './fs-async';
+
+const TEMPLATES_PATH = '../../templates';
 
 export type CompileOptions = {
   helpers?: { [key: string]: (...args: any[]) => string };
 };
 
-const TEMPLATES_PATH = resolve(__dirname, '../../templates');
-
 export const renderTemplate = async (
-  filename: string,
+  templatePath: string,
   context: object,
   options?: CompileOptions
 ) => {
-  const filepath = join(TEMPLATES_PATH, filename);
-  const template = await readFile(filepath, 'utf8');
+  const absoluteTemplatePath = isAbsolute(templatePath)
+    ? templatePath
+    : resolve(process.cwd(), templatePath);
+  const template = await readFile(absoluteTemplatePath, 'utf8');
 
   return Handlebars.compile(template)(context, options);
 };
+
+export const getDefaultTemplatePath = (assetType: AssetType) =>
+  resolve(__dirname, TEMPLATES_PATH, `${assetType}.hbs`);

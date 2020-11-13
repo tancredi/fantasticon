@@ -2,7 +2,8 @@ import { DEFAULT_OPTIONS } from '../constants';
 import { RunnerOptions } from '../types/runner';
 import { getCodepoints } from '../utils/codepoints';
 import { FontGeneratorOptions } from '../types/generator';
-import { AssetType, ASSET_TYPES } from '../types/misc';
+import { AssetType, OtherAssetType, ASSET_TYPES } from '../types/misc';
+import { getDefaultTemplatePath } from '../utils/template';
 import { AssetsMap } from '../utils/assets';
 
 export const getGeneratorOptions = (
@@ -11,21 +12,35 @@ export const getGeneratorOptions = (
 ): FontGeneratorOptions => ({
   ...options,
   codepoints: getCodepoints(assets, options.codepoints),
-  formatOptions: prefillOptions(
+  formatOptions: prefillOptions<AssetType, {}>(
+    Object.values(ASSET_TYPES),
     options.formatOptions,
-    DEFAULT_OPTIONS.formatOptions
+    assetType => DEFAULT_OPTIONS.formatOptions[assetType] || {}
+  ),
+  templates: prefillOptions<AssetType, string>(
+    Object.values(OtherAssetType),
+    options.templates,
+    assetType => getDefaultTemplatePath(assetType)
   ),
   assets
 });
-
-export const prefillOptions = (
-  userOptions: { [key in AssetType]?: object } = {},
-  defaults: { [key in AssetType]?: object }
+export const prefillOptions = <K extends AssetType, T>(
+  keys: K[],
+  userOptions: { [key in K]?: T } = {},
+  getDefault: (type: K) => T
 ) =>
-  Object.values(ASSET_TYPES).reduce(
-    (cur = {}, type: AssetType) => ({
+  keys.reduce(
+    (cur = {}, type: K) => ({
       ...cur,
-      [type]: { ...(defaults[type] || {}), ...(userOptions[type] || {}) }
+      [type]: merge(userOptions[type], getDefault(type))
     }),
     {}
-  ) as { [key in AssetType]: {} };
+  ) as { [key in K]: T };
+
+export const merge = <T>(input: T, defaultVal: T) => {
+  if (typeof defaultVal === 'object') {
+    return { ...defaultVal, ...input };
+  }
+
+  return input || defaultVal;
+};
