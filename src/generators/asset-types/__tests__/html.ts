@@ -1,10 +1,14 @@
 import htmlGen from '../html';
+import { resolve } from 'path';
 
 const mockOptions = {
   name: 'test-font',
   prefix: 'tf',
   tag: 'b',
-  assets: { 'my-icon': null }
+  assets: { 'my-icon': null },
+  templates: {
+    html: resolve(__dirname, '../../../../templates/html.hbs')
+  }
 } as any;
 
 describe('`HTML` asset generator', () => {

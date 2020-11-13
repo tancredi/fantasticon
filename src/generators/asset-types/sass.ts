@@ -8,7 +8,7 @@ const generator: FontGenerator<Buffer> = {
 
   generate: (options, svg: Buffer) =>
     renderTemplate(
-      options.templates.css,
+      options.templates.sass,
       { ...options, fontSrc: renderSrcAttribute(options, svg) },
       { helpers: { codepoint: str => str.toString(16) } }
     )

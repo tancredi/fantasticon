@@ -1,9 +1,11 @@
 import { AssetsMap } from '../utils/assets';
 import { AssetType } from './misc';
-import { RunnerOptions } from './runner';
+import { RunnerOptions, FormatOptions } from './runner';
 
 export type FontGeneratorOptions = RunnerOptions & {
   assets: AssetsMap;
+  formatOptions: FormatOptions;
+  templates: { [key in AssetType]: string };
 };
 
 export type Result = Promise<string | Buffer>;

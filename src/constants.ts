@@ -12,6 +12,7 @@ export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   ],
   formatOptions: { json: { indent: 4 } },
   pathOptions: {},
+  templates: {},
   codepoints: {},
   round: undefined,
   fontHeight: 300,

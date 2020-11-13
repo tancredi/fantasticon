@@ -5,8 +5,8 @@ const generateEnumKeys = (assetKeys: string[]): Record<string, string> =>
   assetKeys
     .map(name => {
       const enumName = pascalCase(name);
-      // Typescript does not
       const prefix = enumName.match(/^\d/) ? 'i' : '';
+
       return {
         [name]: `${prefix}${enumName}`
       };
@@ -17,15 +17,14 @@ const generateEnums = (
   enumName: string,
   enumKeys: { [eKey: string]: string },
   quote = '"'
-): string => {
-  return [
+): string =>
+  [
     `export enum ${enumName} {`,
     ...Object.entries(enumKeys).map(
       ([enumValue, enumKey]) => `  ${enumKey} = ${quote}${enumValue}${quote},`
     ),
     '}\n'
   ].join('\n');
-};
 
 const generateConstant = ({
   codepointsName,
@@ -47,6 +46,7 @@ const generateConstant = ({
   kind: Record<string, boolean>;
 }): string => {
   let varType = ': Record<string, string>';
+
   if (kind.enum) {
     varType = `: { [key in ${enumName}]: string }`;
   } else if (kind.literalId) {
@@ -54,6 +54,7 @@ const generateConstant = ({
   } else if (kind.literalKey) {
     varType = `: { [key in ${literalKeyName}]: string }`;
   }
+
   return [
     `export const ${codepointsName}${varType} = {`,
     Object.entries(enumKeys)
@@ -86,7 +87,6 @@ const generator: FontGenerator = {
     formatOptions: { ts } = {}
   }) => {
     const quote = Boolean(ts?.singleQuotes) ? "'" : '"';
-    // which types to generate
     const generateKind: Record<string, boolean> = (Boolean(ts?.types?.length)
       ? ts.types
       : ['enum', 'constant', 'literalId', 'literalKey']
@@ -123,7 +123,7 @@ const generator: FontGenerator = {
       : null;
 
     return [stringLiteralId, stringLiteralKey, enums, constant]
-      .filter(Boolean) // vanilla
+      .filter(Boolean)
       .join('\n');
   }
 };

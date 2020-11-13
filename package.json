@@ -1,6 +1,6 @@
 {
   "name": "fantasticon",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "main": "lib/index.js",
   "bin": {
     "fantasticon": "bin/fantasticon"
@@ -11,6 +11,11 @@
     "build": "rm -rf lib && tsc --project ./tsconfig.json",
     "watch": "tsc --project ./tsconfig.json --watch"
   },
+  "files": [
+    "bin",
+    "lib",
+    "templates"
+  ],
   "prepublish": "build",
   "dependencies": {
     "change-case": "^4.1.1",
