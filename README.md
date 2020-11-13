@@ -23,7 +23,7 @@ npm install -g fantasticon
 ### Quick usage
 
 ```
-fantasticon my-icons/*.svg -o icon-dist
+fantasticon my-icons -o icon-dist
 ```
 
 ### Command-line
@@ -111,7 +111,8 @@ generateFonts({
     OtherAssetType.JSON,
     OtherAssetType.TS
   ],
-  formatOptions: {},
+  formatOptions: { json: { indent: 2 } },
+  templates: { css: './my-custom-handlebars-template.css.hbs' },
   pathOptions: {},
   codepoints: {},
   fontHeight: 300,
