@@ -22,6 +22,7 @@ const CONFIG_VALIDATORS: {
   assetTypes: [listMembersParser(Object.values(OtherAssetType))],
   formatOptions: [],
   pathOptions: [],
+  templates: [],
   codepoints: [],
   fontHeight: [optional(parseNumeric)],
   descent: [optional(parseNumeric)],
@@ -29,7 +30,6 @@ const CONFIG_VALIDATORS: {
   round: [optional(parseNumeric)],
   selector: [nullable(parseString)],
   tag: [parseString],
-  templates: [],
   prefix: [parseString],
   fontsUrl: [optional(parseString)]
 };

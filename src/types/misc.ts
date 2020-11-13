@@ -21,10 +21,3 @@ export const ASSET_TYPES = {
 };
 
 export type AssetType = FontAssetType | OtherAssetType;
-
-// Asset types which support a custom template
-export type AssetWithTemplateType =
-  | OtherAssetType.CSS
-  | OtherAssetType.SASS
-  | OtherAssetType.SCSS
-  | OtherAssetType.HTML;

@@ -1,9 +1,5 @@
-import { resolve } from 'path';
 import { RunnerOptionalOptions } from './types/runner';
 import { FontAssetType, OtherAssetType } from './types/misc';
-
-const defaultTemplatePath = (file: string) =>
-  resolve(__dirname, `../templates/${file}.hbs`);
 
 export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   name: 'icons',
@@ -16,6 +12,7 @@ export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   ],
   formatOptions: { json: { indent: 4 } },
   pathOptions: {},
+  templates: {},
   codepoints: {},
   round: undefined,
   fontHeight: 300,
@@ -24,13 +21,7 @@ export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   selector: null,
   tag: 'i',
   prefix: 'icon',
-  fontsUrl: undefined,
-  templates: {
-    css: defaultTemplatePath('css'),
-    scss: defaultTemplatePath('scss'),
-    sass: defaultTemplatePath('sass'),
-    html: defaultTemplatePath('html')
-  }
+  fontsUrl: undefined
 };
 
 export const DEFAULT_START_CODEPOINT = 0xf101;

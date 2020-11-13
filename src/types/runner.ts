@@ -1,10 +1,5 @@
 import { CodepointsMap } from '../utils/codepoints';
-import {
-  FontAssetType,
-  OtherAssetType,
-  AssetType,
-  AssetWithTemplateType
-} from './misc';
+import { FontAssetType, OtherAssetType, AssetType } from './misc';
 
 export interface RunnerMandatoryOptions {
   inputDir: string;
@@ -24,7 +19,7 @@ export type RunnerOptionalOptions = {
   round: boolean;
   selector: string;
   tag: string;
-  templates?: { [key in AssetWithTemplateType]?: string };
+  templates?: { [key in AssetType]?: string };
   prefix: string;
   fontsUrl: string;
 };

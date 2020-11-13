@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import { renderTemplate } from '../template';
+import { renderTemplate, getDefaultTemplatePath } from '../template';
 import { readFile } from '../fs-async';
 
 const readFileMock = (readFile as any) as jest.Mock;
@@ -7,13 +7,7 @@ const hbsCompileMock = (Handlebars.compile as any) as jest.Mock;
 
 jest.mock('../fs-async', () => ({ readFile: jest.fn() }));
 jest.mock('handlebars', () => ({ compile: jest.fn() }));
-jest.mock('path', () => ({
-  ...jest.requireActual("path"),
-  isAbsolute: () => false,
-  resolve: () => '/root/project/my-template.hbs'
-}));
-
-
+jest.mock('path');
 
 describe('Template utilities', () => {
   beforeEach(() => {
@@ -45,5 +39,14 @@ describe('Template utilities', () => {
 
     expect(templateFn).toHaveBeenCalledTimes(1);
     expect(templateFn).toHaveBeenCalledWith(context, options);
+  });
+
+  test('`getDefaultTemplatePath` generates expected path', () => {
+    expect(getDefaultTemplatePath('foo' as any)).toBe(
+      '/root/project/templates/foo.hbs'
+    );
+    expect(getDefaultTemplatePath('bar' as any)).toBe(
+      '/root/project/templates/bar.hbs'
+    );
   });
 });

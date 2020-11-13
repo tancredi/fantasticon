@@ -52,4 +52,6 @@ const join = (...segments: string[]): string => {
 
 const normalise = (path: string) => path.replace(/\\/g, '/');
 
-module.exports = { resolve, relative, join };
+const isAbsolute = (path: string) => startsWith(path, '/root');
+
+module.exports = { resolve, relative, join, isAbsolute };
