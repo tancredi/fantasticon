@@ -2,21 +2,13 @@ import { prefillOptions, getGeneratorOptions } from '../generator-options';
 import { AssetsMap } from '../../utils/assets';
 import { ASSET_TYPES, OtherAssetType } from '../../types/misc';
 import { getCodepoints } from '../../utils/codepoints';
-import { getDefaultTemplatePath } from '../../utils/template';
 
 const getCodepointsMock = (getCodepoints as any) as jest.Mock;
-const getDefaultTemplatePathMock = (getDefaultTemplatePath as any) as jest.Mock;
 
 jest.mock('../../types/misc', () => ({
   FontAssetType: { TTF: 'TTF', EOT: 'eot' },
   OtherAssetType: { CSS: 'css', HTML: 'html' },
   ASSET_TYPES: { ttf: 'ttf', eot: 'eot', css: 'css', html: 'html' }
-}));
-
-jest.mock('../../utils/template', () => ({
-  getDefaultTemplatePath: jest.fn(
-    assetType => `/default-template-${assetType}.hbs`
-  )
 }));
 
 jest.mock('../../utils/codepoints', () => ({
@@ -26,7 +18,6 @@ jest.mock('../../utils/codepoints', () => ({
 describe('Font generator options', () => {
   beforeEach(() => {
     getCodepointsMock.mockClear();
-    getDefaultTemplatePathMock.mockClear();
   });
 
   test('`prefillOptions` correctly extends default values for each type and prefills missing ones', () => {
@@ -72,22 +63,21 @@ describe('Font generator options', () => {
     } as any;
     const assets = ({ __mock: 'runnerOptions__' } as unknown) as AssetsMap;
     const generatorOptions = getGeneratorOptions(options, assets);
-
-    expect(generatorOptions).toEqual({
-      ...options,
-      assets,
-      codepoints: { __mock: 'processed-codepoint__' },
-      formatOptions: {
-        ttf: {},
-        eot: { foo: 'bar' },
-        css: {},
-        html: {}
-      },
-      templates: {
-        css: '/default-template-css.hbs',
-        html: '/default-template-html.hbs'
-      }
-    });
+    expect(generatorOptions).toEqual(
+      expect.objectContaining({
+        ...options,
+        assets,
+        codepoints: { __mock: 'processed-codepoint__' },
+        formatOptions: {
+          ttf: {},
+          eot: { foo: 'bar' },
+          css: {},
+          html: {}
+        }
+      })
+    );
+    expect(generatorOptions.templates.css).toMatch(/\/templates\/css\.hbs$/);
+    expect(generatorOptions.templates.html).toMatch(/\/templates\/html\.hbs$/);
 
     expect(Object.keys(generatorOptions.formatOptions)).toHaveLength(
       Object.keys(ASSET_TYPES).length
@@ -113,9 +103,11 @@ describe('Font generator options', () => {
     const options = { templates: { html: 'user-template.hbs' } } as any;
     const assets = ({} as unknown) as AssetsMap;
 
-    expect(getGeneratorOptions(options, assets).templates).toEqual({
-      css: '/default-template-css.hbs',
-      html: 'user-template.hbs'
-    });
+    expect(getGeneratorOptions(options, assets).templates.css).toMatch(
+      /\/templates\/css\.hbs$/
+    );
+    expect(getGeneratorOptions(options, assets).templates.html).toEqual(
+      'user-template.hbs'
+    );
   });
 });

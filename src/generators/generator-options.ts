@@ -1,9 +1,9 @@
+import { resolve } from 'path';
 import { DEFAULT_OPTIONS } from '../constants';
 import { FormatOptions, RunnerOptions } from '../types/runner';
 import { getCodepoints } from '../utils/codepoints';
 import { FontGeneratorOptions } from '../types/generator';
 import { AssetType, OtherAssetType, ASSET_TYPES } from '../types/misc';
-import { getDefaultTemplatePath } from '../utils/template';
 import { AssetsMap } from '../utils/assets';
 
 export const getGeneratorOptions = (
@@ -20,10 +20,11 @@ export const getGeneratorOptions = (
   templates: prefillOptions<AssetType, string>(
     Object.values(OtherAssetType),
     options.templates,
-    assetType => getDefaultTemplatePath(assetType)
+    assetType => resolve(__dirname, `../../templates/${assetType}.hbs`)
   ),
   assets
 });
+
 export const prefillOptions = <K extends AssetType, T, O = { [key in K]: T }>(
   keys: K[],
   userOptions: { [key in K]?: T } = {},
