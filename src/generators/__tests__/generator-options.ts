@@ -1,14 +1,22 @@
 import { prefillOptions, getGeneratorOptions } from '../generator-options';
 import { AssetsMap } from '../../utils/assets';
-import { ASSET_TYPES, OtherAssetType } from '../../types/misc';
+import { ASSET_TYPES, ASSET_TYPES_WITH_TEMPLATE } from '../../types/misc';
 import { getCodepoints } from '../../utils/codepoints';
 
 const getCodepointsMock = (getCodepoints as any) as jest.Mock;
 
+jest.mock('path');
+
+jest.mock('../../constants', () => ({
+  ...jest.requireActual('../../constants'),
+  TEMPLATES_DIR: '/foo/templates-dir'
+}));
+
 jest.mock('../../types/misc', () => ({
   FontAssetType: { TTF: 'TTF', EOT: 'eot' },
   OtherAssetType: { CSS: 'css', HTML: 'html' },
-  ASSET_TYPES: { ttf: 'ttf', eot: 'eot', css: 'css', html: 'html' }
+  ASSET_TYPES: { ttf: 'ttf', eot: 'eot', css: 'css', html: 'html' },
+  ASSET_TYPES_WITH_TEMPLATE: ['html', 'css']
 }));
 
 jest.mock('../../utils/codepoints', () => ({
@@ -76,15 +84,19 @@ describe('Font generator options', () => {
         }
       })
     );
-    expect(generatorOptions.templates.css).toMatch(/\/templates\/css\.hbs$/);
-    expect(generatorOptions.templates.html).toMatch(/\/templates\/html\.hbs$/);
+    expect(generatorOptions.templates.css).toBe(
+      '/root/foo/templates-dir/css.hbs'
+    );
+    expect(generatorOptions.templates.html).toBe(
+      '/root/foo/templates-dir/html.hbs'
+    );
 
     expect(Object.keys(generatorOptions.formatOptions)).toHaveLength(
       Object.keys(ASSET_TYPES).length
     );
 
     expect(Object.keys(generatorOptions.templates)).toHaveLength(
-      Object.keys(OtherAssetType).length
+      ASSET_TYPES_WITH_TEMPLATE.length
     );
   });
 
@@ -104,7 +116,7 @@ describe('Font generator options', () => {
     const assets = ({} as unknown) as AssetsMap;
 
     expect(getGeneratorOptions(options, assets).templates.css).toMatch(
-      /\/templates\/css\.hbs$/
+      '/root/foo/templates-dir/css.hbs'
     );
     expect(getGeneratorOptions(options, assets).templates.html).toEqual(
       'user-template.hbs'
