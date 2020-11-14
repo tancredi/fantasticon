@@ -84,12 +84,8 @@ describe('Font generator options', () => {
         }
       })
     );
-    expect(generatorOptions.templates.css).toBe(
-      '/root/foo/templates-dir/css.hbs'
-    );
-    expect(generatorOptions.templates.html).toBe(
-      '/root/foo/templates-dir/html.hbs'
-    );
+    expect(generatorOptions.templates.css).toBe('/foo/templates-dir/css.hbs');
+    expect(generatorOptions.templates.html).toBe('/foo/templates-dir/html.hbs');
 
     expect(Object.keys(generatorOptions.formatOptions)).toHaveLength(
       Object.keys(ASSET_TYPES).length
@@ -116,7 +112,7 @@ describe('Font generator options', () => {
     const assets = ({} as unknown) as AssetsMap;
 
     expect(getGeneratorOptions(options, assets).templates.css).toMatch(
-      '/root/foo/templates-dir/css.hbs'
+      '/foo/templates-dir/css.hbs'
     );
     expect(getGeneratorOptions(options, assets).templates.html).toEqual(
       'user-template.hbs'

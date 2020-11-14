@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { join } from 'path';
 import { DEFAULT_OPTIONS, TEMPLATES_DIR } from '../constants';
 import { FormatOptions, RunnerOptions } from '../types/runner';
 import { getCodepoints } from '../utils/codepoints';
@@ -25,7 +25,7 @@ export const getGeneratorOptions = (
   templates: prefillOptions<OtherAssetType, string>(
     ASSET_TYPES_WITH_TEMPLATE,
     options.templates,
-    assetType => resolve(TEMPLATES_DIR, `${assetType}.hbs`)
+    assetType => join(TEMPLATES_DIR, `${assetType}.hbs`)
   ),
   assets
 });
