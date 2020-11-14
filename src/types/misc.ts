@@ -15,9 +15,13 @@ export enum OtherAssetType {
   TS = 'ts'
 }
 
-export const ASSET_TYPES = {
-  ...FontAssetType,
-  ...OtherAssetType
-};
+export const ASSET_TYPES_WITH_TEMPLATE = [
+  OtherAssetType.CSS,
+  OtherAssetType.HTML,
+  OtherAssetType.SCSS,
+  OtherAssetType.SASS
+];
+
+export const ASSET_TYPES = { ...FontAssetType, ...OtherAssetType };
 
 export type AssetType = FontAssetType | OtherAssetType;

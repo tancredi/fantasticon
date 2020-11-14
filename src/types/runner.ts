@@ -23,6 +23,8 @@ export interface FormatOptions {
     | 'log'
   >;
   css?: any;
+  sass?: any;
+  scss?: any;
   html?: any;
   json?: {
     indent?: number;
@@ -50,7 +52,7 @@ export type RunnerOptionalOptions = {
   round: number;
   selector: string;
   tag: string;
-  templates: { [key in AssetType]?: string };
+  templates: { [key in OtherAssetType]?: string };
   prefix: string;
   fontsUrl: string;
 };

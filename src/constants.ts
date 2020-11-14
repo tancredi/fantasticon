@@ -1,5 +1,8 @@
+import { resolve } from 'path';
 import { RunnerOptionalOptions } from './types/runner';
 import { FontAssetType, OtherAssetType } from './types/misc';
+
+export const TEMPLATES_DIR = resolve(__dirname, '../templates');
 
 export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
   name: 'icons',
