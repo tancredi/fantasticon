@@ -37,7 +37,7 @@ Options:
   -V, --version                output the version number
   -c, --config <value>         custom config path (default: .fantasticonrc | fantasticonrc | .fantasticonrc.json | fantasticonrc.json | .fantasticonrc.js | fantasticonrc.js)
   -o, --output <value>         specify output directory
-  -n, --name <value>           base name of the font set used both as default asset name and classname prefix (default: icons)
+  -n, --name <value>           base name of the font set used both as default asset name (default: icons)
   -t, --font-types <value...>  specify font formats to generate (default: eot, woff2, woff, available: eot, woff2, woff, ttf, svg)
   -g --asset-types <value...>  specify other asset types to generate (default: css, html, json, ts, available: css, scss, sass, html, json, ts)
   -h, --font-height <value>    the output font height (icons will be scaled so the highest has this height) (default: 300)
@@ -45,6 +45,7 @@ Options:
   --normalize <number>           normalize icons by scaling them to the height of the highest icon
   -r, --round [bool]           setup the SVG path rounding [10e12]
   --selector <value>           use a CSS selector instead of 'tag + prefix' (default: null)
+  -, --prefix <value>          Adjust the CSS prefix used (default: icon)
   --tag <value>                CSS base tag for icons (default: i)
   -u, --fonts-url <value>      public url to the fonts directory (used in the generated CSS)
   --debug                      display errors stack trace (default: false)
