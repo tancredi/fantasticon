@@ -58,6 +58,8 @@
     "@types/lodash": "^4.14.165",
     "@types/node": "^14.14.13",
     "jest": "^26.6.3",
+    "@types/svg2ttf": "^5.0.0",
+    "@types/ttf2woff2": "^2.0.0",
     "mock-fs": "^4.13.0",
     "prettier": "^2.2.1",
     "semantic-release": "^17.3.0",

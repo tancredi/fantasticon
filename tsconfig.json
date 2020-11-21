@@ -10,7 +10,7 @@
     "types": ["node", "jest"],
     "esModuleInterop": true
   },
-  "typeRoots": ["node_modules/@types"],
+  "typeRoots": ["node_modules/@types", "src/types/modules"],
   "exclude": ["node_modules", "lib"],
   "includes": ["src/**/*.ts"]
 }
