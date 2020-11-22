@@ -5,11 +5,8 @@ import { FontAssetType } from '../../types/misc';
 const generator: FontGenerator<Buffer> = {
   dependsOn: FontAssetType.TTF,
 
-  async generate({ formatOptions }, ttf) {
-    const font = ttf2woff2(
-      new Uint8Array(ttf),
-      formatOptions[FontAssetType.WOFF2]
-    );
+  async generate(_options, ttf) {
+    const font = ttf2woff2(ttf);
     return Buffer.from(font.buffer);
   }
 };
