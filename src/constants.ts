@@ -1,10 +1,10 @@
 import { resolve } from 'path';
-import { RunnerOptionalOptions } from './types/runner';
+import { RunnerOptions } from './types/runner';
 import { FontAssetType, OtherAssetType } from './types/misc';
 
 export const TEMPLATES_DIR = resolve(__dirname, '../templates');
 
-export const DEFAULT_OPTIONS: RunnerOptionalOptions = {
+export const DEFAULT_OPTIONS: Partial<RunnerOptions> = {
   name: 'icons',
   fontTypes: [FontAssetType.EOT, FontAssetType.WOFF2, FontAssetType.WOFF],
   assetTypes: [
