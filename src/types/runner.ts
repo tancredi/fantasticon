@@ -10,7 +10,14 @@ export interface RunnerMandatoryOptions {
 export interface FormatOptions {
   eot?: any;
   woff2?: any;
-  woff?: any;
+  woff?: {
+    /**
+     * Woff Extended Metadata Block
+     *
+     * See https://www.w3.org/TR/WOFF/#Metadata
+     */
+    metadata?: string;
+  };
   ttf?: any;
   svg?: Pick<
     SvgIcons2FontOptions,
