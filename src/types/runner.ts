@@ -9,8 +9,6 @@ export interface RunnerMandatoryOptions {
 }
 
 export interface FormatOptions {
-  eot?: any;
-  woff2?: any;
   woff?: {
     /**
      * Woff Extended Metadata Block
