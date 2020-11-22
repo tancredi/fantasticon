@@ -1,3 +1,4 @@
+import svg2ttf from 'svg2ttf';
 import { SvgIcons2FontOptions } from 'svgicons2svgfont';
 import { CodepointsMap } from '../utils/codepoints';
 import { FontAssetType, OtherAssetType, AssetType } from './misc';
@@ -18,7 +19,7 @@ export interface FormatOptions {
      */
     metadata?: string;
   };
-  ttf?: any;
+  ttf?: svg2ttf.FontOptions;
   svg?: Pick<
     SvgIcons2FontOptions,
     | 'fontId'
