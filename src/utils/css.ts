@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { FontGeneratorOptions } from '../types/generator';
 import { getHash } from './hash';
 import { FontAssetType } from '../types/misc';
@@ -28,17 +27,6 @@ export const renderSrcAttribute = (
       const { formatValue, getSuffix } = renderSrcOptions[fontType];
       const hash = getHash(font.toString('utf8'));
       const suffix = getSuffix ? getSuffix(name) : '';
-      if (fontsUrl.startsWith('http') || fontsUrl.startsWith('https')) {
-        return `url("${fontsUrl}/${name}.${fontType}?${hash}${suffix}") format("${formatValue}")`
-      } else {
-        return [
-          'url("',
-          `${join(fontsUrl || '.', name)}.${fontType}?${hash}${suffix}`,
-          `") format("${formatValue}")`
-        ].join('');
-      }
-
-
-
+      return `url("${fontsUrl || '.'}/${name}.${fontType}?${hash}${suffix}") format("${formatValue}")`
     })
     .join(',\n');
