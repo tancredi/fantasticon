@@ -71,7 +71,7 @@ const config = () => {
 
     .option(
       '-n, --name <value>',
-      'base name of the font set used both as default asset name and classname prefix' +
+      'base name of the font set used both as default asset name' +
         printDefaultOption('name')
     )
 
@@ -116,6 +116,12 @@ const config = () => {
       '--tag <value>',
       'CSS base tag for icons' + printDefaultOption('tag')
     )
+  
+    .option(
+      '-p, --prefix <value>',
+      'prefix for classname' +
+        printDefaultOption('prefix')
+    )
 
     .option(
       '-u, --fonts-url <value>',
@@ -145,6 +151,7 @@ const buildOptions = async (cmd: commander.Command, loadedConfig = {}) => {
       round: opts.round,
       selector: opts.selector,
       tag: opts.tag,
+      prefix: opts.prefix,
       fontsUrl: opts.fontsUrl
     })
   };

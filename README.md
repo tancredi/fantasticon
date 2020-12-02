@@ -46,6 +46,7 @@ Options:
   -r, --round [bool]           setup the SVG path rounding [10e12]
   --selector <value>           use a CSS selector instead of 'tag + prefix' (default: null)
   --tag <value>                CSS base tag for icons (default: i)
+  -p --prefix <value>          prefix for classname
   -u, --fonts-url <value>      public url to the fonts directory (used in the generated CSS)
   --debug                      display errors stack trace (default: false)
   --silent                     run with no logs (default: false)
