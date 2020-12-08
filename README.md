@@ -1,10 +1,14 @@
 ![Logo](assets/logo.png)
 
-## Fantasticon
+<h2 align="center">Fantasticon</h2>
+
+![Node.js CI](https://github.com/tancredi/fantasticon/workflows/Node.js%20CI/badge.svg)
 
 ![Screenshot](assets/screenshot.png)
 
 > Easy-to-use, pre-configured cli tool to generate web-font icon kits from .svg files
+
+## Status
 
 ### Intro
 
