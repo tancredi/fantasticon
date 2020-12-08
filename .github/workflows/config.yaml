@@ -4,11 +4,13 @@ on: [push, pull_request_target]
 
 jobs:
   test:
+    name: Test
+
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macOS-10.15, ubuntu-18.04, windows-2019]
         node-version: [10.x, 12.x, 15.x]
 
     steps:
@@ -17,9 +19,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
       - run: npm install
       - run: npm run build
       - run: npm test
-        env:
-          CI: true
