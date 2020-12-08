@@ -77,8 +77,7 @@ const config = () => {
 
     .option(
       '-p, --prefix <value>',
-      'prefix for the icon font' +
-        printDefaultOption('prefix')
+      'CSS classname prefix' + printDefaultOption('prefix')
     )
 
     .option(
