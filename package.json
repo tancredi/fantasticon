@@ -1,6 +1,6 @@
 {
   "name": "fantasticon",
-  "version": "1.0.18",
+  "version": "0.0.0",
   "main": "lib/index.js",
   "bin": {
     "fantasticon": "bin/fantasticon"
