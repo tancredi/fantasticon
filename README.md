@@ -45,7 +45,7 @@ Options:
   --normalize <number>         normalize icons by scaling them to the height of the highest icon
   -r, --round [bool]           setup the SVG path rounding [10e12]
   --selector <value>           use a CSS selector instead of 'tag + prefix' (default: null)
-  -, --prefix <value>          CSS classname prefix (default: icon)
+  -, --prefix <value>          CSS class prefix (default: icon)
   --tag <value>                CSS base tag for icons (default: i)
   -u, --fonts-url <value>      public url to the fonts directory (used in the generated CSS)
   --debug                      display errors stack trace (default: false)

@@ -114,7 +114,7 @@ const config = () => {
 
     .option(
       '-p, --prefix <value>',
-      'CSS classname prefix' + printDefaultOption('prefix')
+      'CSS class prefix' + printDefaultOption('prefix')
     )
 
     .option(
