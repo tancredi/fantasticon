@@ -76,11 +76,6 @@ const config = () => {
     )
 
     .option(
-      '-p, --prefix <value>',
-      'CSS classname prefix' + printDefaultOption('prefix')
-    )
-
-    .option(
       '-t, --font-types <value...>',
       `specify font formats to generate` +
         printList(FontAssetType, DEFAULT_OPTIONS.fontTypes)
@@ -115,6 +110,11 @@ const config = () => {
       '--selector <value>',
       "use a CSS selector instead of 'tag + prefix'" +
         printDefaultOption('selector')
+    )
+
+    .option(
+      '-p, --prefix <value>',
+      'CSS classname prefix' + printDefaultOption('prefix')
     )
 
     .option(
