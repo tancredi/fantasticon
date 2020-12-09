@@ -19,7 +19,7 @@ describe('Template utilities', () => {
     const filename = 'my-template.hbs';
     const template = '::template::';
     const templateOut = '::rendered::';
-    const templateFn = jest.fn(() => templateOut);
+    const templateFn = jest.fn((_: any, __: any) => templateOut);
     const context = { foo: 'bar' };
     const options = { helpers: { foo: () => 'bar' } };
 
