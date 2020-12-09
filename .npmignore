@@ -1,3 +1,5 @@
 .github
 src
 tsconfig.json
+lib/**/__mocks__/**
+lib/**/__tests__/**
