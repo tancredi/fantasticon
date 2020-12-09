@@ -4,12 +4,12 @@
 
 ![Screenshot](assets/screenshot.png)
 
-<p align="center">
-  <img src="https://github.com/tancredi/fantasticon/workflows/Node.js%20CI/badge.svg" alt="CI status" />
-</p>
+<blockquote align="center">
+  Easy-to-use, pre-configured cli tool to generate web-font icon kits from .svg files
+</blockquote>
 
 <p align="center">
-  Easy-to-use, pre-configured cli tool to generate web-font icon kits from .svg files
+  <img src="https://github.com/tancredi/fantasticon/workflows/Node.js%20CI/badge.svg" alt="CI status" />
 </p>
 
 ### Intro
