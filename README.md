@@ -2,7 +2,9 @@
 
 <h2 align="center">Fantasticon</h2>
 
-![Node.js CI](https://github.com/tancredi/fantasticon/workflows/Node.js%20CI/badge.svg)
+<p align="center">
+  <img src="https://github.com/tancredi/fantasticon/workflows/Node.js%20CI/badge.svg" alt="CI status" />
+</p>
 
 ![Screenshot](assets/screenshot.png)
 
