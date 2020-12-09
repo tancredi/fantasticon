@@ -1,10 +1,17 @@
 ![Logo](assets/logo.png)
 
-## Fantasticon
+<h2 align="center">Fantasticon</h2>
 
 ![Screenshot](assets/screenshot.png)
 
-> Easy-to-use, pre-configured cli tool to generate web-font icon kits from .svg files
+<blockquote align="center">
+  Easy-to-use, pre-configured cli tool to generate web-font icon kits from .svg files
+</blockquote>
+
+<p align="center">
+  <img src="https://github.com/tancredi/fantasticon/workflows/Test/badge.svg" alt="Test status" />
+  <img src="https://github.com/tancredi/fantasticon/workflows/Release/badge.svg" alt="Release status" />
+</p>
 
 ### Intro
 

@@ -23,7 +23,7 @@ const generators: { [key in AssetType]: FontGenerator<any> } = {
   [OtherAssetType.JSON]: json,
   [OtherAssetType.TS]: ts,
   [OtherAssetType.SASS]: sass,
-  [OtherAssetType.SCSS]: scss,
+  [OtherAssetType.SCSS]: scss
 };
 
 export default generators;

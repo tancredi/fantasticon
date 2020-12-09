@@ -1,9 +1,23 @@
-name: Node.js CI
+name: Test
 
 on: [push, pull_request_target]
 
 jobs:
+  lint:
+    name: Lint
+
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm install
+      - run: npm run lint
+
   test:
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
     name: Test
 
     runs-on: ${{ matrix.os }}
