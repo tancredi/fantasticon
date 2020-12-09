@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Test
 
 on: [push, pull_request_target]
 
@@ -22,4 +22,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run build
+      - run: npm run lint
       - run: npm test
