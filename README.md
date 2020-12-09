@@ -9,7 +9,7 @@
 </blockquote>
 
 <p align="center">
-  <img src="https://github.com/tancredi/fantasticon/workflows/Node.js%20CI/badge.svg" alt="CI status" />
+  <img src="https://github.com/tancredi/fantasticon/workflows/Test/badge.svg" alt="CI status" />
 </p>
 
 ### Intro
