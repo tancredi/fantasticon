@@ -25,7 +25,7 @@
     "glob": "^7.1.6",
     "handlebars": "^4.7.6",
     "lodash": "^4.17.20",
-    "slugify": "^1.4.5",
+    "slugify": "^1.4.6",
     "svg2ttf": "^5.0.0",
     "svgicons2svgfont": "^9.1.1",
     "ttf2eot": "^2.0.0",
