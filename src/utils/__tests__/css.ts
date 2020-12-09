@@ -53,4 +53,17 @@ describe('CSS utilities', () => {
       'url("/fonts/my-font.ttf?::hashed(::font-content::)::") format("truetype")'
     );
   });
+
+  test('`renderSrcOptions` uses the `fontsUrl` option when given with https:// path', () => {
+    const font = '::font-content::';
+    const options = {
+      fontTypes: [FontAssetType.TTF],
+      name: 'my-font',
+      fontsUrl: 'https://my-static.com'
+    };
+
+    expect(renderSrcAttribute(options as any, font)).toEqual(
+      'url("https://my-static.com/my-font.ttf?::hashed(::font-content::)::") format("truetype")'
+    );
+  });
 });
