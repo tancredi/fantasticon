@@ -2,15 +2,15 @@
 
 <h2 align="center">Fantasticon</h2>
 
+![Screenshot](assets/screenshot.png)
+
 <p align="center">
   <img src="https://github.com/tancredi/fantasticon/workflows/Node.js%20CI/badge.svg" alt="CI status" />
 </p>
 
-![Screenshot](assets/screenshot.png)
-
-> Easy-to-use, pre-configured cli tool to generate web-font icon kits from .svg files
-
-## Status
+<p align="center">
+  Easy-to-use, pre-configured cli tool to generate web-font icon kits from .svg files
+</p>
 
 ### Intro
 
