@@ -2,6 +2,7 @@ import { FontGenerator } from '../../types/generator';
 import { FontAssetType } from '../../types/misc';
 import { renderTemplate } from '../../utils/template';
 import { renderSrcAttribute } from '../../utils/css';
+import { getHexCodepoint } from '../../utils/codepoints';
 
 const generator: FontGenerator<Buffer> = {
   dependsOn: FontAssetType.SVG,
@@ -10,7 +11,7 @@ const generator: FontGenerator<Buffer> = {
     renderTemplate(
       options.templates.css,
       { ...options, fontSrc: renderSrcAttribute(options, svg) },
-      { helpers: { codepoint: str => str.toString(16) } }
+      { helpers: { codepoint: getHexCodepoint } }
     )
 };
 
