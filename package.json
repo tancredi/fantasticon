@@ -21,7 +21,7 @@
   "dependencies": {
     "change-case": "^4.1.2",
     "cli-color": "^2.0.0",
-    "commander": "^6.2.0",
+    "commander": "^6.2.1",
     "glob": "^7.1.6",
     "handlebars": "^4.7.6",
     "lodash": "^4.17.20",
