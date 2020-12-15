@@ -1,6 +1,17 @@
 {
   "name": "fantasticon",
   "version": "0.0.0",
+  "description": "Icon font generation tool",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tancredi/fantasticon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/tancredi/fantasticon/issues"
+  },
+  "homepage": "https://github.com/tancredi/fantasticon#readme",
   "main": "lib/index.js",
   "bin": {
     "fantasticon": "bin/fantasticon"
