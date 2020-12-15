@@ -6,8 +6,14 @@
     "type": "git",
     "url": "git+https://github.com/tancredi/fantasticon.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "icons",
+    "fonts",
+    "iconfonts",
+    "svg",
+    "vector"
+  ],
+  "author": "Tancredi Trugenberger",
   "bugs": {
     "url": "https://github.com/tancredi/fantasticon/issues"
   },
