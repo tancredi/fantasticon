@@ -4,7 +4,7 @@ import { FontAssetType, OtherAssetType } from './types/misc';
 
 export const TEMPLATES_DIR = resolve(__dirname, '../templates');
 
-export const DEFAULT_OPTIONS: Partial<RunnerOptions> = {
+export const DEFAULT_OPTIONS: Omit<RunnerOptions, 'inputDir' | 'outputDir'> = {
   name: 'icons',
   fontTypes: [FontAssetType.EOT, FontAssetType.WOFF2, FontAssetType.WOFF],
   assetTypes: [
