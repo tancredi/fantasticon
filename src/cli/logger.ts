@@ -29,7 +29,11 @@ export const getLogger = (debug = false, silent = false) => ({
   results({ assetsIn, writeResults, options: { inputDir } }: RunnerResults) {
     const iconsCount = Object.values(assetsIn).length;
 
-    this.log(color.white(`✔ ${iconsCount} svg found in ${inputDir}`));
+    this.log(
+      color.white(
+        `✔ ${iconsCount} SVG${iconsCount > 1 ? 's' : ''} found in ${inputDir}`
+      )
+    );
 
     for (const { writePath } of writeResults) {
       this.log(color.blue(`✔ Generated`, color.blueBright(writePath)));
