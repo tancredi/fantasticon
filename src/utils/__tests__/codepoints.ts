@@ -1,6 +1,6 @@
 import { DEFAULT_START_CODEPOINT } from '../../constants';
 import { AssetsMap } from '../assets';
-import { getCodepoints } from '../codepoints';
+import { getCodepoints, getHexCodepoint } from '../codepoints';
 
 const mockAssetsMap = (ids: string[] = ['foo', 'bar', 'test']): AssetsMap =>
   ids.reduce(
@@ -55,5 +55,13 @@ describe('CodePoints utilities', () => {
       buzz: 10,
       bazz: 12
     });
+  });
+
+  test('`getHexCodepoint` converts codepoint to hex string', () => {
+    expect(getHexCodepoint(62087)).toEqual('f287');
+    expect(getHexCodepoint(61940)).toEqual('f1f4');
+    expect(getHexCodepoint(61941)).toEqual('f1f5');
+    expect(getHexCodepoint(61942)).toEqual('f1f6');
+    expect(getHexCodepoint(61943)).toEqual('f1f7');
   });
 });
