@@ -1,5 +1,5 @@
 import { loadPaths, loadAssets, writeAssets } from '../assets';
-import { writeFile } from '../../utils/fs-async';
+import { writeFile } from '../fs-async';
 
 const writeFileMock = (writeFile as any) as jest.Mock;
 

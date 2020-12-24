@@ -16,7 +16,7 @@ export const getLogger = (debug = false, silent = false) => ({
   },
 
   start(loadedConfigPath: string = null) {
-    this.log(color.yellow(`Generating font kit..`));
+    this.log(color.yellow(`Generating font kit...`));
 
     if (loadedConfigPath) {
       this.log(
