@@ -31,6 +31,5 @@ export const getCodepoints = (
   return { ...predefined, ...out };
 };
 
-export const getHexCodepoint = (decimalCodepoint: number): string => {
-	return decimalCodepoint.toString(16);
-};
+export const getHexCodepoint = (decimalCodepoint: number): string =>
+  decimalCodepoint.toString(16);
