@@ -152,6 +152,10 @@ generateFonts({
 }).then(results => console.log(results));
 ```
 
+### Contribute
+
+PRs are always welcome. If you need help questions, want to bounce ideas or just say hi, [join the Discord channel](https://discord.gg/BXAY3Kc3mp).
+
 ### License
 
 Copyright (c) 2020 Tancredi Trugenberger. - Released under the [MIT license](https://github.com/tancredi/fantasticon/blob/master/LICENSE)
