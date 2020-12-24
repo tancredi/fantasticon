@@ -124,7 +124,7 @@ const config = () => {
 
     .option(
       '-u, --fonts-url <value>',
-      'public url to the fonts directory (used in the generated CSS)'
+      'public URL to the fonts directory (used in the generated CSS)'
     )
 
     .option('--debug', 'display errors stack trace' + printDefaultValue(false))
