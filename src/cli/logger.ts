@@ -1,5 +1,6 @@
 import color from 'cli-color';
 import { RunnerResults } from '../core/runner';
+import { pluralize } from '../utils/string';
 
 export const getLogger = (debug = false, silent = false) => ({
   error(error: Error | string) {
@@ -31,7 +32,7 @@ export const getLogger = (debug = false, silent = false) => ({
 
     this.log(
       color.white(
-        `✔ ${iconsCount} SVG${iconsCount > 1 ? 's' : ''} found in ${inputDir}`
+        `✔ ${iconsCount} ${pluralize('SVG', iconsCount)} found in ${inputDir}`
       )
     );
 
