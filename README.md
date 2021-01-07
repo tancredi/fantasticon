@@ -49,7 +49,7 @@ Options:
   -g --asset-types <value...>  specify other asset types to generate (default: css, html, json, ts, available: css, scss, sass, html, json, ts)
   -h, --font-height <value>    the output font height (icons will be scaled so the highest has this height) (default: 300)
   --descent <value>            the font descent
-  --normalize <number>         normalize icons by scaling them to the height of the highest icon
+  --normalize [bool]           normalize icons by scaling them to the height of the highest icon
   -r, --round [bool]           setup the SVG path rounding [10e12]
   --selector <value>           use a CSS selector instead of 'tag + prefix' (default: null)
   -p, --prefix <value>         CSS class prefix (default: icon)
