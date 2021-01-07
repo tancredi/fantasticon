@@ -1,16 +1,21 @@
 {
   "compilerOptions": {
-    "outDir": "lib",
-    "module": "commonjs",
-    "declaration": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
     "allowJs": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "lib",
     "rootDir": "src",
-    "types": ["node", "jest"],
-    "esModuleInterop": true
+    "sourceMap": true,
+    "types": ["node", "jest"]
   },
   "typeRoots": ["node_modules/@types"],
-  "exclude": ["node_modules", "lib"],
-  "includes": ["src/**/*.ts"]
+  "exclude": [
+    "node_modules",
+    "lib",
+    "src/**/__mocks__/*.ts",
+    "src/**/__tests__/*.ts"
+  ],
+  "include": ["src/**/*.ts"]
 }

@@ -1,8 +1,8 @@
-![Logo](assets/logo.png)
+![Logo](https://fantasticon.s3.eu-west-2.amazonaws.com/readme/logo.png)
 
 <h2 align="center">Fantasticon</h2>
 
-![Screenshot](assets/screenshot.png)
+![Screenshot](https://fantasticon.s3.eu-west-2.amazonaws.com/readme/screenshot.png)
 
 <blockquote align="center">
   Easy-to-use, pre-configured CLI tool to generate web-font icon kits from SVG files
@@ -49,7 +49,7 @@ Options:
   -g --asset-types <value...>  specify other asset types to generate (default: css, html, json, ts, available: css, scss, sass, html, json, ts)
   -h, --font-height <value>    the output font height (icons will be scaled so the highest has this height) (default: 300)
   --descent <value>            the font descent
-  --normalize <number>         normalize icons by scaling them to the height of the highest icon
+  --normalize [bool]           normalize icons by scaling them to the height of the highest icon
   -r, --round [bool]           setup the SVG path rounding [10e12]
   --selector <value>           use a CSS selector instead of 'tag + prefix' (default: null)
   -p, --prefix <value>         CSS class prefix (default: icon)
