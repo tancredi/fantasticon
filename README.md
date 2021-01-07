@@ -1,8 +1,8 @@
-![Logo](assets/logo.png)
+![Logo](https://fantasticon.s3.eu-west-2.amazonaws.com/readme/logo.png)
 
 <h2 align="center">Fantasticon</h2>
 
-![Screenshot](assets/screenshot.png)
+![Screenshot](https://fantasticon.s3.eu-west-2.amazonaws.com/readme/screenshot.png)
 
 <blockquote align="center">
   Easy-to-use, pre-configured CLI tool to generate web-font icon kits from SVG files
