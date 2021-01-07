@@ -99,7 +99,7 @@ const config = () => {
     )
 
     .option(
-      '--normalize <number>',
+      '--normalize [bool]',
       'normalize icons by scaling them to the height of the highest icon' +
         printDefaultOption('normalize')
     )
