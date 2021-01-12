@@ -2,7 +2,7 @@ import glob from 'glob';
 import { promisify } from 'util';
 import { resolve, relative, join } from 'path';
 import { getIconId } from './icon-id';
-import { writeFile } from '../utils/fs-async';
+import { writeFile } from './fs-async';
 import { RunnerOptions } from '../types/runner';
 import { GeneratedAssets } from '../generators/generate-assets';
 

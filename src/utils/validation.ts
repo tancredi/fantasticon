@@ -1,4 +1,4 @@
-import { checkPath } from '../utils/fs-async';
+import { checkPath } from './fs-async';
 
 export const parseNumeric = (value: string) => {
   const out = Number(value);
