@@ -10,9 +10,7 @@ jest.mock('ttf2eot', () =>
 );
 
 const mockOptions = (eotOptions = { __mock: 'options__' } as any) =>
-  (({
-    formatOptions: { [FontAssetType.EOT]: eotOptions }
-  } as unknown) as FontGeneratorOptions);
+  (({} as unknown) as FontGeneratorOptions);
 
 const ttf = ('::ttf::' as unknown) as Buffer;
 
@@ -24,15 +22,12 @@ describe('`EOT` font generator', () => {
     const ttfArr = new Uint8Array(('::ttf::' as unknown) as any[]);
 
     expect(ttf2eot).toHaveBeenCalledTimes(1);
-    expect(ttf2eot).toHaveBeenCalledWith(ttfArr, { __mock: 'options__' });
+    expect(ttf2eot).toHaveBeenCalledWith(ttfArr);
     expect(result).toEqual(Buffer.from(`::eot(${ttfArr})::`));
   });
 
   test('passes correctly format options to `ttf2eot`', async () => {
-    const formatOptions = { foo: 'bar' };
-    await eotGen.generate(mockOptions(formatOptions), ttf);
-
+    await eotGen.generate(mockOptions({}), ttf);
     expect(ttf2eot).toHaveBeenCalledTimes(1);
-    expect(ttf2eot.mock.calls[0][1]).toEqual(formatOptions);
   });
 });

@@ -1,5 +1,5 @@
 import { DEFAULT_OPTIONS } from '../constants';
-import { RunnerOptions, RunnerOptionsInput } from '../types/runner';
+import { RunnerOptions } from '../types/runner';
 import {
   loadAssets,
   writeAssets,
@@ -27,7 +27,7 @@ export const sanitiseOptions = (userOptions: any) =>
   });
 
 export const generateFonts = async (
-  userOptions: RunnerOptionsInput,
+  userOptions: RunnerOptions,
   mustWrite = false
 ): Promise<RunnerResults> => {
   const options = await sanitiseOptions(userOptions);

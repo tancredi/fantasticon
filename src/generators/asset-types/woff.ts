@@ -6,10 +6,7 @@ const generator: FontGenerator<Buffer> = {
   dependsOn: FontAssetType.TTF,
 
   async generate({ formatOptions }, ttf) {
-    const font = ttf2woff(
-      new Uint8Array(ttf),
-      formatOptions[FontAssetType.WOFF]
-    );
+    const font = ttf2woff(new Uint8Array(ttf), formatOptions?.woff);
     return Buffer.from(font.buffer);
   }
 };

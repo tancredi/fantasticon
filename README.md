@@ -85,11 +85,9 @@ module.exports = {
   fontsUrl: '/static/fonts',
   formatOptions: {
     // Pass options directly to `svgicons2svgfont`
-    svg: {
-      metadata: {
-        foo: 'bar'
-      },
-      ascent: 0.5
+    woff: {
+      // Woff Extended Metadata Block - see https://www.w3.org/TR/WOFF/#Metadata
+      metadata: '...'
     },
     json: {
       // render the JSON human readable with two spaces indentation (default is none, so minified)

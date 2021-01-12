@@ -30,9 +30,10 @@
     "lint": "prettier --check ."
   },
   "files": [
-    "bin",
-    "lib",
-    "templates"
+    "bin/fantasticon",
+    "lib/**/*.{js,ts,map}",
+    "!lib/**/{__mocks__,__tests__}/",
+    "templates/*.hbs"
   ],
   "prepublish": "build",
   "dependencies": {
@@ -58,6 +59,11 @@
     "@types/lodash": "^4.14.165",
     "@types/node": "^14.14.13",
     "jest": "^26.6.3",
+    "@types/svg2ttf": "^5.0.0",
+    "@types/svgicons2svgfont": "^9.1.0",
+    "@types/ttf2eot": "^2.0.0",
+    "@types/ttf2woff": "^2.0.0",
+    "@types/ttf2woff2": "^2.0.0",
     "mock-fs": "^4.13.0",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
@@ -72,11 +78,5 @@
   },
   "engines": {
     "node": ">= 10.0.0"
-  },
-  "files": [
-    "bin/fantasticon",
-    "lib/**/*.{js,ts,map}",
-    "!lib/**/{__mocks__,__tests__}/",
-    "templates/*.hbs"
-  ]
+  }
 }
