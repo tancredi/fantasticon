@@ -30,9 +30,10 @@
     "lint": "prettier --check ."
   },
   "files": [
-    "bin",
-    "lib",
-    "templates"
+    "bin/fantasticon",
+    "lib/**/*.{js,ts,map}",
+    "!lib/**/{__mocks__,__tests__}/",
+    "templates/*.hbs"
   ],
   "prepublish": "build",
   "dependencies": {
@@ -77,11 +78,5 @@
   },
   "engines": {
     "node": ">= 10.0.0"
-  },
-  "files": [
-    "bin/fantasticon",
-    "lib/**/*.{js,ts,map}",
-    "!lib/**/{__mocks__,__tests__}/",
-    "templates/*.hbs"
-  ]
+  }
 }

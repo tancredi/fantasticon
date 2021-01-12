@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { DEFAULT_OPTIONS, TEMPLATES_DIR } from '../constants';
-import { FormatOptions, RunnerOptions } from '../types/runner';
+import { RunnerOptions } from '../types/runner';
+import { FormatOptions } from '../types/format';
 import { getCodepoints } from '../utils/codepoints';
 import { FontGeneratorOptions } from '../types/generator';
 import {
