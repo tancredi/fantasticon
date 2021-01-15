@@ -76,11 +76,6 @@ describe('Config parser', () => {
       'fontTypes',
       'x is not valid - accepted values are: a, b'
     );
-    await testError(
-      { assetTypes: ['x'] },
-      'assetTypes',
-      'x is not valid - accepted values are: c, d'
-    );
     await testError({ descent: 'a' }, 'descent', 'a is not a valid number');
     await testError(
       { normalize: null },
