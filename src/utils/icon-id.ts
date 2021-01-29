@@ -7,6 +7,6 @@ export const getIconId = (filepath: string, root: string) =>
     removeExtension(relative(resolve(root), resolve(filepath))).replace(
       /(\/|\\|\.)+/g,
       '-'
-    ),
+    ).substr(4),
     { replacement: '-' }
   );
