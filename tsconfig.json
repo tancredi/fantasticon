@@ -9,7 +9,7 @@
     "rootDir": "src",
     "sourceMap": true,
     "target": "ES6",
-    "types": ["node", "jest"]
+    "types": ["node"]
   },
   "typeRoots": ["node_modules/@types"],
   "exclude": [
@@ -17,6 +17,5 @@
     "lib",
     "src/**/__mocks__/*.ts",
     "src/**/__tests__/*.ts"
-  ],
-  "include": ["src/**/*.ts"]
+  ]
 }
