@@ -150,6 +150,36 @@ generateFonts({
 }).then(results => console.log(results));
 ```
 
+#### Organising icons
+
+Icon names and className will be generated from a slug of the relative path + basename of each `.svg` file found in the input directory.
+
+This allows arranging your icons in namespaces, which can be useful if a project uses a large number of icons.
+
+Considering the following `./icons` input directory:
+
+```
+icons
+├── logo.svg
+├── social
+│   ├── facebook.svg
+│   └── twitter.svg
+└── symbol
+    └── chevron
+        ├── left.svg
+        └── right.svg
+```
+
+Running `fantasticon ./icons -o dist` will generate a font-set with the following Icon IDs / CSS selectors:
+And the generated icon IDs would be:
+
+| Icon ID                | CSS selector                 |
+| ---------------------- | ---------------------------- |
+| `social-facebook`      | `.icon.icon-social-facebook` |
+| `social-twitter`       | `.icon.icon-social-twitter`  |
+| `symbol-chevron-left`  | `.icon.icon-chevron-left`    |
+| `symbol-chevron-right` | `.icon.icon-chevron-right`   |
+
 ### Contribute
 
 PRs are always welcome. If you need help questions, want to bounce ideas or just say hi, [join the Discord channel](https://discord.gg/BXAY3Kc3mp).
