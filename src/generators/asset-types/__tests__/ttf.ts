@@ -26,17 +26,17 @@ describe('`TTF` font generator', () => {
 
     expect(svg2ttf).toHaveBeenCalledTimes(1);
     expect(svg2ttf).toHaveBeenCalledWith(svg, {
-      ts: null,
+      ts: 0,
       __mock: 'options__'
     });
     expect(result).toEqual(Buffer.from(`::ttf(${svg})::`));
   });
 
-  test('passes correctly format options to `svg2ttf` and sets `ts` (timestamp) to `null` by default to avoid generating unnecessary diffs', async () => {
+  test('passes correctly format options to `svg2ttf` and sets `ts` (timestamp) to `0` by default to avoid generating unnecessary diffs', async () => {
     const formatOptions = { foo: 'bar' };
     await ttfGen.generate(mockOptions(formatOptions), svg);
 
     expect(svg2ttf).toHaveBeenCalledTimes(1);
-    expect(svg2ttf.mock.calls[0][1]).toEqual({ ts: null, ...formatOptions });
+    expect(svg2ttf.mock.calls[0][1]).toEqual({ ts: 0, ...formatOptions });
   });
 });

@@ -6,7 +6,7 @@ const generator: FontGenerator<string> = {
   dependsOn: FontAssetType.SVG,
 
   async generate({ formatOptions }, svg) {
-    const font = svg2ttf(svg, { ts: null, ...(formatOptions?.ttf || {}) });
+    const font = svg2ttf(svg, { ts: 0, ...(formatOptions?.ttf || {}) });
     return Buffer.from(font.buffer);
   }
 };
