@@ -1,4 +1,3 @@
-import startsWith from 'lodash/startsWith';
 const _path = jest.requireActual('path');
 const _relative = _path.relative;
 
@@ -11,14 +10,14 @@ const resolve = (...paths: string[]) => {
     path = !path ? normalise(cur) : _path.join(path, normalise(cur));
   }
 
-  if (startsWith(path, projectDir)) {
+  if (path.startsWith(projectDir)) {
     path = _path.join('/root/project', path.substr(projectDir.length));
-  } else if (startsWith(path, '/') && !startsWith(path, '/root')) {
+  } else if (path.startsWith('/') && !path.startsWith('/root')) {
     path = _path.join('/root/', path.substr(1));
   } else {
-    if (startsWith(path, './')) {
+    if (path.startsWith('./')) {
       path = _path.join('/root/project/', path.substr(2));
-    } else if (!startsWith(path, '/')) {
+    } else if (!path.startsWith('/')) {
       path = _path.join('/root/project/', path);
     }
   }
@@ -52,6 +51,6 @@ const join = (...segments: string[]): string => {
 
 const normalise = (path: string) => path.replace(/\\/g, '/');
 
-const isAbsolute = (path: string) => startsWith(path, '/root');
+const isAbsolute = (path: string) => path.startsWith('/root');
 
 module.exports = { resolve, relative, join, isAbsolute };

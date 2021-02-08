@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "noEmit": true, "types": ["node", "jest"] },
+  "exclude": ["node_modules"],
+  "include": ["src/**/__mocks__/*.ts", "src/**/__tests__/*.ts"]
+}

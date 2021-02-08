@@ -54,7 +54,6 @@ const printConfigPaths = () => DEFAULT_FILEPATHS.join(' | ');
 const config = () => {
   commander.program
     .storeOptionsAsProperties(false)
-    .passCommandToAction(false)
 
     .name(getCommandName())
 

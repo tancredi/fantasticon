@@ -1,6 +1,5 @@
 import { RunnerOptions } from '../types/runner';
 import { DEFAULT_OPTIONS } from '../constants';
-import uniq from 'lodash/uniq';
 import {
   parseDir,
   parseString,
@@ -37,9 +36,11 @@ const CONFIG_VALIDATORS: {
 export const parseConfig = async (input: object = {}) => {
   const options = { ...DEFAULT_OPTIONS, ...input };
   const out = {};
-  const allKeys = [...Object.keys(options), ...Object.keys(CONFIG_VALIDATORS)];
+  const allkeys = [
+    ...new Set([...Object.keys(options), ...Object.keys(CONFIG_VALIDATORS)])
+  ];
 
-  for (const key of uniq(allKeys)) {
+  for (const key of allkeys) {
     const validators = CONFIG_VALIDATORS[key];
 
     if (!validators) {
