@@ -27,6 +27,7 @@
     "test": "jest",
     "build": "rimraf lib && tsc --project ./tsconfig.json",
     "watch": "npm run build -- --watch",
+    "typecheck": "tsc --noEmit --project tsconfig.test.json --noEmit",
     "lint": "prettier --check ."
   },
   "files": [
@@ -68,7 +69,12 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "./tsconfig.test.json"
+      }
+    }
   },
   "engines": {
     "node": ">= 10.0.0"
