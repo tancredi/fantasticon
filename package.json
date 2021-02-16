@@ -42,7 +42,7 @@
     "cli-color": "^2.0.0",
     "commander": "^7.0.0",
     "glob": "^7.1.6",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "slugify": "^1.4.6",
     "svg2ttf": "^5.0.0",
     "svgicons2svgfont": "^9.1.1",
