@@ -109,10 +109,10 @@ module.exports = {
     json: './misc/icon-codepoints.json'
   },
   codepoints: {
-    'chevron-left':         57344, // decimal representation of 0xe000
-    'chevron-right':        57345,
-    'checkmark':            57346,
-    'cross':                57347
+    'chevron-left': 57344, // decimal representation of 0xe000
+    'chevron-right': 57345,
+    'thumbs-up': 57358,
+    'thumbs-down': 57359
   }
 };
 ```
