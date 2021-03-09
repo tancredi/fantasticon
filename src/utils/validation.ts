@@ -1,4 +1,5 @@
 import { checkPath } from './fs-async';
+import { CodepointsMap } from './codepoints';
 
 export const parseNumeric = (value: string) => {
   const out = Number(value);
@@ -36,6 +37,15 @@ export const listMembersParser = <T extends string>(allowedValues: T[]) => (
   }
 
   return values as T[];
+};
+
+export const parseCodepoints = (codepoints: Object): CodepointsMap => {
+  for (const key of Object.keys(codepoints)) {
+    if (typeof codepoints[key] === 'string') {
+      codepoints[key] = parseInt(codepoints[key], 16);
+    }
+  }
+  return codepoints as CodepointsMap;
 };
 
 export const removeUndefined = (object: Object) => {

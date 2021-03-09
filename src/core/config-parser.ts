@@ -6,6 +6,7 @@ import {
   parseBoolean,
   listMembersParser,
   parseNumeric,
+  parseCodepoints,
   optional,
   nullable
 } from '../utils/validation';
@@ -22,7 +23,7 @@ const CONFIG_VALIDATORS: {
   formatOptions: [],
   pathOptions: [],
   templates: [],
-  codepoints: [],
+  codepoints: [parseCodepoints],
   fontHeight: [optional(parseNumeric)],
   descent: [optional(parseNumeric)],
   normalize: [optional(parseBoolean)],
