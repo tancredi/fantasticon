@@ -1,4 +1,5 @@
 import { loadPaths, loadAssets, writeAssets } from '../assets';
+import { DEFAULT_OPTIONS } from '../../constants';
 import { writeFile } from '../fs-async';
 
 const writeFileMock = (writeFile as any) as jest.Mock;
@@ -49,7 +50,13 @@ describe('Assets utilities', () => {
   });
 
   test('`loadAssets` resolves a key - value map of assets with expected properties', async () => {
-    expect(await loadAssets('./valid')).toEqual({
+    expect(
+      await loadAssets({
+        ...DEFAULT_OPTIONS,
+        inputDir: './valid',
+        outputDir: './output'
+      })
+    ).toEqual({
       foo: {
         relativePath: 'foo.svg',
         absolutePath: '/root/project/valid/foo.svg',
@@ -69,6 +76,35 @@ describe('Assets utilities', () => {
         relativePath: 'sub/sub/nested.svg',
         absolutePath: '/root/project/valid/sub/sub/nested.svg',
         id: 'sub-sub-nested'
+      }
+    });
+  });
+
+  test('`loadAssets` with a custom `getIconId` implementation resolves a key - value map of assets with expected properties', async () => {
+    expect(
+      await loadAssets({
+        ...DEFAULT_OPTIONS,
+        inputDir: './valid',
+        outputDir: './output',
+        getIconId: (relativeIconPath, relativeInputDir) => {
+          return relativeIconPath.split('/').pop().replace('.svg', '');
+        }
+      })
+    ).toEqual({
+      foo: {
+        relativePath: 'foo.svg',
+        absolutePath: '/root/project/valid/foo.svg',
+        id: 'foo'
+      },
+      bar: {
+        relativePath: 'bar.svg',
+        absolutePath: '/root/project/valid/bar.svg',
+        id: 'bar'
+      },
+      nested: {
+        relativePath: 'sub/sub/nested.svg',
+        absolutePath: '/root/project/valid/sub/sub/nested.svg',
+        id: 'nested'
       }
     });
   });
