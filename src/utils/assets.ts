@@ -1,7 +1,6 @@
 import glob from 'glob';
 import { promisify } from 'util';
 import { resolve, relative, join } from 'path';
-import { getIconId } from './icon-id';
 import { writeFile } from './fs-async';
 import { RunnerOptions } from '../types/runner';
 import { GeneratedAssets } from '../generators/generate-assets';
@@ -34,17 +33,20 @@ export const loadPaths = async (dir: string): Promise<string[]> => {
   return files;
 };
 
-export const loadAssets = async (dir: string): Promise<AssetsMap> => {
-  const paths = await loadPaths(dir);
+export const loadAssets = async ({
+  inputDir,
+  getIconId
+}: RunnerOptions): Promise<AssetsMap> => {
+  const paths = await loadPaths(inputDir);
   const out = {};
 
   for (const path of paths) {
-    const iconId = getIconId(path, dir);
+    const iconId = getIconId(path, inputDir);
 
     out[iconId] = {
       id: iconId,
       absolutePath: resolve(path),
-      relativePath: relative(resolve(dir), resolve(path))
+      relativePath: relative(resolve(inputDir), resolve(path))
     };
   }
 
