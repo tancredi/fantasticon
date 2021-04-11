@@ -5,7 +5,7 @@ import { removeExtension } from './path';
 export const getIconId = (filepath: string, root: string) =>
   slug(
     removeExtension(relative(resolve(root), resolve(filepath))).replace(
-      /(\/|\\|\.)+/g,
+      /(\/|\\|\.|\')+/g,
       '-'
     ),
     { replacement: '-' }
