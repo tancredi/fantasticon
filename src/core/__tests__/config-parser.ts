@@ -1,5 +1,6 @@
 import { parseConfig } from '../config-parser';
 import { checkPath } from '../../utils/fs-async';
+import { DEFAULT_OPTIONS } from '../../constants';
 
 const checkPathMock = (checkPath as any) as jest.Mock;
 
@@ -32,7 +33,8 @@ const mockConfig = {
     sass: 'sass',
     scss: 'scss',
     html: 'html'
-  }
+  },
+  getIconId: DEFAULT_OPTIONS.getIconId
 };
 
 const testError = async (options: object, key: string, message: string) =>
@@ -87,6 +89,7 @@ describe('Config parser', () => {
       'normalize',
       'must be a boolean value'
     );
+    await testError({ getIconId: true }, 'getIconId', 'true is not a function');
   });
 
   test('correctly validates existance of input and output paths', async () => {

@@ -2,7 +2,9 @@ export {
   FontAssetType,
   OtherAssetType,
   ASSET_TYPES,
-  AssetType
+  AssetType,
+  GetIconIdFn,
+  GetIconIdOptions
 } from './types/misc';
 
 export { RunnerOptions } from './types/runner';

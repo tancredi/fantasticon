@@ -1,5 +1,5 @@
 import { CodepointsMap } from '../utils/codepoints';
-import { FontAssetType, OtherAssetType, AssetType } from './misc';
+import { FontAssetType, OtherAssetType, AssetType, GetIconIdFn } from './misc';
 import { FormatOptions } from './format';
 
 export interface RunnerMandatoryOptions {
@@ -23,6 +23,7 @@ export type RunnerOptionalOptions = {
   templates: { [key in OtherAssetType]?: string };
   prefix: string;
   fontsUrl: string;
+  getIconId: GetIconIdFn;
 };
 
 export type RunnerOptionsInput = RunnerMandatoryOptions &

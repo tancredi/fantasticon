@@ -7,7 +7,7 @@ const resolve = (...paths: string[]) => {
   let path = '';
 
   for (const cur of paths) {
-    path = !path ? normalise(cur) : _path.join(path, normalise(cur));
+    path = !path ? normalize(cur) : _path.join(path, normalize(cur));
   }
 
   if (path.startsWith(projectDir)) {
@@ -22,11 +22,11 @@ const resolve = (...paths: string[]) => {
     }
   }
 
-  return normalise(path);
+  return normalize(path);
 };
 
 const relative = (a: string, b: string) =>
-  normalise(_relative(_path.normalize(a), _path.normalize(b)));
+  normalize(_relative(_path.normalize(a), _path.normalize(b)));
 
 const join = (...segments: string[]): string => {
   const trimmed: string[] = [];
@@ -49,8 +49,8 @@ const join = (...segments: string[]): string => {
   return trimmed.join('/');
 };
 
-const normalise = (path: string) => path.replace(/\\/g, '/');
+const normalize = (path: string) => path.replace(/\\/g, '/');
 
 const isAbsolute = (path: string) => path.startsWith('/root');
 
-module.exports = { resolve, relative, join, isAbsolute };
+module.exports = { resolve, relative, join, isAbsolute, normalize };
