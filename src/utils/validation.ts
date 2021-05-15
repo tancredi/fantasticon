@@ -21,6 +21,14 @@ export const parseString = (value: string) => {
   return value;
 };
 
+export const parseFunction = (value: Function) => {
+  if (typeof value !== 'function') {
+    throw new Error(`${value} is not a function`);
+  }
+
+  return value;
+};
+
 export const listMembersParser = <T extends string>(allowedValues: T[]) => (
   values: string[]
 ) => {

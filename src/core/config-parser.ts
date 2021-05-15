@@ -4,6 +4,7 @@ import {
   parseDir,
   parseString,
   parseBoolean,
+  parseFunction,
   listMembersParser,
   parseNumeric,
   optional,
@@ -30,7 +31,8 @@ const CONFIG_VALIDATORS: {
   selector: [nullable(parseString)],
   tag: [parseString],
   prefix: [parseString],
-  fontsUrl: [optional(parseString)]
+  fontsUrl: [optional(parseString)],
+  getIconId: [optional(parseFunction)]
 };
 
 export const parseConfig = async (input: object = {}) => {

@@ -114,7 +114,11 @@ describe('Runner', () => {
     await generateFonts(optionsIn);
 
     expect(loadAssetsMock).toHaveBeenCalledTimes(1);
-    expect(loadAssetsMock).toHaveBeenCalledWith(inputDir);
+    expect(loadAssetsMock).toHaveBeenCalledWith({
+      ...DEFAULT_OPTIONS,
+      ...optionsIn,
+      parsed: true
+    });
   });
 
   test('`generateFonts` calls `getGeneratorOptions` correctly', async () => {
