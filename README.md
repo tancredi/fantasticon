@@ -35,7 +35,7 @@ fantasticon my-icons -o icon-dist
 
 ### Command-line
 
-**Note:** Not all options can be specified through the command line - for `formatOptions`, `pathOptions`, `getIconId` and `templates` use a [configuration file](#configuration-file) or the JavaScript API.
+**Note:** Not all options can be specified through the command line - for `formatOptions`, `pathOptions`, `getIconId` and `templates` use a [configuration file](#configuration-file) or the JavaScript [API](#api).
 
 ```
 Usage: fantasticon [options] [input-dir]
@@ -114,10 +114,14 @@ module.exports = {
     'thumbs-up': 57358,
     'thumbs-down': 57359
   },
-  // Customize generated icon IDs (unavailable with .json config file extension)
-  getIconId: (relativeIconPath, relativeInputDir) => {
-    /* ... */
-  }
+  // Customize generated icon IDs (unavailable with `.json` config file)
+  getIconId: ({
+    basename, // `string` - Example: 'foo';
+    relativeDirPath, // `string` - Example: 'sub/dir/foo.svg'
+    absoluteFilePath, // `string` - Example: '/var/icons/sub/dir/foo.svg'
+    relativeFilePath, // `string` - Example: 'foo.svg'
+    index // `number` - Example: `0`
+  }) => [index, basename].join('_') // '0_foo'
 };
 ```
 

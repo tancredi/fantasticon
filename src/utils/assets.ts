@@ -1,6 +1,7 @@
 import glob from 'glob';
 import { promisify } from 'util';
 import { resolve, relative, join } from 'path';
+import { removeExtension, splitSegments } from '../utils/path';
 import { writeFile } from './fs-async';
 import { RunnerOptions } from '../types/runner';
 import { GeneratedAssets } from '../generators/generate-assets';
@@ -33,21 +34,46 @@ export const loadPaths = async (dir: string): Promise<string[]> => {
   return files;
 };
 
+const failForConflictingId = (
+  { relativePath: pathA, id }: IconAsset,
+  { relativePath: pathB }: IconAsset
+): void => {
+  throw new Error(
+    `Conflicting result from 'getIconId': '${id}' - conflicting input files:\n` +
+      [pathA, pathB].map(fpath => `  - ${fpath}`).join('\n')
+  );
+};
+
 export const loadAssets = async ({
   inputDir,
   getIconId
 }: RunnerOptions): Promise<AssetsMap> => {
   const paths = await loadPaths(inputDir);
   const out = {};
+  let index = 0;
 
   for (const path of paths) {
-    const iconId = getIconId(path, inputDir);
+    const relativePath = relative(resolve(inputDir), resolve(path));
+    const parts = splitSegments(relativePath);
+    const basename = removeExtension(parts.pop());
+    const absolutePath = resolve(path);
+    const iconId = getIconId({
+      basename,
+      relativeDirPath: join(...parts),
+      absoluteFilePath: absolutePath,
+      relativeFilePath: relativePath,
+      index
+    });
 
-    out[iconId] = {
-      id: iconId,
-      absolutePath: resolve(path),
-      relativePath: relative(resolve(inputDir), resolve(path))
-    };
+    const result: IconAsset = { id: iconId, relativePath, absolutePath };
+
+    if (out[iconId]) {
+      failForConflictingId(out[iconId], result);
+    }
+
+    out[iconId] = result;
+
+    index++;
   }
 
   return out;

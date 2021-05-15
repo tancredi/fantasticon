@@ -1,4 +1,5 @@
 import { loadPaths, loadAssets, writeAssets } from '../assets';
+import { GetIconIdFn } from '../../types/misc';
 import { DEFAULT_OPTIONS } from '../../constants';
 import { writeFile } from '../fs-async';
 
@@ -81,32 +82,77 @@ describe('Assets utilities', () => {
   });
 
   test('`loadAssets` with a custom `getIconId` implementation resolves a key - value map of assets with expected properties', async () => {
+    const getIconId: GetIconIdFn = jest.fn(({ relativeFilePath, index }) => {
+      return `${index}_${relativeFilePath
+        .replace('.svg', '')
+        .split('/')
+        .join('_')}`;
+    });
+
     expect(
       await loadAssets({
         ...DEFAULT_OPTIONS,
         inputDir: './valid',
         outputDir: './output',
-        getIconId: (relativeIconPath, relativeInputDir) => {
-          return relativeIconPath.split('/').pop().replace('.svg', '');
-        }
+        getIconId: getIconId
       })
     ).toEqual({
-      foo: {
+      '0_foo': {
         relativePath: 'foo.svg',
         absolutePath: '/root/project/valid/foo.svg',
-        id: 'foo'
+        id: '0_foo'
       },
-      bar: {
+      '1_bar': {
         relativePath: 'bar.svg',
         absolutePath: '/root/project/valid/bar.svg',
-        id: 'bar'
+        id: '1_bar'
       },
-      nested: {
+      '2_sub_nested': {
+        relativePath: 'sub/nested.svg',
+        absolutePath: '/root/project/valid/sub/nested.svg',
+        id: '2_sub_nested'
+      },
+      '3_sub_sub_nested': {
         relativePath: 'sub/sub/nested.svg',
         absolutePath: '/root/project/valid/sub/sub/nested.svg',
-        id: 'nested'
+        id: '3_sub_sub_nested'
       }
     });
+
+    expect(getIconId).toHaveBeenCalledTimes(4);
+
+    expect(getIconId).toHaveBeenNthCalledWith(1, {
+      basename: 'foo',
+      relativeDirPath: '',
+      absoluteFilePath: '/root/project/valid/foo.svg',
+      relativeFilePath: 'foo.svg',
+      index: 0
+    });
+
+    expect(getIconId).toHaveBeenNthCalledWith(4, {
+      basename: 'nested',
+      relativeDirPath: 'sub/sub',
+      absoluteFilePath: '/root/project/valid/sub/sub/nested.svg',
+      relativeFilePath: 'sub/sub/nested.svg',
+      index: 3
+    });
+  });
+
+  test('`loadAssets` will throw expected error if `getIconId` resolves the same `key` while processing different assets', async () => {
+    const getIconId: GetIconIdFn = () => 'xxx';
+
+    await expect(() =>
+      loadAssets({
+        ...DEFAULT_OPTIONS,
+        inputDir: './valid',
+        outputDir: './output',
+        getIconId: getIconId
+      })
+    ).rejects.toEqual(
+      new Error(
+        "Conflicting result from 'getIconId': 'xxx' - conflicting input files:\n  - foo.svg\n  - bar.svg"
+      )
+    );
   });
 
   test('`writeAssets` calls writeFile for each given asset with correctly formed filepath and content', async () => {
