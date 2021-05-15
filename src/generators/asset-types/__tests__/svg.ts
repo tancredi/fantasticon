@@ -1,4 +1,4 @@
-import _SVGIcons2SVGFontStream from 'svgicons2svgfont';
+import * as _SVGIcons2SVGFontStream from 'svgicons2svgfont';
 import { FontAssetType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import svgGen from '../svg';
@@ -21,7 +21,12 @@ jest.mock('svgicons2svgfont', () => {
     public content = '';
 
     public write(chunk: any) {
-      this.events.emit('data', Buffer.from(`processed->${chunk.content}$`));
+      this.events.emit(
+        'data',
+        Buffer.from(
+          `processed->${chunk.content}|${JSON.stringify(chunk.metadata)}$`
+        )
+      );
       return this;
     }
 
@@ -71,15 +76,15 @@ describe('`SVG` font generator', () => {
       __mock: 'options__'
     });
 
-    expect(result).toBe(
-      'processed->content->/root/foo.svg$processed->content->/root/bar.svg$'
-    );
+    expect(result).toMatchSnapshot();
   });
 
   test('passes correctly format options to `SVGIcons2SVGFontStream`', async () => {
     const log = () => null;
     const formatOptions = { descent: 5, fontHeight: 6, log };
-    await svgGen.generate(mockOptions(formatOptions), null);
+    const result = await svgGen.generate(mockOptions(formatOptions), null);
+
+    expect(result).toMatchSnapshot();
 
     expect(SVGIcons2SVGFontStream).toHaveBeenCalledTimes(1);
     expect(SVGIcons2SVGFontStream).toHaveBeenCalledWith({
