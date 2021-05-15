@@ -31,13 +31,8 @@ const generator: FontGenerator<void> = {
       for (const { id, absolutePath } of Object.values(assets)) {
         const glyph: GglyphStream = createReadStream(absolutePath);
         const unicode = String.fromCharCode(codepoints[id]);
-        let ligature = '';
 
-        for (let i = 0; i < id.length; i++) {
-          ligature += String.fromCharCode(id.charCodeAt(i));
-        }
-
-        glyph.metadata = { name: id, unicode: [unicode, ligature] };
+        glyph.metadata = { name: id, unicode: [unicode] };
 
         fontStream.write(glyph);
       }
