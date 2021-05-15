@@ -35,7 +35,7 @@ fantasticon my-icons -o icon-dist
 
 ### Command-line
 
-**Note:** Not all options can be specified through the command line - for `formatOptions`, `pathOptions` and `templates` use a [configuration file](#configuration-file) or the JavaScript API.
+**Note:** Not all options can be specified through the command line - for `formatOptions`, `pathOptions`, `getIconId` and `templates` use a [configuration file](#configuration-file) or the JavaScript [API](#api).
 
 ```
 Usage: fantasticon [options] [input-dir]
@@ -62,7 +62,7 @@ Options:
 
 ### Configuration file
 
-Some options (specifically, `formatOptions` and `pathOptions`) cannot be passed to the CLI directly.
+Some options (specifically, `formatOptions`, `pathOptions` and `getIconId`) cannot be passed to the CLI directly.
 
 To have more control and better readability, you can create a simple configuration file.
 
@@ -113,7 +113,15 @@ module.exports = {
     'chevron-right': 57345,
     'thumbs-up': 57358,
     'thumbs-down': 57359
-  }
+  },
+  // Customize generated icon IDs (unavailable with `.json` config file)
+  getIconId: ({
+    basename, // `string` - Example: 'foo';
+    relativeDirPath, // `string` - Example: 'sub/dir/foo.svg'
+    absoluteFilePath, // `string` - Example: '/var/icons/sub/dir/foo.svg'
+    relativeFilePath, // `string` - Example: 'foo.svg'
+    index // `number` - Example: `0`
+  }) => [index, basename].join('_') // '0_foo'
 };
 ```
 
@@ -185,6 +193,8 @@ And the generated icon IDs would be:
 | `social-twitter`       | `.icon.icon-social-twitter`  |
 | `symbol-chevron-left`  | `.icon.icon-chevron-left`    |
 | `symbol-chevron-right` | `.icon.icon-chevron-right`   |
+
+You can provide a `getIconId` function via the configuration file to customize how the icon IDs / CSS selectors are derived from the filepath. The function will receive relative paths to the icon and the input directory as arguments, and must return a unique string to be used as the ID.
 
 ### Contribute
 

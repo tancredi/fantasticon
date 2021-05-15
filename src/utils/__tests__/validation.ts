@@ -1,6 +1,7 @@
 import {
   parseNumeric,
   parseString,
+  parseFunction,
   listMembersParser,
   removeUndefined,
   parseBoolean,
@@ -47,6 +48,21 @@ describe('Cli utilities', () => {
       );
     }
   });
+
+  test('`parseFunction` returns its unchanged input when given a string', () => {
+    const fn = () => null;
+
+    expect(parseFunction(fn)).toBe(fn);
+  });
+
+  test.each([null, undefined, '', 'foo', 10, {}, new RegExp('foo')])(
+    '`parseFunction` throws expected error if given path is found not to be a function - input: %s',
+    input => {
+      expect(() => parseFunction(input as Function)).toThrow(
+        `${input} is not a function`
+      );
+    }
+  );
 
   test('`listMembersParser` throws correct error when given values outside the given list', () => {
     const fn = listMembersParser(['a', 'b', 'c']);

@@ -41,7 +41,7 @@ export const generateFonts = async (
     throw new Error('You must specify an output directory');
   }
 
-  const assetsIn = await loadAssets(options.inputDir);
+  const assetsIn = await loadAssets(options);
   const generatorOptions = getGeneratorOptions(options, assetsIn);
   const assetsOut = await generateAssets(generatorOptions);
   const writeResults = outputDir ? await writeAssets(assetsOut, options) : [];
