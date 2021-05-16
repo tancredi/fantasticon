@@ -23,11 +23,13 @@ export const getGeneratorOptions = (
     options.formatOptions,
     assetType => DEFAULT_OPTIONS.formatOptions[assetType] || {}
   ),
-  templates: prefillOptions<OtherAssetType, string>(
-    ASSET_TYPES_WITH_TEMPLATE,
-    options.templates,
-    assetType => join(TEMPLATES_DIR, `${assetType}.hbs`)
-  ),
+  templates: {
+    ...ASSET_TYPES_WITH_TEMPLATE.reduce((acc, assetType) => ({
+      ...acc,
+      [assetType]: join(TEMPLATES_DIR, `${assetType}.hbs`)
+    }), {}),
+    ...options.templates
+  },
   assets
 });
 
@@ -35,14 +37,16 @@ export const prefillOptions = <K extends AssetType, T, O = { [key in K]: T }>(
   keys: K[],
   userOptions: { [key in K]?: T } = {},
   getDefault: (type: K) => T
-) =>
-  keys.reduce(
+) => {
+  console.log(userOptions);
+  return keys.reduce(
     (cur = {}, type: K) => ({
       ...cur,
       [type]: mergeOptions(userOptions[type], getDefault(type))
     }),
     {}
   ) as O;
+};
 
 export const mergeOptions = <T>(input: T, defaultVal: T) => {
   if (typeof defaultVal === 'object') {
