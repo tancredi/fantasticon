@@ -41,7 +41,7 @@
     "change-case": "^4.1.2",
     "cli-color": "^2.0.0",
     "commander": "^7.2.0",
-    "glob": "^7.1.6",
+    "glob": "^7.1.7",
     "handlebars": "^4.7.7",
     "slugify": "^1.5.3",
     "svg2ttf": "^5.2.0",
