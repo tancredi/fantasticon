@@ -56,7 +56,7 @@
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.3",
     "@types/svg2ttf": "^5.0.0",
-    "@types/svgicons2svgfont": "^9.1.0",
+    "@types/svgicons2svgfont": "^10.0.0",
     "@types/ttf2eot": "^2.0.0",
     "@types/ttf2woff": "^2.0.0",
     "@types/ttf2woff2": "^2.0.0",
