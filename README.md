@@ -77,6 +77,12 @@ You can specify a custom `--config` option with your configuration file path.
 Here's an example `.fantasticonrc.js`:
 
 ```js
+const codepoint = require('./path/to/codepoint.json');
+
+module.exports = {
+    ...
+    codepoints: codepoints,
+};
 module.exports = {
   inputDir: './icons', // (required)
   outputDir: './dist', // (required)
@@ -108,12 +114,15 @@ module.exports = {
     ts: './src/types/icon-types.ts',
     json: './misc/icon-codepoints.json'
   },
+  // Reference codepoints directly
   codepoints: {
     'chevron-left': 57344, // decimal representation of 0xe000
     'chevron-right': 57345,
     'thumbs-up': 57358,
     'thumbs-down': 57359
   },
+  // Or reference codepoints from a json file, see codepoint const above
+  codepoints: codepoint
   // Customize generated icon IDs (unavailable with `.json` config file)
   getIconId: ({
     basename, // `string` - Example: 'foo';
