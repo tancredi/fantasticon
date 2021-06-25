@@ -19,13 +19,13 @@ const renderSrcOptions: { [key in FontAssetType]: RenderSrcOptions } = {
 };
 
 export const renderSrcAttribute = (
-  { name, fontTypes, fontsUrl }: FontGeneratorOptions,
+  { name, fontTypes, fontsUrl, fontsUrlHash = true }: FontGeneratorOptions,
   font: string | Buffer
 ) =>
   fontTypes
     .map(fontType => {
       const { formatValue, getSuffix } = renderSrcOptions[fontType];
-      const hash = getHash(font.toString('utf8'));
+      const hash = fontsUrlHash ? getHash(font.toString('utf8')): '';
       const suffix = getSuffix ? getSuffix(name) : '';
       return `url("${
         fontsUrl || '.'

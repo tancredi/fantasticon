@@ -26,6 +26,7 @@ export const DEFAULT_OPTIONS: Omit<RunnerOptions, 'inputDir' | 'outputDir'> = {
   tag: 'i',
   prefix: 'icon',
   fontsUrl: undefined,
+  fontsUrlHash: true,
   getIconId: getIconId
 };
 

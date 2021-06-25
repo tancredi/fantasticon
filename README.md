@@ -160,7 +160,8 @@ generateFonts({
   selector: null,
   tag: 'i',
   prefix: 'icon',
-  fontsUrl: null
+  fontsUrl: null,
+  fontsUrlHash: true, // default is true
 }).then(results => console.log(results));
 ```
 
