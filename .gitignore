@@ -7,3 +7,6 @@ yarn-error.log
 
 # Build
 lib
+
+# Jetbrains
+.idea
