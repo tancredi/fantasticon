@@ -28,6 +28,7 @@ const mockConfig = {
   tag: 'f',
   prefix: 'baz',
   fontsUrl: '/fonts',
+  fontsUrlHash: true,
   templates: {
     css: 'css',
     sass: 'sass',
