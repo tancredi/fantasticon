@@ -1,6 +1,6 @@
 import { parseConfig } from '../config-parser';
 import { checkPath } from '../../utils/fs-async';
-import { DEFAULT_OPTIONS } from '../../constants';
+import { DEFAULT_OPTIONS, DEFAULT_START_CODEPOINT } from '../../constants';
 
 const checkPathMock = (checkPath as any) as jest.Mock;
 
@@ -25,6 +25,7 @@ const mockConfig = {
   normalize: true,
   round: 3,
   selector: null,
+  startCodepoint: DEFAULT_START_CODEPOINT,
   tag: 'f',
   prefix: 'baz',
   fontsUrl: '/fonts',

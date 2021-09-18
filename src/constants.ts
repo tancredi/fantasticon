@@ -5,6 +5,8 @@ import { getIconId } from './utils/icon-id';
 
 export const TEMPLATES_DIR = resolve(__dirname, '../templates');
 
+export const DEFAULT_START_CODEPOINT = 0xf101;
+
 export const DEFAULT_OPTIONS: Omit<RunnerOptions, 'inputDir' | 'outputDir'> = {
   name: 'icons',
   fontTypes: [FontAssetType.EOT, FontAssetType.WOFF2, FontAssetType.WOFF],
@@ -17,6 +19,7 @@ export const DEFAULT_OPTIONS: Omit<RunnerOptions, 'inputDir' | 'outputDir'> = {
   formatOptions: { json: { indent: 4 } },
   pathOptions: {},
   templates: {},
+  startCodepoint: DEFAULT_START_CODEPOINT,
   codepoints: {},
   round: undefined,
   fontHeight: 300,
@@ -28,5 +31,3 @@ export const DEFAULT_OPTIONS: Omit<RunnerOptions, 'inputDir' | 'outputDir'> = {
   fontsUrl: undefined,
   getIconId: getIconId
 };
-
-export const DEFAULT_START_CODEPOINT = 0xf101;
