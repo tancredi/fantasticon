@@ -62,5 +62,5 @@ export const parseConfig = async (input: object = {}) => {
     out[key] = val;
   }
 
-  return (out as any) as RunnerOptions;
+  return out as any as RunnerOptions;
 };
