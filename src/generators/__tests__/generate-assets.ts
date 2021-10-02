@@ -27,7 +27,7 @@ jest.mock('../asset-types', () => {
   };
 });
 
-const cast = <T>(val: any) => (val as unknown) as T;
+const cast = <T>(val: any) => val as unknown as T;
 
 const getGeneratorFn = (key: string) =>
   generators[key as keyof typeof generators].generate;
@@ -35,7 +35,7 @@ const getGeneratorFn = (key: string) =>
 describe('Generate assets', () => {
   beforeEach(() => {
     for (const gen of Object.values(generators)) {
-      ((gen.generate as unknown) as jest.Mock).mockClear();
+      (gen.generate as unknown as jest.Mock).mockClear();
     }
   });
 

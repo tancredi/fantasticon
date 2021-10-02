@@ -5,11 +5,11 @@ import { getGeneratorOptions } from '../../generators/generator-options';
 import { parseConfig } from '../config-parser';
 import { DEFAULT_OPTIONS } from '../../constants';
 
-const generateAssetsMock = (generateAssets as any) as jest.Mock;
-const parseConfigMock = (parseConfig as any) as jest.Mock;
-const writeAssetsMock = (writeAssets as any) as jest.Mock;
-const loadAssetsMock = (loadAssets as any) as jest.Mock;
-const getGeneratorOptionsMock = (getGeneratorOptions as any) as jest.Mock;
+const generateAssetsMock = generateAssets as any as jest.Mock;
+const parseConfigMock = parseConfig as any as jest.Mock;
+const writeAssetsMock = writeAssets as any as jest.Mock;
+const loadAssetsMock = loadAssets as any as jest.Mock;
+const getGeneratorOptionsMock = getGeneratorOptions as any as jest.Mock;
 
 jest.mock('../../constants', () => ({
   DEFAULT_OPTIONS: { hasDefaults: true, parsed: false }
