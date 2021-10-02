@@ -87,9 +87,10 @@ const generator: FontGenerator = {
     formatOptions: { ts } = {}
   }) => {
     const quote = Boolean(ts?.singleQuotes) ? "'" : '"';
-    const generateKind: Record<string, boolean> = (Boolean(ts?.types?.length)
-      ? ts.types
-      : ['enum', 'constant', 'literalId', 'literalKey']
+    const generateKind: Record<string, boolean> = (
+      Boolean(ts?.types?.length)
+        ? ts.types
+        : ['enum', 'constant', 'literalId', 'literalKey']
     )
       .map(kind => ({ [kind]: true }))
       .reduce((prev, curr) => Object.assign(prev, curr), {});

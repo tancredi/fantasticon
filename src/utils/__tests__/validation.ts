@@ -11,7 +11,7 @@ import {
 } from '../validation';
 import { checkPath } from '../fs-async';
 
-const checkPathMock = (checkPath as any) as jest.Mock;
+const checkPathMock = checkPath as any as jest.Mock;
 
 jest.mock('../fs-async', () => ({ checkPath: jest.fn() }));
 

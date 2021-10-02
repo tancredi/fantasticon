@@ -3,7 +3,7 @@ import { FontAssetType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import svgGen from '../svg';
 
-const SVGIcons2SVGFontStream = (_SVGIcons2SVGFontStream as unknown) as jest.Mock<
+const SVGIcons2SVGFontStream = _SVGIcons2SVGFontStream as unknown as jest.Mock<
   typeof _SVGIcons2SVGFontStream
 >;
 
@@ -45,7 +45,7 @@ jest.mock('svgicons2svgfont', () => {
 });
 
 const mockOptions = (svgOptions = { __mock: 'options__' } as any) =>
-  (({
+  ({
     name: 'foo',
     fontHeight: 1,
     descent: 2,
@@ -56,7 +56,7 @@ const mockOptions = (svgOptions = { __mock: 'options__' } as any) =>
       foo: { id: 'foo', absolutePath: '/root/foo.svg' },
       bar: { id: 'bar', absolutePath: '/root/bar.svg' }
     }
-  } as unknown) as FontGeneratorOptions);
+  } as unknown as FontGeneratorOptions);
 
 describe('`SVG` font generator', () => {
   beforeEach(() => {

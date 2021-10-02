@@ -3,16 +3,16 @@ import { FontAssetType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import ttfGen from '../ttf';
 
-const svg2ttf = (_svg2ttf as unknown) as jest.Mock<typeof _svg2ttf>;
+const svg2ttf = _svg2ttf as unknown as jest.Mock<typeof _svg2ttf>;
 
 jest.mock('svg2ttf', () =>
   jest.fn(content => ({ buffer: `::ttf(${content})::` }))
 );
 
 const mockOptions = (ttfOptions = { __mock: 'options__' } as any) =>
-  (({
+  ({
     formatOptions: { [FontAssetType.TTF]: ttfOptions }
-  } as unknown) as FontGeneratorOptions);
+  } as unknown as FontGeneratorOptions);
 
 const svg = '::svg::';
 
