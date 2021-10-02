@@ -58,7 +58,7 @@
     "@types/svg2ttf": "^5.0.0",
     "@types/svgicons2svgfont": "^10.0.1",
     "@types/ttf2eot": "^2.0.0",
-    "@types/ttf2woff": "^2.0.0",
+    "@types/ttf2woff": "^2.0.2",
     "@types/ttf2woff2": "^2.0.0",
     "jest": "^26.6.3",
     "prettier": "^2.3.2",
