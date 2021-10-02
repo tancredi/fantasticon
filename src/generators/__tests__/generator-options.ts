@@ -7,10 +7,11 @@ const getCodepointsMock = getCodepoints as any as jest.Mock;
 
 jest.mock('path');
 
-jest.mock('../../constants', () => ({
-  ...jest.requireActual('../../constants'),
-  TEMPLATES_DIR: '/foo/templates-dir'
-}));
+jest.mock('../../constants', () => {
+  const constants = jest.requireActual('../../constants');
+
+  return { ...constants, TEMPLATES_DIR: '/foo/templates-dir' };
+});
 
 jest.mock('../../types/misc', () => ({
   FontAssetType: { TTF: 'TTF', EOT: 'eot' },
