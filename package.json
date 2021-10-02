@@ -44,7 +44,7 @@
     "glob": "^7.1.7",
     "handlebars": "^4.7.7",
     "slugify": "^1.5.3",
-    "svg2ttf": "^5.2.0",
+    "svg2ttf": "^6.0.2",
     "svgicons2svgfont": "^10.0.3",
     "ttf2eot": "^2.0.0",
     "ttf2woff": "^2.0.2",
