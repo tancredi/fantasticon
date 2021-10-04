@@ -3,7 +3,7 @@ import { GetIconIdFn } from '../../types/misc';
 import { DEFAULT_OPTIONS } from '../../constants';
 import { writeFile } from '../fs-async';
 
-const writeFileMock = (writeFile as any) as jest.Mock;
+const writeFileMock = writeFile as any as jest.Mock;
 
 jest.mock('path');
 jest.mock('glob');

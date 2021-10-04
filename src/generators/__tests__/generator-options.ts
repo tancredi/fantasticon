@@ -3,14 +3,15 @@ import { AssetsMap } from '../../utils/assets';
 import { ASSET_TYPES, ASSET_TYPES_WITH_TEMPLATE } from '../../types/misc';
 import { getCodepoints } from '../../utils/codepoints';
 
-const getCodepointsMock = (getCodepoints as any) as jest.Mock;
+const getCodepointsMock = getCodepoints as any as jest.Mock;
 
 jest.mock('path');
 
-jest.mock('../../constants', () => ({
-  ...(jest.requireActual('../../constants') as Object),
-  TEMPLATES_DIR: '/foo/templates-dir'
-}));
+jest.mock('../../constants', () => {
+  const constants = jest.requireActual('../../constants');
+
+  return { ...constants, TEMPLATES_DIR: '/foo/templates-dir' };
+});
 
 jest.mock('../../types/misc', () => ({
   FontAssetType: { TTF: 'TTF', EOT: 'eot' },
@@ -69,7 +70,7 @@ describe('Font generator options', () => {
       formatOptions,
       pathOptions
     } as any;
-    const assets = ({ __mock: 'runnerOptions__' } as unknown) as AssetsMap;
+    const assets = { __mock: 'runnerOptions__' } as unknown as AssetsMap;
     const generatorOptions = getGeneratorOptions(options, assets);
     expect(generatorOptions).toEqual(
       expect.objectContaining({
@@ -113,7 +114,7 @@ describe('Font generator options', () => {
 
   test('`getGeneratorOptions` correctly processes templates option', () => {
     const options = { templates: { html: 'user-template.hbs' } } as any;
-    const assets = ({} as unknown) as AssetsMap;
+    const assets = {} as unknown as AssetsMap;
 
     expect(getGeneratorOptions(options, assets).templates.css).toMatch(
       '/foo/templates-dir/css.hbs'

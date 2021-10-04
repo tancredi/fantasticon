@@ -2,7 +2,7 @@ import { parseConfig } from '../config-parser';
 import { checkPath } from '../../utils/fs-async';
 import { DEFAULT_OPTIONS, DEFAULT_START_CODEPOINT } from '../../constants';
 
-const checkPathMock = (checkPath as any) as jest.Mock;
+const checkPathMock = checkPath as any as jest.Mock;
 
 jest.mock('../../utils/fs-async', () => ({ checkPath: jest.fn() }));
 

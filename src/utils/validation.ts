@@ -29,22 +29,22 @@ export const parseFunction = (value: Function) => {
   return value;
 };
 
-export const listMembersParser = <T extends string>(allowedValues: T[]) => (
-  values: string[]
-) => {
-  for (const value of values) {
-    if (!allowedValues.includes(value as any)) {
-      throw new Error(
-        [
-          `${value} is not valid`,
-          `accepted values are: ${allowedValues.join(', ')}`
-        ].join(' - ')
-      );
+export const listMembersParser =
+  <T extends string>(allowedValues: T[]) =>
+  (values: string[]) => {
+    for (const value of values) {
+      if (!allowedValues.includes(value as any)) {
+        throw new Error(
+          [
+            `${value} is not valid`,
+            `accepted values are: ${allowedValues.join(', ')}`
+          ].join(' - ')
+        );
+      }
     }
-  }
 
-  return values as T[];
-};
+    return values as T[];
+  };
 
 export const removeUndefined = (object: Object) => {
   for (const key of Object.keys(object)) {
@@ -68,9 +68,9 @@ export const parseBoolean = (val: any) => {
   throw new Error(`must be a boolean value`);
 };
 
-const skipIfMatching = (match: any) => (fn: (value: any, cur?: any) => any) => (
-  val: any
-) => (val === match ? match : fn(val));
+const skipIfMatching =
+  (match: any) => (fn: (value: any, cur?: any) => any) => (val: any) =>
+    val === match ? match : fn(val);
 
 export const parseDir = async (dirname: string) => {
   if ((await checkPath(dirname, 'directory')) === false) {
