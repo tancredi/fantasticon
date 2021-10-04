@@ -1,6 +1,6 @@
 import svg2ttf from 'svg2ttf';
 import ttf2woff from 'ttf2woff';
-import { SvgIcons2FontOptions } from 'svgicons2svgfont';
+import { SvgIcons2FontOptions } from '@ramirezcgn/svgicons2svgfont';
 import { Arguments } from '../types/utils';
 
 type WoffOptions = Arguments<typeof ttf2woff>[1];

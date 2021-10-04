@@ -30,7 +30,8 @@
             font-size: 40px;
             color: #333;
         }
-        .label {
+        .label,
+        .codepoint {
             display: inline-block;
             width: 100%;
             box-sizing: border-box;
@@ -40,6 +41,7 @@
             color: #666;
             white-space: nowrap;
             overflow: hidden;
+            vertical-align: top;
             text-overflow: ellipsis;
             background: #ddd;
             -webkit-border-radius: 0 0 3px 3px;
@@ -58,11 +60,13 @@
     {{# each assets }}
 
         <div class="preview">
+            <span class='label'>{{ @key }}</span>
+            <br>
             <span class="inner">
                 <{{ ../tag }} class="{{ ../prefix }} {{ ../prefix }}-{{ @key }}"></{{ ../tag }}>
             </span>
             <br>
-            <span class='label'>{{ @key }}</span>
+            <span class='codepoint'>{{ codepoint (lookup ../codepoints id) }}</span>
         </div>
 
     {{/ each }}

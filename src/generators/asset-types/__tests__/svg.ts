@@ -1,4 +1,4 @@
-import * as _SVGIcons2SVGFontStream from 'svgicons2svgfont';
+import * as _SVGIcons2SVGFontStream from '@ramirezcgn/svgicons2svgfont';
 import { FontAssetType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import svgGen from '../svg';

@@ -1,5 +1,5 @@
 import { createReadStream, ReadStream } from 'fs';
-import SVGIcons2SVGFontStream from 'svgicons2svgfont';
+import SVGIcons2SVGFontStream from '@ramirezcgn/svgicons2svgfont';
 import { FontGenerator } from '../../types/generator';
 
 type GglyphStream = ReadStream & { metadata?: any };
