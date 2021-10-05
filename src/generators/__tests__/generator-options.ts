@@ -99,13 +99,17 @@ describe('Font generator options', () => {
 
   test('`getGeneratorOptions` calls `getCodepoints` with input assets and codepoints', () => {
     const codepointsIn = { foo: 'bar' };
-    const options = { codepoints: codepointsIn } as any;
-    const assets = {} as unknown as AssetsMap;
+    const startCodepointIn = 10;
+    const options = {
+      codepoints: codepointsIn,
+      startCodepoint: startCodepointIn,
+    } as any;
+    const assets = ({} as unknown) as AssetsMap;
 
     getGeneratorOptions(options, assets);
 
     expect(getCodepointsMock).toHaveBeenCalledTimes(1);
-    expect(getCodepointsMock).toHaveBeenCalledWith(assets, codepointsIn);
+    expect(getCodepointsMock).toHaveBeenCalledWith(assets, codepointsIn, startCodepointIn);
   });
 
   test('`getGeneratorOptions` correctly processes templates option', () => {

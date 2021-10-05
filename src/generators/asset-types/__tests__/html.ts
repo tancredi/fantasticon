@@ -5,6 +5,7 @@ const mockOptions = {
   name: 'test-font',
   prefix: 'tf',
   tag: 'b',
+  codepoints: { 'my-icon': 1000 },
   assets: { 'my-icon': null },
   templates: {
     html: resolve(__dirname, '../../../../templates/html.hbs')
