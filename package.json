@@ -43,7 +43,7 @@
     "commander": "^7.2.0",
     "glob": "^7.2.0",
     "handlebars": "^4.7.7",
-    "slugify": "^1.6.0",
+    "slugify": "^1.6.5",
     "svg2ttf": "^6.0.3",
     "svgicons2svgfont": "^10.0.3",
     "ttf2eot": "^2.0.0",
