@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`\`TS\` asset generator generates constEnum only 1`] = `
+"export const enum MyIconsSetChars {
+  Foo = \\"\\\\u10a9\\",
+  Bar = \\"\\\\u04cf\\",
+}
+"
+`;
+
 exports[`\`TS\` asset generator generates constant only 1`] = `
 "export const MY_ICONS_SET_CODEPOINTS: Record<string, string> = {
   \\"foo\\": \\"4265\\",
@@ -63,6 +71,11 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
   [MyIconsSet.Foo]: '4265',
   [MyIconsSet.Bar]: '1231',
 };
+
+export const enum MyIconsSetChars {
+  Foo = '\\\\u10a9',
+  Bar = '\\\\u04cf',
+}
 "
 `;
 
@@ -84,6 +97,11 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
   [MyIconsSet.i1234]: \\"undefined\\",
   [MyIconsSet.i5678]: \\"undefined\\",
 };
+
+export const enum MyIconsSetChars {
+  i1234 = \\"\\\\u10a9\\",
+  i5678 = \\"\\\\u04cf\\",
+}
 "
 `;
 
@@ -109,6 +127,11 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
   [MyIconsSet.i5678ab]: \\"undefined\\",
   [MyIconsSet.Foo]: \\"4265\\",
 };
+
+export const enum MyIconsSetChars {
+  Foo = \\"\\\\u10a9\\",
+  i5678ab = \\"\\\\u04cf\\",
+}
 "
 `;
 
@@ -130,5 +153,10 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
   [MyIconsSet.Foo]: \\"4265\\",
   [MyIconsSet.Bar]: \\"1231\\",
 };
+
+export const enum MyIconsSetChars {
+  Foo = \\"\\\\u10a9\\",
+  Bar = \\"\\\\u04cf\\",
+}
 "
 `;
