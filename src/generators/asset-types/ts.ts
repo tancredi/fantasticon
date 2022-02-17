@@ -14,7 +14,7 @@ const generateEnumKeys = (assetKeys: string[]): Record<string, string> =>
     })
     .reduce((prev, curr) => Object.assign(prev, curr), {});
 
-const generateConstEnumKeys = (assets: AssetsMap): Record<string, string> =>
+const generateCharEnumKeys = (assets: AssetsMap): Record<string, string> =>
   Object.keys(assets)
     .map(name => {
       const id = assets[name].id;
@@ -40,14 +40,14 @@ const generateEnums = (
     '}\n'
   ].join('\n');
 
-const generateConstEnums = (
-  constEnumName: string,
+const generateCharEnums = (
+  charEnumName: string,
   enumKeys: { [eKey: string]: string },
   codepoints: Record<string, number>,
   quote = '"'
 ): string =>
   [
-    `export const enum ${constEnumName} {`,
+    `export const enum ${charEnumName} {`,
     ...Object.entries(enumKeys).map(
       (console.log(enumKeys, codepoints), ([enumValue, enumKey]) =>
         `  ${enumKey} = ${quote}\\u${codepoints[enumValue]
@@ -121,26 +121,26 @@ const generator: FontGenerator = {
     const generateKind: Record<string, boolean> = (
       Boolean(ts?.types?.length)
         ? ts.types
-        : ['enum', 'constant', 'constEnum', 'literalId', 'literalKey']
+        : ['enum', 'constant', 'charEnum', 'literalId', 'literalKey']
     )
       .map(kind => ({ [kind]: true }))
       .reduce((prev, curr) => Object.assign(prev, curr), {});
 
     const enumName = pascalCase(name);
-    const constEnumName = `${pascalCase(name)}Chars`;
+    const charEnumName = `${pascalCase(name)}Chars`;
     const codepointsName = `${constantCase(name)}_CODEPOINTS`;
     const literalIdName = `${pascalCase(name)}Id`;
     const literalKeyName = `${pascalCase(name)}Key`;
     const names = {
       enumName,
-      constEnumName,
+      charEnumName,
       codepointsName,
       literalIdName,
       literalKeyName
     };
 
     const enumKeys = generateEnumKeys(Object.keys(assets));
-    const constEnumKeys = generateConstEnumKeys(assets);
+    const charEnumKeys = generateCharEnumKeys(assets);
 
     const stringLiteralId = generateKind.literalId
       ? generateStringLiterals(literalIdName, Object.keys(enumKeys), quote)
@@ -153,8 +153,8 @@ const generator: FontGenerator = {
       ? generateEnums(enumName, enumKeys, quote)
       : null;
 
-    const constEnums = generateKind.constEnum
-      ? generateConstEnums(constEnumName, constEnumKeys, codepoints, quote)
+    const charEnums = generateKind.charEnum
+      ? generateCharEnums(charEnumName, charEnumKeys, codepoints, quote)
       : null;
 
     const constant = generateKind.constant
@@ -167,7 +167,7 @@ const generator: FontGenerator = {
         })
       : null;
 
-    return [stringLiteralId, stringLiteralKey, enums, constant, constEnums]
+    return [stringLiteralId, stringLiteralKey, enums, constant, charEnums]
       .filter(Boolean)
       .join('\n');
   }

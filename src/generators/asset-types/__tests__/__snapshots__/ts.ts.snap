@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`\`TS\` asset generator generates constEnum only 1`] = `
+exports[`\`TS\` asset generator generates charEnum only 1`] = `
 "export const enum MyIconsSetChars {
   Foo = \\"\\\\u10a9\\",
   Bar = \\"\\\\u04cf\\",

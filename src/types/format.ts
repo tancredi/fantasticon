@@ -15,7 +15,7 @@ interface JsonOptions {
 }
 
 interface TsOptions {
-  types?: ('enum' | 'constant' | 'constEnum' | 'literalId' | 'literalKey')[];
+  types?: ('enum' | 'constant' | 'charEnum' | 'literalId' | 'literalKey')[];
   singleQuotes?: boolean;
 }
 

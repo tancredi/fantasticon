@@ -49,7 +49,7 @@ describe('`TS` asset generator', () => {
     );
   });
 
-  test('correctly constEnum declaration', async () => {
+  test('correctly charEnum declaration', async () => {
     expect(await getCleanGen()).toContain(
       'export const enum MyIconsSetChars { Foo = "\\u10a9", Bar = "\\u04cf", }'
     );
@@ -156,11 +156,11 @@ describe('`TS` asset generator', () => {
     expect(cleanResult).not.toContain('export enum MyIconsSet');
   });
 
-  test('generates constEnum only', async () => {
+  test('generates charEnum only', async () => {
     const result = await tsGen.generate(
       {
         ...mockOptions,
-        formatOptions: { ts: { types: ['constEnum'] } }
+        formatOptions: { ts: { types: ['charEnum'] } }
       },
       null
     );
