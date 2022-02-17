@@ -49,6 +49,12 @@ describe('`TS` asset generator', () => {
     );
   });
 
+  test('correctly charEnum declaration', async () => {
+    expect(await getCleanGen()).toContain(
+      'export const enum MyIconsSetChars { Foo = "\\u10a9", Bar = "\\u04cf", }'
+    );
+  });
+
   test('correctly codepoints declaration', async () => {
     expect(await getCleanGen()).toContain(
       'export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string }' +
@@ -150,6 +156,27 @@ describe('`TS` asset generator', () => {
     expect(cleanResult).not.toContain('export enum MyIconsSet');
   });
 
+  test('generates charEnum only', async () => {
+    const result = await tsGen.generate(
+      {
+        ...mockOptions,
+        formatOptions: { ts: { types: ['charEnum'] } }
+      },
+      null
+    );
+    const cleanResult = cleanWhiteSpace(result as string);
+
+    expect(result).toMatchSnapshot();
+    expect(cleanResult).toContain(
+      'export const enum MyIconsSetChars'
+    );
+
+    expect(cleanResult).not.toContain(
+      'export type MyIconsSetId = | "foo" | "bar";'
+    );
+    expect(cleanResult).not.toContain('export enum MyIconsSet');
+  });
+
   test('prevents enum keys that start with digits', async () => {
     const result = await tsGen.generate(
       {
@@ -169,6 +196,9 @@ describe('`TS` asset generator', () => {
     );
     expect(cleanResult).toContain(
       'export enum MyIconsSet { i1234 = "1234", i5678 = "5678", }'
+    );
+    expect(cleanResult).toContain(
+      'export const enum MyIconsSetChars { i1234 = "\\u10a9", i5678 = "\\u04cf", }'
     );
   });
 
@@ -195,6 +225,9 @@ describe('`TS` asset generator', () => {
     );
     expect(cleanResult).toContain(
       'export enum MyIconsSet { i1234asdf = "1234asdf", i5678ab = "5678ab", Foo = "foo", }'
+    );
+    expect(cleanResult).toContain(
+      'export const enum MyIconsSetChars { Foo = "\\u10a9", i5678ab = "\\u04cf", }'
     );
   });
 });

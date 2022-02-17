@@ -94,7 +94,7 @@ module.exports = {
       indent: 2
     },
     ts: {
-      // select what kind of types you want to generate (default `['enum', 'constant', 'literalId', 'literalKey']`)
+      // select what kind of types you want to generate (default `['enum', 'constant', 'charEnum', 'literalId', 'literalKey']`)
       types: ['constant', 'literalId'],
       // render the types with `'` instead of `"` (default is `"`)
       singleQuotes: true
