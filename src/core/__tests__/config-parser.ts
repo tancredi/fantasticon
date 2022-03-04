@@ -34,7 +34,8 @@ const mockConfig = {
     scss: 'scss',
     html: 'html'
   },
-  getIconId: DEFAULT_OPTIONS.getIconId
+  getIconId: DEFAULT_OPTIONS.getIconId,
+  addLigatures: false
 };
 
 const testError = async (options: object, key: string, message: string) =>

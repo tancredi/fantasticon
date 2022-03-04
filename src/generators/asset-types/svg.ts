@@ -12,7 +12,8 @@ const generator: FontGenerator<void> = {
     normalize,
     assets,
     codepoints,
-    formatOptions: { svg } = {}
+    formatOptions: { svg } = {},
+    addLigatures
   }) =>
     new Promise(resolve => {
       let font = Buffer.alloc(0);
@@ -31,11 +32,15 @@ const generator: FontGenerator<void> = {
       for (const { id, absolutePath } of Object.values(assets)) {
         const glyph: GglyphStream = createReadStream(absolutePath);
         const unicode = String.fromCharCode(codepoints[id]);
-        let ligature = '';
-        for (var i = 0; i < id.length; i++) {
-          ligature += String.fromCharCode(id.charCodeAt(i));
+        if (addLigatures) {
+          let ligature = '';
+          for (var i = 0; i < id.length; i++) {
+            ligature += String.fromCharCode(id.charCodeAt(i));
+          }
+          glyph.metadata = { name: id, unicode: [unicode, ligature] };
+        } else {
+          glyph.metadata = { name: id, unicode: [unicode] };
         }
-        glyph.metadata = { name: id, unicode: [unicode, ligature] };
 
         fontStream.write(glyph);
       }
