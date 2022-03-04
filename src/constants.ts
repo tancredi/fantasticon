@@ -26,7 +26,8 @@ export const DEFAULT_OPTIONS: Omit<RunnerOptions, 'inputDir' | 'outputDir'> = {
   tag: 'i',
   prefix: 'icon',
   fontsUrl: undefined,
-  getIconId: getIconId
+  getIconId: getIconId,
+  addLigatures: false
 };
 
 export const DEFAULT_START_CODEPOINT = 0xf101;
