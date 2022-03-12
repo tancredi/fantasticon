@@ -1,8 +1,8 @@
-import glob from 'glob';
-import { promisify } from 'util';
+import { writeFile } from 'fs/promises';
 import { resolve, relative, join } from 'path';
+import { promisify } from 'util';
+import glob from 'glob';
 import { removeExtension, splitSegments } from '../utils/path';
-import { writeFile } from './fs-async';
 import { RunnerOptions } from '../types/runner';
 import { GeneratedAssets } from '../generators/generate-assets';
 

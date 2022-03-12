@@ -1,7 +1,7 @@
+import { writeFile } from 'fs/promises';
 import { loadPaths, loadAssets, writeAssets } from '../assets';
 import { GetIconIdFn } from '../../types/misc';
 import { DEFAULT_OPTIONS } from '../../constants';
-import { writeFile } from '../fs-async';
 
 const writeFileMock = writeFile as any as jest.Mock;
 

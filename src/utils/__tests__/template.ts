@@ -1,9 +1,9 @@
+import fs from 'fs/promises';
 import * as Handlebars from 'handlebars';
 import { renderTemplate, TEMPLATE_HELPERS } from '../template';
-import * as asyncFs from '../fs-async';
 
 const compile = jest.spyOn(Handlebars, 'compile').mockImplementation(jest.fn());
-const readFile = jest.spyOn(asyncFs, 'readFile').mockImplementation(jest.fn());
+const readFile = jest.spyOn(fs, 'readFile').mockImplementation(jest.fn());
 
 jest.mock('path');
 

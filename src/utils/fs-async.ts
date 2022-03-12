@@ -1,9 +1,4 @@
-import { promisify } from 'util';
-import * as fs from 'fs';
-
-export const readFile = promisify(fs.readFile);
-export const writeFile = promisify(fs.writeFile);
-export const stat = promisify(fs.stat);
+import { stat } from 'fs/promises';
 
 export const checkPath = async (
   filepath: string,
