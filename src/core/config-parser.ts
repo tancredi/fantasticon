@@ -55,8 +55,8 @@ export const parseConfig = async (input: object = {}) => {
       for (const fn of validators) {
         val = await fn(val, val);
       }
-    } catch (err) {
-      throw new Error(`Invalid option ${key}: ${err.message}`);
+    } catch (error) {
+      throw new Error(`Invalid option ${key}: ${error.message}`);
     }
 
     out[key] = val;

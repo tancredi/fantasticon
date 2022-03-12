@@ -17,9 +17,10 @@ module.exports = (
     const paths = mockGlobs[glob];
 
     if (!paths) {
-      return callback(new Error(`Invalid glob: ${glob}`), null);
+      callback(new Error(`Invalid glob: ${glob}`), null);
+      return;
     }
 
-    return callback(null, paths);
+    callback(null, paths);
   });
 };

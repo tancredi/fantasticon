@@ -164,7 +164,7 @@ describe('Cli utilities', () => {
     it('calls `checkPath` correctly and returns unchanged path if found to be an existing directory', async () => {
       const dirname = '/foo/bar';
 
-      checkPathMock.mockImplementationOnce(() => Promise.resolve(true));
+      checkPathMock.mockImplementationOnce(async () => true);
 
       expect(await parseDir(dirname)).toBe(dirname);
       expect(checkPathMock).toHaveBeenCalledTimes(1);
@@ -174,9 +174,9 @@ describe('Cli utilities', () => {
     it('throws expected error if given path is found not to be a directory', async () => {
       const dirname = '/foo/bar';
 
-      checkPathMock.mockImplementationOnce(() => Promise.resolve(false));
+      checkPathMock.mockImplementationOnce(async () => false);
 
-      await expect(() => parseDir(dirname)).rejects.toThrow(
+      await expect(async () => parseDir(dirname)).rejects.toThrow(
         '/foo/bar is not a directory'
       );
     });

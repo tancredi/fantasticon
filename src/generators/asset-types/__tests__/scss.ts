@@ -1,6 +1,6 @@
+import { resolve } from 'path';
 import scssGen from '../scss';
 import { renderSrcAttribute } from '../../../utils/css';
-import { resolve } from 'path';
 
 const renderSrcMock = renderSrcAttribute as any as jest.Mock;
 

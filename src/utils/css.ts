@@ -1,6 +1,6 @@
 import { FontGeneratorOptions } from '../types/generator';
-import { getHash } from './hash';
 import { FontAssetType } from '../types/misc';
+import { getHash } from './hash';
 
 interface RenderSrcOptions {
   formatValue: string;

@@ -1,5 +1,5 @@
-import { readFile, writeFile, stat, checkPath } from '../fs-async';
 import * as fs from 'fs';
+import { readFile, writeFile, stat, checkPath } from '../fs-async';
 
 const readFileMock = fs.readFile as any as jest.Mock;
 const writeFileMock = fs.writeFile as any as jest.Mock;

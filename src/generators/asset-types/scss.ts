@@ -6,7 +6,7 @@ import { renderSrcAttribute } from '../../utils/css';
 const generator: FontGenerator<Buffer> = {
   dependsOn: FontAssetType.SVG,
 
-  generate: (options, svg: Buffer) =>
+  generate: async (options, svg: Buffer) =>
     renderTemplate(
       options.templates.scss,
       { ...options, fontSrc: renderSrcAttribute(options, svg) },

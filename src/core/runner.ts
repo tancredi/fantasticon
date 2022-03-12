@@ -9,8 +9,8 @@ import {
 import { CodepointsMap } from '../utils/codepoints';
 import { getGeneratorOptions } from '../generators/generator-options';
 import { GeneratedAssets } from '../generators/generate-assets';
-import { parseConfig } from './config-parser';
 import { generateAssets } from '../generators';
+import { parseConfig } from './config-parser';
 
 export interface RunnerResults {
   options: RunnerOptions;
@@ -20,7 +20,7 @@ export interface RunnerResults {
   codepoints: CodepointsMap;
 }
 
-export const sanitiseOptions = (userOptions: any) =>
+export const sanitiseOptions = async (userOptions: any) =>
   parseConfig({
     ...DEFAULT_OPTIONS,
     ...userOptions

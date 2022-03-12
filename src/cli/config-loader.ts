@@ -14,11 +14,11 @@ const attemptLoading = async (filepath: string): Promise<any | void> => {
   if (await checkPath(filepath, 'file')) {
     try {
       return require(join(process.cwd(), filepath));
-    } catch (err) {}
+    } catch {}
 
     try {
       return JSON.parse(await readFile(filepath, 'utf8'));
-    } catch (err) {}
+    } catch {}
 
     throw new Error(`Failed parsing configuration at '${filepath}'`);
   }

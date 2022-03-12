@@ -2,7 +2,7 @@ import { FontGenerator } from '../../types/generator';
 import { renderTemplate } from '../../utils/template';
 
 const generator: FontGenerator = {
-  generate: async options => {
+  async generate(options) {
     return renderTemplate(options.templates.html, options);
   }
 };

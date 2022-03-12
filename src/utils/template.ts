@@ -1,5 +1,5 @@
-import Handlebars from 'handlebars';
 import { resolve, isAbsolute } from 'path';
+import Handlebars from 'handlebars';
 import { readFile } from './fs-async';
 import { getHexCodepoint } from './codepoints';
 
@@ -23,6 +23,6 @@ export const renderTemplate = async (
 
   return Handlebars.compile(template)(context, {
     ...options,
-    helpers: { ...TEMPLATE_HELPERS, ...(options.helpers || {}) }
+    helpers: { ...TEMPLATE_HELPERS, ...options.helpers }
   });
 };

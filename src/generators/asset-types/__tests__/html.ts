@@ -1,5 +1,5 @@
-import htmlGen from '../html';
 import { resolve } from 'path';
+import htmlGen from '../html';
 
 const mockOptions = {
   name: 'test-font',

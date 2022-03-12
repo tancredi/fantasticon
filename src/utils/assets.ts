@@ -1,10 +1,10 @@
-import glob from 'glob';
 import { promisify } from 'util';
 import { resolve, relative, join } from 'path';
-import { removeExtension, splitSegments } from '../utils/path';
-import { writeFile } from './fs-async';
+import glob from 'glob';
 import { RunnerOptions } from '../types/runner';
 import { GeneratedAssets } from '../generators/generate-assets';
+import { removeExtension, splitSegments } from './path';
+import { writeFile } from './fs-async';
 
 export type WriteResult = { content: string | Buffer; writePath: string };
 
@@ -27,7 +27,7 @@ export const loadPaths = async (dir: string): Promise<string[]> => {
 
   const files = await promisify(glob)(globPath, {});
 
-  if (!files.length) {
+  if (files.length === 0) {
     throw new Error(`No SVGs found in ${dir}`);
   }
 

@@ -1,6 +1,6 @@
+import { resolve } from 'path';
 import sassGen from '../sass';
 import { renderSrcAttribute } from '../../../utils/css';
-import { resolve } from 'path';
 
 const renderSrcMock = renderSrcAttribute as any as jest.Mock;
 

@@ -34,8 +34,7 @@ export const generateAssets = async (
     await generateAsset(type);
   }
 
-  return generateTypes.reduce(
-    (out, type: AssetType) => ({ ...out, [type]: generated[type] }),
-    {}
+  return Object.fromEntries(
+    generateTypes.map((type: AssetType) => [type, generated[type]])
   );
 };
