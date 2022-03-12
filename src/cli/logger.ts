@@ -1,4 +1,5 @@
 import color from 'cli-color';
+import figures from 'figures';
 import { RunnerResults } from '../core/runner';
 import { pluralize } from '../utils/string';
 
@@ -16,12 +17,14 @@ export const getLogger = (debug = false, silent = false) => ({
   },
 
   start(loadedConfigPath: string = null) {
-    this.log(color.yellow(`Generating font kit...`));
+    this.log(color.yellow('Generating font kit...'));
 
     if (loadedConfigPath) {
       this.log(
         color.green(
-          `✔ Using configuration file: ${color.green.bold(loadedConfigPath)}`
+          `${figures.tick} Using configuration file: ${color.green.bold(
+            loadedConfigPath
+          )}`
         )
       );
     }
@@ -32,12 +35,17 @@ export const getLogger = (debug = false, silent = false) => ({
 
     this.log(
       color.white(
-        `✔ ${iconsCount} ${pluralize('SVG', iconsCount)} found in ${inputDir}`
+        `${figures.tick} ${iconsCount} ${pluralize(
+          'SVG',
+          iconsCount
+        )} found in ${inputDir}`
       )
     );
 
     for (const { writePath } of writeResults) {
-      this.log(color.blue(`✔ Generated`, color.blueBright(writePath)));
+      this.log(
+        color.blue(`${figures.tick} Generated`, color.blueBright(writePath))
+      );
     }
 
     this.log(color.green.bold('Done'));
