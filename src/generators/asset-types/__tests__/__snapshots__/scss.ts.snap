@@ -8,7 +8,7 @@ exports[`\`SCSS\` asset generator renders SCSS correctly with \`selector\` optio
     src: \\"::src-attr::\\";
 }
 
-.my-selector:before {
+%test-font-style {
     font-family: test !important;
     font-style: normal;
     font-weight: normal !important;
@@ -17,6 +17,10 @@ exports[`\`SCSS\` asset generator renders SCSS correctly with \`selector\` optio
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.my-selector:before {
+    @extend %test-font-style;
 }
 
 $test-map: (
@@ -37,7 +41,7 @@ exports[`\`SCSS\` asset generator renders SCSS correctly with prefix and tag nam
     src: \\"::src-attr::\\";
 }
 
-b[class^=\\"tf-\\"]:before, b[class*=\\" tf-\\"]:before {
+%test-font-style {
     font-family: test !important;
     font-style: normal;
     font-weight: normal !important;
@@ -46,6 +50,10 @@ b[class^=\\"tf-\\"]:before, b[class*=\\" tf-\\"]:before {
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+b[class^=\\"tf-\\"]:before, b[class*=\\" tf-\\"]:before {
+    @extend %test-font-style;
 }
 
 $test-map: (
