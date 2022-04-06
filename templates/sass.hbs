@@ -4,11 +4,7 @@ ${{ name }}-font: "{{ name }}"
     font-family: ${{ name }}-font
     src: {{{ fontSrc }}}
 
-{{# if selector }}
-{{ selector }}:before
-{{ else }}
-{{ tag }}[class^="{{prefix}}-"]:before, {{ tag }}[class*=" {{prefix}}-"]:before
-{{/ if }}
+%{{ name }}-font-style
     font-family: {{ name }} !important
     font-style: normal
     font-weight: normal !important
@@ -17,6 +13,13 @@ ${{ name }}-font: "{{ name }}"
     line-height: 1
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
+
+{{# if selector }}
+{{ selector }}:before
+{{ else }}
+{{ tag }}[class^="{{prefix}}-"]:before, {{ tag }}[class*=" {{prefix}}-"]:before
+{{/ if }}
+    @extend %{{ name }}-font-style
 
 
 ${{ name }}-map: (
