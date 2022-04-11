@@ -11,9 +11,13 @@ const mockOptions = {
   }
 } as any;
 
+jest.mock('../../../utils/css', () => ({
+  renderUrlsAttribute: jest.fn(() => ['/fonts/bootstrap-icons.woff2' ])
+}));
+
 describe('`HTML` asset generator', () => {
   test('renders HTML correctly with prefix and tag name options', async () => {
-    expect(await htmlGen.generate(mockOptions, null)).toMatchSnapshot();
+    expect(await htmlGen.generate(mockOptions, Buffer.from(''))).toMatchSnapshot();
   });
 
   test('rendered HTML contains expected CSS path', async () => {

@@ -18,17 +18,36 @@ const renderSrcOptions: { [key in FontAssetType]: RenderSrcOptions } = {
   [FontAssetType.SVG]: { formatValue: 'svg', getSuffix: name => `#${name}` }
 };
 
+export const getUrl = ({ name, fontType, fontsUrl }: { name: string, fontType: FontAssetType, fontsUrl: string },
+  font: string | Buffer) => {
+  
+  const { getSuffix } = renderSrcOptions[fontType];
+  const hash = getHash(font.toString('utf8'));
+  const suffix = getSuffix ? getSuffix(name) : '';
+
+  return `${
+    fontsUrl || '.'
+  }/${name}.${fontType}?${hash}${suffix}`;
+}  
+
 export const renderSrcAttribute = (
   { name, fontTypes, fontsUrl }: FontGeneratorOptions,
   font: string | Buffer
 ) =>
   fontTypes
     .map(fontType => {
-      const { formatValue, getSuffix } = renderSrcOptions[fontType];
-      const hash = getHash(font.toString('utf8'));
-      const suffix = getSuffix ? getSuffix(name) : '';
-      return `url("${
-        fontsUrl || '.'
-      }/${name}.${fontType}?${hash}${suffix}") format("${formatValue}")`;
+      const { formatValue } = renderSrcOptions[fontType];
+      return `url("${getUrl({ name, fontType, fontsUrl }, font)}") format("${formatValue}")`;
     })
     .join(',\n');
+
+export const renderUrlsAttribute = (
+  { name, fontTypes, fontsUrl }: FontGeneratorOptions,
+    font: string | Buffer
+  ) =>
+    fontTypes
+      .map(fontType => {
+        const { formatValue } = renderSrcOptions[fontType];
+        return `${getUrl({ name, fontType, fontsUrl }, font)}`;
+      });
+  
