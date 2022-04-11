@@ -52,6 +52,8 @@ exports[`\`HTML\` asset generator renders HTML correctly with prefix and tag nam
         }
     </style>
 
+    <link rel=\\"preload\\" href=\\"/fonts/bootstrap-icons.woff2\\" as=\\"font\\" type=\\"font/woff2\\" crossorigin>
+
     <link rel=\\"stylesheet\\" type=\\"text/css\\" href=\\"test-font.css\\" />
 </head>
 <body>

@@ -1,4 +1,4 @@
-import { renderSrcAttribute } from '../css';
+import { renderSrcAttribute, renderUrlsAttribute } from '../css';
 import { FontAssetType } from '../../types/misc';
 import * as hashUtils from '../hash';
 
@@ -32,6 +32,16 @@ describe('CSS utilities', () => {
           'url("./my-font.svg?::hashed(::font-content::)::#my-font") format("svg")'
         ].join('\n')
       );
+
+      expect(renderUrlsAttribute(options as any, font)).toEqual(
+        [
+          './my-font.eot?::hashed(::font-content::)::#iefix',
+          './my-font.woff2?::hashed(::font-content::)::',
+          './my-font.woff?::hashed(::font-content::)::',
+          './my-font.ttf?::hashed(::font-content::)::',
+          './my-font.svg?::hashed(::font-content::)::#my-font'
+        ]
+      );
     });
 
     it('only renders given font types', () => {
@@ -47,6 +57,13 @@ describe('CSS utilities', () => {
           'url("./my-font.svg?::hashed(::font-content::)::#my-font") format("svg")'
         ].join('\n')
       );
+
+      expect(renderUrlsAttribute(options as any, font)).toEqual(
+        [
+          './my-font.eot?::hashed(::font-content::)::#iefix',
+          './my-font.svg?::hashed(::font-content::)::#my-font'
+        ]
+      );
     });
 
     it('uses the `fontsUrl` option when given', () => {
@@ -60,6 +77,12 @@ describe('CSS utilities', () => {
       expect(renderSrcAttribute(options as any, font)).toEqual(
         'url("/fonts/my-font.ttf?::hashed(::font-content::)::") format("truetype")'
       );
+
+      expect(renderUrlsAttribute(options as any, font)).toEqual(
+        [
+          '/fonts/my-font.ttf?::hashed(::font-content::)::'
+        ]
+      );
     });
 
     it('uses the `fontsUrl` option when given with https:// path', () => {
@@ -72,6 +95,10 @@ describe('CSS utilities', () => {
 
       expect(renderSrcAttribute(options as any, font)).toEqual(
         'url("https://my-static.com/my-font.ttf?::hashed(::font-content::)::") format("truetype")'
+      );
+
+      expect(renderUrlsAttribute(options as any, font)).toEqual(
+        [ 'https://my-static.com/my-font.ttf?::hashed(::font-content::)::' ]
       );
     });
   });

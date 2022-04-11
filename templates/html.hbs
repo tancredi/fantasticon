@@ -49,6 +49,10 @@
         }
     </style>
 
+    {{# each fontUrls }}
+    <link rel="preload" href="{{ this }}" as="font" type="font/woff2" crossorigin>
+    {{/ each }}
+
     <link rel="stylesheet" type="text/css" href="{{ name }}.css" />
 </head>
 <body>
