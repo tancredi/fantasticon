@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-v${{ env.NODE }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
       - run: npm ci
-      - run: npm run lint
+      - run: npm run lint -- --quiet
       - run: npm run typecheck
 
   test:

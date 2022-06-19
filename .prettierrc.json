@@ -7,5 +7,33 @@
   "trailingComma": "none",
   "bracketSpacing": true,
   "arrowParens": "avoid",
-  "requirePragma": false
+  "requirePragma": false,
+  "overrides": [
+    {
+      "files": "*.ts",
+      "options": {
+        "parser": "babel-ts",
+        "tabWidth": 2,
+        "printWidth": 80,
+        "trailingComma": "es5"
+      }
+    },
+    {
+      "files": "*.js",
+      "options": {
+        "parser": "babel",
+        "tabWidth": 2,
+        "printWidth": 80,
+        "trailingComma": "es5"
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "parser": "markdown",
+        "tabWidth": 2,
+        "embeddedLanguageFormatting": "auto"
+      }
+    }
+  ]
 }
