@@ -14,9 +14,30 @@ interface JsonOptions {
   indent?: number;
 }
 
+type TsType = 'enum' | 'stringLiteral';
+
 interface TsOptions {
-  types?: ('enum' | 'constant' | 'literalId' | 'literalKey')[];
+  /**
+   * Choose if the codepoints constant should be typed
+   * with an enum and/or a string literal type.
+   * @defaultValue `['stringLiteral', 'enum']`
+   */
+  types?: TsType[];
+  /**
+   * .ts file has `"` by default - `true` will produce `'`.
+   * @defaultValue `false`
+   */
   singleQuotes?: boolean;
+  /**
+   * the codepoints constant is exported as readonly
+   * ```ts
+   * export const ICONS_CODEPOINTS = {
+   *   example: '1234',
+   * } as const;
+   * ```
+   * @defaultValue `true`
+   */
+  asConst?: boolean;
 }
 
 export interface FormatOptions {

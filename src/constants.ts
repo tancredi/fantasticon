@@ -14,7 +14,10 @@ export const DEFAULT_OPTIONS: Omit<RunnerOptions, 'inputDir' | 'outputDir'> = {
     OtherAssetType.JSON,
     OtherAssetType.TS
   ],
-  formatOptions: { json: { indent: 4 } },
+  formatOptions: {
+    json: { indent: 4 },
+    ts: { types: ['stringLiteral', 'enum'] }
+  },
   pathOptions: {},
   templates: {},
   codepoints: {},

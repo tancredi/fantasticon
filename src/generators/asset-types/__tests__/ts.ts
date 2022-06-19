@@ -1,5 +1,8 @@
 import tsGen from '../ts';
 import { join, dirname } from 'path';
+import { FontGeneratorOptions } from '../../../types/generator';
+import { DEFAULT_OPTIONS } from '../../../constants';
+import { FormatOptions } from '../../../types/format';
 
 const mockAssets = {
   foo: {
@@ -27,174 +30,133 @@ const mockOptions = {
 const cleanWhiteSpace = (subject: string): string =>
   subject.replace(/\n+/, '').replace(/\s+/g, ' ');
 
-const getCleanGen = async (options = {}) =>
-  cleanWhiteSpace(
-    (await tsGen.generate({ ...mockOptions, ...options }, null)) as string
-  );
+const getCleanGen = async ({
+  formatOptions = DEFAULT_OPTIONS.formatOptions as FormatOptions,
+  rmWhiteSpace = false
+}: {
+  formatOptions?: FormatOptions;
+  rmWhiteSpace?: boolean;
+} = {}) => {
+  const result = await tsGen.generate({ ...mockOptions, formatOptions }, null);
+  if (rmWhiteSpace) {
+    return cleanWhiteSpace(String(result));
+  }
+  return String(result);
+};
 
 describe('`TS` asset generator', () => {
   test('renders expected TypeScript module content', async () => {
-    expect(await tsGen.generate(mockOptions, null)).toMatchSnapshot();
+    expect(await getCleanGen({ rmWhiteSpace: true })).toMatchSnapshot();
   });
 
-  test('correctly renders type declaration', async () => {
+  test('extracts string literal type from enum when given', async () => {
     expect(await getCleanGen()).toContain(
-      'export type MyIconsSetId = | "foo" | "bar";'
+      'export type MyIconsSetId = `${MyIconsSet}`;'
     );
   });
 
-  test('correctly enum declaration', async () => {
-    expect(await getCleanGen()).toContain(
-      'export enum MyIconsSet { Foo = "foo", Bar = "bar", }'
+  test('defines string literal as typeof extraction of the constant', async () => {
+    const result = await getCleanGen({
+      formatOptions: { ts: { types: ['stringLiteral'], asConst: true } }
+    });
+    expect(result).toContain(
+      'export type MyIconsSetKey = typeof MY_ICONS_SET_CODEPOINTS[number];'
     );
+    expect(result).toContain('export const MY_ICONS_SET_CODEPOINTS = {');
   });
 
-  test('correctly codepoints declaration', async () => {
-    expect(await getCleanGen()).toContain(
-      'export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string }' +
-        ' = { [MyIconsSet.Foo]: "4265", [MyIconsSet.Bar]: "1231", };'
-    );
-  });
-
-  test('generates single quotes if format option passed', async () => {
+  test('defines constant with "as const;" when asConst given and string literal not extracted from constant', async () => {
     expect(
-      await tsGen.generate(
-        {
-          ...mockOptions,
-          formatOptions: { ts: { singleQuotes: true } }
-        },
-        null
-      )
-    ).toMatchSnapshot();
-  });
-
-  test('generates no key string literal type if option passed like that', async () => {
-    const result = await tsGen.generate(
-      {
-        ...mockOptions,
-        formatOptions: { ts: { types: ['constant', 'enum'] } }
-      },
-      null
-    );
-    const cleanResult = cleanWhiteSpace(result as string);
-    expect(result).toMatchSnapshot();
-
-    expect(cleanResult).not.toContain(
-      'export type MyIconsSetKey = | "Foo" | "Bar";'
-    );
-    expect(cleanResult).not.toContain(
-      'export type MyIconsSetId = | "foo" | "bar";'
-    );
-  });
-
-  test('generates constant with literalId if no enum generated', async () => {
-    const result = await tsGen.generate(
-      {
-        ...mockOptions,
-        formatOptions: { ts: { types: ['constant', 'literalId'] } }
-      },
-      null
-    );
-    const cleanResult = cleanWhiteSpace(result as string);
-
-    expect(result).toMatchSnapshot();
-    expect(cleanResult).toContain(
-      'export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSetId]: string }'
-    );
-
-    expect(cleanResult).not.toContain(
-      'export type MyIconsSetKey = | "Foo" | "Bar";'
-    );
-    expect(cleanResult).not.toContain('export enum MyIconsSet');
-  });
-
-  test('generates constant with literalKey if no enum generated', async () => {
-    const result = await tsGen.generate(
-      {
-        ...mockOptions,
-        formatOptions: { ts: { types: ['constant', 'literalKey'] } }
-      },
-      null
-    );
-    const cleanResult = cleanWhiteSpace(result as string);
-
-    expect(result).toMatchSnapshot();
-    expect(cleanResult).toContain(
-      'export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSetKey]: string }'
-    );
-
-    expect(cleanResult).not.toContain(
-      'export type MyIconsSetId = | "foo" | "bar";'
-    );
-    expect(cleanResult).not.toContain('export enum MyIconsSet');
-  });
-
-  test('generates constant only', async () => {
-    const result = await tsGen.generate(
-      {
-        ...mockOptions,
-        formatOptions: { ts: { types: ['constant'] } }
-      },
-      null
-    );
-    const cleanResult = cleanWhiteSpace(result as string);
-
-    expect(result).toMatchSnapshot();
-    expect(cleanResult).toContain(
-      'export const MY_ICONS_SET_CODEPOINTS: Record<string, string>'
-    );
-
-    expect(cleanResult).not.toContain(
-      'export type MyIconsSetId = | "foo" | "bar";'
-    );
-    expect(cleanResult).not.toContain('export enum MyIconsSet');
-  });
-
-  test('prevents enum keys that start with digits', async () => {
-    const result = await tsGen.generate(
-      {
-        ...mockOptions,
-        assets: { 1234: mockAssets.foo, 5678: mockAssets.bar }
-      },
-      null
-    );
-    const cleanResult = cleanWhiteSpace(result as string);
-
-    expect(result).toMatchSnapshot();
-    expect(cleanResult).toContain(
-      'export type MyIconsSetId = | "1234" | "5678";'
-    );
-    expect(cleanResult).toContain(
-      'export type MyIconsSetKey = | "i1234" | "i5678";'
-    );
-    expect(cleanResult).toContain(
-      'export enum MyIconsSet { i1234 = "1234", i5678 = "5678", }'
-    );
-  });
-
-  test('prevents enum keys that start with digits when digits and chars', async () => {
-    const result = await tsGen.generate(
-      {
-        ...mockOptions,
-        assets: {
-          '1234asdf': mockAssets.foo,
-          '5678ab': mockAssets.bar,
-          foo: mockAssets.foo
+      await getCleanGen({
+        formatOptions: {
+          ts: { types: ['enum', 'stringLiteral'], asConst: true }
         }
-      },
-      null
+      })
+    ).toContain(
+      'export const MY_ICONS_SET_CODEPOINTS: readonly { [key in MyIconsSetId]: string } = {'
     );
-    const cleanResult = cleanWhiteSpace(result as string);
+  });
 
-    expect(result).toMatchSnapshot();
-    expect(cleanResult).toContain(
-      'export type MyIconsSetId = | "1234asdf" | "5678ab" | "foo";'
+  test('defines plain string literal type when asConst is false', async () => {
+    expect(
+      await getCleanGen({
+        rmWhiteSpace: true,
+        formatOptions: { ts: { types: ['stringLiteral'], asConst: false } }
+      })
+    ).toContain('export type MyIconsSetId = | "foo" | "bar";');
+  });
+
+  test('sets readonly and const when only enum and asConst', async () => {
+    const result = await getCleanGen({
+      rmWhiteSpace: false,
+      formatOptions: { ts: { types: ['enum'], asConst: true } }
+    });
+    expect(result).toContain(
+      'export const MY_ICONS_SET_CODEPOINTS: readonly { [key in MyIconsSet]: string } = {'
     );
-    expect(cleanResult).toContain(
-      'export type MyIconsSetKey = | "i1234asdf" | "i5678ab" | "Foo";'
-    );
-    expect(cleanResult).toContain(
-      'export enum MyIconsSet { i1234asdf = "1234asdf", i5678ab = "5678ab", Foo = "foo", }'
-    );
+    expect(result).toContain('} as const;');
+  });
+
+  test('uses single quotes when singleQuotes on string literal and const', async () => {
+    const result = await getCleanGen({
+      rmWhiteSpace: false,
+      formatOptions: {
+        ts: { types: ['stringLiteral'], asConst: true, singleQuotes: true }
+      }
+    });
+    expect(result).toContain("'");
+    expect(result).not.toContain('"');
+  });
+
+  test('uses single quotes when singleQuotes on enum and const', async () => {
+    const result = await getCleanGen({
+      rmWhiteSpace: false,
+      formatOptions: {
+        ts: { types: ['enum'], asConst: true, singleQuotes: true }
+      }
+    });
+    expect(result).toContain("'");
+    expect(result).not.toContain('"');
+  });
+
+  test('uses single quotes when singleQuotes on enum and stringLiteral and const', async () => {
+    const result = await getCleanGen({
+      rmWhiteSpace: false,
+      formatOptions: {
+        ts: {
+          types: ['enum', 'stringLiteral'],
+          asConst: true,
+          singleQuotes: true
+        }
+      }
+    });
+    expect(result).toContain("'");
+    expect(result).not.toContain('"');
+  });
+
+  test('no string and no enum when no as const', async () => {
+    const result = await getCleanGen({
+      rmWhiteSpace: false,
+      formatOptions: {
+        ts: { types: [], asConst: false }
+      }
+    });
+    expect(result).toContain('export const MY_ICONS_SET_CODEPOINTS = {');
+    expect(result).not.toContain('} as const;');
+    expect(result).not.toContain('export type MyIconsSetId =');
+    expect(result).not.toContain('export enum MyIconsSet {');
+  });
+
+  test('no string and no enum when with as const', async () => {
+    const result = await getCleanGen({
+      rmWhiteSpace: false,
+      formatOptions: {
+        ts: { types: [], asConst: true }
+      }
+    });
+    expect(result).toContain('export const MY_ICONS_SET_CODEPOINTS = {');
+    expect(result).toContain('} as const;');
+    expect(result).not.toContain('export type MyIconsSetId =');
+    expect(result).not.toContain('export enum MyIconsSet {');
   });
 });
