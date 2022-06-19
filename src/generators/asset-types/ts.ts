@@ -1,131 +1,150 @@
 import { pascalCase, constantCase } from 'change-case';
-import { FontGenerator } from '../../types/generator';
+import { FormatOptions } from '../../types/format';
+import { FontGenerator, FontGeneratorOptions } from '../../types/generator';
 
-const generateEnumKeys = (assetKeys: string[]): Record<string, string> =>
-  assetKeys
-    .map(name => {
-      const enumName = pascalCase(name);
-      const prefix = enumName.match(/^\d/) ? 'i' : '';
+class TsGenerator {
+  isStringLiteral = false;
+  isEnum = false;
+  isAsConst = false;
+  isEnumExtractStringLiteral = false;
+  isConstExtractStringLiteral = false;
 
-      return {
-        [name]: `${prefix}${enumName}`
-      };
-    })
-    .reduce((prev, curr) => Object.assign(prev, curr), {});
-
-const generateEnums = (
-  enumName: string,
-  enumKeys: { [eKey: string]: string },
-  quote = '"'
-): string =>
-  [
-    `export enum ${enumName} {`,
-    ...Object.entries(enumKeys).map(
-      ([enumValue, enumKey]) => `  ${enumKey} = ${quote}${enumValue}${quote},`
-    ),
-    '}\n'
-  ].join('\n');
-
-const generateConstant = ({
-  codepointsName,
-  enumName,
-  literalIdName,
-  literalKeyName,
-  enumKeys,
-  codepoints,
-  quote = '"',
-  kind = {}
-}: {
-  codepointsName: string;
-  enumName: string;
-  literalIdName: string;
-  literalKeyName: string;
-  enumKeys: { [eKey: string]: string };
-  codepoints: Record<string, number>;
-  quote?: '"' | "'";
-  kind: Record<string, boolean>;
-}): string => {
-  let varType = ': Record<string, string>';
-
-  if (kind.enum) {
-    varType = `: { [key in ${enumName}]: string }`;
-  } else if (kind.literalId) {
-    varType = `: { [key in ${literalIdName}]: string }`;
-  } else if (kind.literalKey) {
-    varType = `: { [key in ${literalKeyName}]: string }`;
+  name: string;
+  get enumName(): string {
+    return pascalCase(this.name);
+  }
+  get codepointsName(): string {
+    return `${constantCase(this.name)}_CODEPOINTS`;
+  }
+  get literalIdName(): string {
+    return `${pascalCase(this.name)}Id`;
+  }
+  get literalKeyName(): string {
+    return `${pascalCase(this.name)}Key`;
+  }
+  get keyTypeSig(): string {
+    const readonlyStr = this.isAsConst ? 'readonly ' : '';
+    if (!this.isStringLiteral && this.isEnum) {
+      return `: ${readonlyStr}{ [key in ${this.enumName}]: string }`;
+    }
+    if (this.isStringLiteral && !this.isConstExtractStringLiteral) {
+      return `: ${readonlyStr}{ [key in ${this.literalIdName}]: string }`;
+    }
+    return '';
   }
 
-  return [
-    `export const ${codepointsName}${varType} = {`,
-    Object.entries(enumKeys)
-      .map(([enumValue, enumKey]) => {
-        const key = kind.enum
-          ? `[${enumName}.${enumKey}]`
-          : `${quote}${enumValue}${quote}`;
-        return `  ${key}: ${quote}${codepoints[enumValue]}${quote},`;
-      })
-      .join('\n'),
-    '};\n'
-  ].join('\n');
-};
+  quote = '"';
+  codePointDict: Record<string, string>;
+  codepoints: FontGeneratorOptions['codepoints'];
 
-const generateStringLiterals = (
-  typeName: string,
-  literals: string[],
-  quote = '"'
-): string =>
-  [
-    `export type ${typeName} =`,
-    `${literals.map(key => `  | ${quote}${key}${quote}`).join('\n')};\n`
-  ].join('\n');
-
-const generator: FontGenerator = {
-  generate: async ({
+  constructor({
     name,
     codepoints,
     assets,
     formatOptions: { ts } = {}
-  }) => {
-    const quote = Boolean(ts?.singleQuotes) ? "'" : '"';
-    const generateKind: Record<string, boolean> = (
-      Boolean(ts?.types?.length)
-        ? ts.types
-        : ['enum', 'constant', 'literalId', 'literalKey']
-    )
-      .map(kind => ({ [kind]: true }))
-      .reduce((prev, curr) => Object.assign(prev, curr), {});
+  }: FontGeneratorOptions) {
+    this.name = name;
+    this.codepoints = codepoints;
+    this.createCodePointDict(Object.keys(assets));
+    this.isAsConst = Boolean(ts?.asConst);
+    this.isEnum = ts?.types?.includes('enum');
+    this.isStringLiteral = ts?.types?.includes('stringLiteral');
+    this.isEnumExtractStringLiteral = this.isEnum && this.isStringLiteral;
+    this.isConstExtractStringLiteral =
+      !this.isEnumExtractStringLiteral &&
+      this.isAsConst &&
+      this.isStringLiteral;
+    if (ts?.singleQuotes) {
+      this.quote = "'";
+    }
+  }
 
-    const enumName = pascalCase(name);
-    const codepointsName = `${constantCase(name)}_CODEPOINTS`;
-    const literalIdName = `${pascalCase(name)}Id`;
-    const literalKeyName = `${pascalCase(name)}Key`;
-    const names = { enumName, codepointsName, literalIdName, literalKeyName };
-
-    const enumKeys = generateEnumKeys(Object.keys(assets));
-
-    const stringLiteralId = generateKind.literalId
-      ? generateStringLiterals(literalIdName, Object.keys(enumKeys), quote)
-      : null;
-    const stringLiteralKey = generateKind.literalKey
-      ? generateStringLiterals(literalKeyName, Object.values(enumKeys), quote)
-      : null;
-
-    const enums = generateKind.enum
-      ? generateEnums(enumName, enumKeys, quote)
-      : null;
-    const constant = generateKind.constant
-      ? generateConstant({
-          ...names,
-          enumKeys,
-          codepoints,
-          quote,
-          kind: generateKind
-        })
-      : null;
-
-    return [stringLiteralId, stringLiteralKey, enums, constant]
+  generate(): string {
+    return [
+      this.generateEnum(),
+      this.generateBeforeConstLiteral(),
+      this.generateConst(),
+      this.generateAfterConstLiteral()
+    ]
       .filter(Boolean)
       .join('\n');
+  }
+
+  private generateConst(): string {
+    const keyDef = this.getConstRecKeyFn();
+    const records = Object.entries(this.codePointDict).map(
+      ([eVal, eKey]) =>
+        `${keyDef([eVal, eKey])}${this.inQuote(this.codepoints[eVal])},`
+    );
+    return [
+      `export const ${this.codepointsName}${this.keyTypeSig} = {`,
+      ...records,
+      `}${this.isAsConst ? ' as const' : ''};\n`
+    ].join('\n');
+  }
+
+  private getConstRecKeyFn(): (kv: [string, string]) => string {
+    if (this.isEnum && !this.isStringLiteral) {
+      return ([, eKey]) => `  [${this.enumName}.${eKey}]: `;
+    }
+    return ([eVal]) => `  ${this.inQuote(eVal)}: `;
+  }
+
+  private generateBeforeConstLiteral(): string {
+    if (!this.isStringLiteral || this.isConstExtractStringLiteral) {
+      return;
+    }
+    const exportStatement = `export type ${this.literalIdName} =`;
+    if (this.isEnumExtractStringLiteral) {
+      return `${exportStatement} \`\${${this.enumName}}\`;\n\n`;
+    }
+    return (
+      [
+        exportStatement,
+        ...Object.keys(this.codePointDict).map(
+          eVal => `  | ${this.inQuote(eVal)}`
+        )
+      ].join('\n') + ';\n'
+    );
+  }
+
+  private generateAfterConstLiteral(): string {
+    if (!this.isConstExtractStringLiteral) {
+      return;
+    }
+    return `export type ${this.literalKeyName} = typeof ${this.codepointsName}[number];\n`;
+  }
+
+  private generateEnum(): string {
+    if (!this.isEnum) {
+      return;
+    }
+    return [
+      `export enum ${this.enumName} {`,
+      ...Object.entries(this.codePointDict).map(
+        ([eVal, eKey]) => `  ${eKey} = ${this.inQuote(eVal)},`
+      ),
+      '}\n\n'
+    ].join('\n');
+  }
+
+  private inQuote = (val: string | number): string =>
+    `${this.quote}${val}${this.quote}`;
+
+  private createCodePointDict(assetKeys: string[]): void {
+    this.codePointDict = Object.fromEntries(
+      assetKeys.map(name => {
+        const enumName = pascalCase(name);
+        return [name, `${enumName.match(/^\d/) ? 'i' : ''}${enumName}`];
+      })
+    );
+  }
+}
+
+const generator: FontGenerator = {
+  generate: async options => {
+    const tsGenerator = new TsGenerator(options);
+    return tsGenerator.generate();
   }
 };
 
