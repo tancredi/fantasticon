@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../lib",
+    "rootDir": "./",
+    "types": ["node"]
+  },
+  "exclude": [
+    "**/__mocks__/*.ts",
+    "**/__tests__/*.ts"
+  ]
+}
