@@ -51,7 +51,7 @@
     "ttf2woff2": "^4.0.5"
   },
   "devDependencies": {
-    "@types/cli-color": "^2.0.0",
+    "@types/cli-color": "^2.0.2",
     "@types/glob": "^8.0.0",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
