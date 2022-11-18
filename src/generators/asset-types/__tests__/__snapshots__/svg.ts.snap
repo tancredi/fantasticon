@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`\`SVG\` font generator passes correctly format options to \`SVGIcons2SVGFontStream\` 1`] = `"processed->content->/root/foo.svg|{\\"name\\":\\"foo\\",\\"unicode\\":[\\"\\\\u0001\\"]}$processed->content->/root/bar.svg|{\\"name\\":\\"bar\\",\\"unicode\\":[\\"\\\\u0001\\"]}$"`;
+exports[`\`SVG\` font generator passes correctly format options to \`SVGIcons2SVGFontStream\` 1`] = `"processed->content->/root/foo.svg|{"name":"foo","unicode":["\\u0001"]}$processed->content->/root/bar.svg|{"name":"bar","unicode":["\\u0001"]}$"`;
 
-exports[`\`SVG\` font generator resolves with the result of the completed \`SVGIcons2SVGFontStream\` 1`] = `"processed->content->/root/foo.svg|{\\"name\\":\\"foo\\",\\"unicode\\":[\\"\\\\u0001\\"]}$processed->content->/root/bar.svg|{\\"name\\":\\"bar\\",\\"unicode\\":[\\"\\\\u0001\\"]}$"`;
+exports[`\`SVG\` font generator resolves with the result of the completed \`SVGIcons2SVGFontStream\` 1`] = `"processed->content->/root/foo.svg|{"name":"foo","unicode":["\\u0001"]}$processed->content->/root/bar.svg|{"name":"bar","unicode":["\\u0001"]}$"`;
