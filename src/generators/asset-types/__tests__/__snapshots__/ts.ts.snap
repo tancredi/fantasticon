@@ -32,7 +32,7 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSetKey]: string } = {
 "
 `;
 
-exports[`\`TS\` asset generator generates no key string literal type if option passed like that 1`] = `
+exports[`\`TS\` asset generator generates no key string literal type if option specifies it 1`] = `
 "export enum MyIconsSet {
   Foo = "foo",
   Bar = "bar",
