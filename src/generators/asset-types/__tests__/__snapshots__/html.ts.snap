@@ -2,9 +2,9 @@
 
 exports[`\`HTML\` asset generator renders HTML correctly with prefix and tag name options 1`] = `
 "<!DOCTYPE html>
-<html lang=\\"en\\">
+<html lang="en">
 <head>
-    <meta charset=\\"UTF-8\\">
+    <meta charset="UTF-8">
     <title>test-font</title>
 
     <style>
@@ -52,16 +52,16 @@ exports[`\`HTML\` asset generator renders HTML correctly with prefix and tag nam
         }
     </style>
 
-    <link rel=\\"stylesheet\\" type=\\"text/css\\" href=\\"test-font.css\\" />
+    <link rel="stylesheet" type="text/css" href="test-font.css" />
 </head>
 <body>
 
     <h1>test-font</h1>
 
 
-        <div class=\\"preview\\">
-            <span class=\\"inner\\">
-                <b class=\\"tf tf-my-icon\\"></b>
+        <div class="preview">
+            <span class="inner">
+                <b class="tf tf-my-icon"></b>
             </span>
             <br>
             <span class='label'>my-icon</span>

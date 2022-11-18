@@ -2,8 +2,8 @@
 
 exports[`\`CSS\` asset generator renders CSS correctly with \`selector\` option 1`] = `
 "@font-face {
-    font-family: \\"test-font\\";
-    src: \\"::src-attr::\\";
+    font-family: "test-font";
+    src: "::src-attr::";
 }
 
 .my-selector:before {
@@ -18,18 +18,18 @@ exports[`\`CSS\` asset generator renders CSS correctly with \`selector\` option 
 }
 
 .my-selector.tf-my-icon:before {
-    content: \\"\\\\f101\\";
+    content: "\\f101";
 }
 "
 `;
 
 exports[`\`CSS\` asset generator renders CSS correctly with prefix and tag name options 1`] = `
 "@font-face {
-    font-family: \\"test-font\\";
-    src: \\"::src-attr::\\";
+    font-family: "test-font";
+    src: "::src-attr::";
 }
 
-b[class^=\\"tf-\\"]:before, b[class*=\\" tf-\\"]:before {
+b[class^="tf-"]:before, b[class*=" tf-"]:before {
     font-family: test-font !important;
     font-style: normal;
     font-weight: normal !important;
@@ -41,7 +41,7 @@ b[class^=\\"tf-\\"]:before, b[class*=\\" tf-\\"]:before {
 }
 
 .tf-my-icon:before {
-    content: \\"\\\\f101\\";
+    content: "\\f101";
 }
 "
 `;
