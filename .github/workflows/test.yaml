@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macOS-10.15, ubuntu-18.04, windows-2019]
+        os: [macOS-11, ubuntu-20.04, windows-2019]
         node: [14.x, 16.x, 18.x, 19.x]
 
     steps:
