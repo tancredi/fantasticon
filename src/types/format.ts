@@ -17,6 +17,10 @@ interface JsonOptions {
 interface TsOptions {
   types?: ('enum' | 'constant' | 'literalId' | 'literalKey')[];
   singleQuotes?: boolean;
+  enumName?: string;
+  constantName?: string;
+  literalIdName?: string;
+  literalKeyName?: string;
 }
 
 export interface FormatOptions {

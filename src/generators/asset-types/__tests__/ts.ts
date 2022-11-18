@@ -33,42 +33,60 @@ const getCleanGen = async (options = {}) =>
   );
 
 describe('`TS` asset generator', () => {
-  test('renders expected TypeScript module content', async () => {
+  it('renders expected TypeScript module content', async () => {
     expect(await tsGen.generate(mockOptions, null)).toMatchSnapshot();
   });
 
-  test('correctly renders type declaration', async () => {
-    expect(await getCleanGen()).toContain(
-      'export type MyIconsSetId = | "foo" | "bar";'
+  it.each([
+    { formatOptions: { ts: { literalIdName: undefined } } },
+    undefined,
+    { formatOptions: { ts: { literalIdName: 'Foo' } } }
+  ])('generates correct type declaration - config: %j', async options => {
+    expect(await getCleanGen({ ...mockOptions, ...options })).toContain(
+      `export type ${
+        options?.formatOptions?.ts?.literalIdName || 'MyIconsSetId'
+      } = | "foo" | "bar";`
     );
   });
 
-  test('correctly enum declaration', async () => {
-    expect(await getCleanGen()).toContain(
-      'export enum MyIconsSet { Foo = "foo", Bar = "bar", }'
+  it.each([
+    { formatOptions: { ts: { enumName: undefined } } },
+    undefined,
+    { formatOptions: { ts: { enumName: 'Foo' } } }
+  ])('generates correct enum declaration - config: %j', async options => {
+    expect(await getCleanGen({ ...mockOptions, ...options })).toContain(
+      `export enum ${
+        options?.formatOptions?.ts?.enumName || 'MyIconsSet'
+      } { Foo = "foo", Bar = "bar", }`
     );
   });
 
-  test('correctly codepoints declaration', async () => {
-    expect(await getCleanGen()).toContain(
-      'export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string }' +
-        ' = { [MyIconsSet.Foo]: "4265", [MyIconsSet.Bar]: "1231", };'
-    );
-  });
+  it.each([
+    { formatOptions: { ts: { constantName: undefined } } },
+    undefined,
+    { formatOptions: { ts: { constantName: 'FOO' } } }
+  ])(
+    'generates correct codepoints declaration - options: %j',
+    async options => {
+      expect(await getCleanGen({ ...mockOptions, ...options })).toContain(
+        `export const ${
+          options?.formatOptions?.ts?.constantName || 'MY_ICONS_SET_CODEPOINTS'
+        }: { [key in MyIconsSet]: string }` +
+          ' = { [MyIconsSet.Foo]: "4265", [MyIconsSet.Bar]: "1231", };'
+      );
+    }
+  );
 
-  test('generates single quotes if format option passed', async () => {
+  it('generates single quotes if format option passed', async () => {
     expect(
       await tsGen.generate(
-        {
-          ...mockOptions,
-          formatOptions: { ts: { singleQuotes: true } }
-        },
+        { ...mockOptions, formatOptions: { ts: { singleQuotes: true } } },
         null
       )
     ).toMatchSnapshot();
   });
 
-  test('generates no key string literal type if option passed like that', async () => {
+  it('generates no key string literal type if option specifies it', async () => {
     const result = await tsGen.generate(
       {
         ...mockOptions,
@@ -87,7 +105,7 @@ describe('`TS` asset generator', () => {
     );
   });
 
-  test('generates constant with literalId if no enum generated', async () => {
+  it('generates constant with literalId if no enum generated', async () => {
     const result = await tsGen.generate(
       {
         ...mockOptions,
@@ -108,7 +126,7 @@ describe('`TS` asset generator', () => {
     expect(cleanResult).not.toContain('export enum MyIconsSet');
   });
 
-  test('generates constant with literalKey if no enum generated', async () => {
+  it('generates constant with literalKey if no enum generated', async () => {
     const result = await tsGen.generate(
       {
         ...mockOptions,
@@ -129,7 +147,7 @@ describe('`TS` asset generator', () => {
     expect(cleanResult).not.toContain('export enum MyIconsSet');
   });
 
-  test('generates constant only', async () => {
+  it('generates constant only', async () => {
     const result = await tsGen.generate(
       {
         ...mockOptions,
@@ -150,7 +168,7 @@ describe('`TS` asset generator', () => {
     expect(cleanResult).not.toContain('export enum MyIconsSet');
   });
 
-  test('prevents enum keys that start with digits', async () => {
+  it('prevents enum keys that start with digits', async () => {
     const result = await tsGen.generate(
       {
         ...mockOptions,
@@ -172,7 +190,7 @@ describe('`TS` asset generator', () => {
     );
   });
 
-  test('prevents enum keys that start with digits when digits and chars', async () => {
+  it('prevents enum keys that start with digits when digits and chars', async () => {
     const result = await tsGen.generate(
       {
         ...mockOptions,
