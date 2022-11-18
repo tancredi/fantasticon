@@ -71,10 +71,13 @@
     "preset": "ts-jest",
     "testEnvironment": "node",
     "rootDir": "./src",
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "./tsconfig.test.json"
-      }
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "./tsconfig.test.json"
+        }
+      ]
     }
   },
   "engines": {
