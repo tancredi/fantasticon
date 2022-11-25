@@ -1,5 +1,4 @@
 import _ttf2eot from 'ttf2eot';
-import { FontAssetType } from '../../../types/misc';
 import { FontGeneratorOptions } from '../../../types/generator';
 import eotGen from '../eot';
 
