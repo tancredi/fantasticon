@@ -53,7 +53,7 @@
   "devDependencies": {
     "@types/cli-color": "^2.0.0",
     "@types/glob": "^8.0.0",
-    "@types/jest": "^29.2.3",
+    "@types/jest": "^29.2.4",
     "@types/node": "^18.11.9",
     "@types/svg2ttf": "^5.0.1",
     "@types/svgicons2svgfont": "^10.0.1",
