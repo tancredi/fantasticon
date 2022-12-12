@@ -74,5 +74,21 @@ describe('CSS utilities', () => {
         'url("https://my-static.com/my-font.ttf?::hashed(::font-content::)::") format("truetype")'
       );
     });
+
+    it('render src with disabled fontsUrlHash option', () => {
+      const font = '::font-content::';
+      const options = {
+        fontTypes: [FontAssetType.WOFF, FontAssetType.WOFF2],
+        name: 'my-font',
+        fontsUrlHash: false,
+      };
+
+      expect(renderSrcAttribute(options as any, font)).toEqual(
+        [
+          'url("./my-font.woff?") format("woff"),',
+          'url("./my-font.woff2?") format("woff2")'
+        ].join('\n')
+      );
+    });
   });
 });
