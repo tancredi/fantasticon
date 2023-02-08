@@ -30,7 +30,7 @@ const generator: FontGenerator<void> = {
 
       for (const { id, absolutePath } of Object.values(assets)) {
         const glyph: GglyphStream = createReadStream(absolutePath);
-        const unicode = String.fromCharCode(codepoints[id]);
+        const unicode = String.fromCodePoint(codepoints[id]);
 
         glyph.metadata = { name: id, unicode: [unicode] };
 
