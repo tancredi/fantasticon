@@ -62,7 +62,7 @@
     "@types/ttf2woff2": "^2.0.0",
     "jest": "^29.3.1",
     "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.3.1",
     "semantic-release": "^19.0.5",
     "ts-jest": "^29.0.3",
     "typescript": "^4.9.3"
