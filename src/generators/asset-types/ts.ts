@@ -1,4 +1,4 @@
-import { pascalCase, constantCase } from 'change-case';
+import { pascal as pascalCase, constant as constantCase } from 'case';
 import { FontGenerator } from '../../types/generator';
 
 const generateEnumKeys = (assetKeys: string[]): Record<string, string> =>
