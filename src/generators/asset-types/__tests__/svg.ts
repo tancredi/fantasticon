@@ -56,7 +56,7 @@ const mockOptions = (svgOptions = { __mock: 'options__' } as any) =>
       foo: { id: 'foo', absolutePath: '/root/foo.svg' },
       bar: { id: 'bar', absolutePath: '/root/bar.svg' }
     }
-  } as unknown as FontGeneratorOptions);
+  }) as unknown as FontGeneratorOptions;
 
 describe('`SVG` font generator', () => {
   beforeEach(() => {

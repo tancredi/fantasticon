@@ -28,7 +28,8 @@
     "build": "rimraf lib && tsc --project ./tsconfig.json",
     "watch": "npm run build -- --watch",
     "typecheck": "tsc --noEmit --project tsconfig.test.json --noEmit",
-    "lint": "prettier --check ."
+    "lint": "prettier --check .",
+    "fix": "prettier --write ."
   },
   "files": [
     "bin/fantasticon",
