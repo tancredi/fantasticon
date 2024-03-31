@@ -11,7 +11,7 @@ jobs:
     env:
       NODE: 16.x
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macOS-11, ubuntu-20.04, windows-2019]
-        node: [14.x, 16.x, 18.x, 19.x]
+        node: [16.x, 18.x, 19.x, 20.x]
 
     steps:
       - uses: actions/checkout@v3

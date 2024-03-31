@@ -8,7 +8,7 @@ const mockOptions = (jsonOptions: any = {}) =>
   ({
     codepoints: mockCodepoints,
     formatOptions: { [OtherAssetType.JSON]: jsonOptions }
-  } as any);
+  }) as any;
 
 const renderAndParse = async (jsonOptions?: any) =>
   JSON.parse(

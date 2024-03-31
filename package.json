@@ -28,7 +28,8 @@
     "build": "rimraf lib && tsc --project ./tsconfig.json",
     "watch": "npm run build -- --watch",
     "typecheck": "tsc --noEmit --project tsconfig.test.json --noEmit",
-    "lint": "prettier --check ."
+    "lint": "prettier --check .",
+    "fix": "prettier --write ."
   },
   "files": [
     "bin/fantasticon",
@@ -38,34 +39,34 @@
   ],
   "prepublish": "build",
   "dependencies": {
-    "change-case": "^4.1.2",
-    "cli-color": "^2.0.2",
-    "commander": "^9.4.1",
-    "glob": "^8.0.3",
-    "handlebars": "^4.7.7",
-    "slugify": "^1.6.5",
+    "case": "^1.6.3",
+    "cli-color": "^2.0.4",
+    "commander": "^12.0.0",
+    "glob": "^10.3.12",
+    "handlebars": "^4.7.8",
+    "slugify": "^1.6.6",
     "svg2ttf": "^6.0.3",
     "svgicons2svgfont": "^12.0.0",
     "ttf2eot": "^3.1.0",
     "ttf2woff": "^3.0.0",
-    "ttf2woff2": "^4.0.5"
+    "ttf2woff2": "^5.0.0"
   },
   "devDependencies": {
-    "@types/cli-color": "^2.0.0",
-    "@types/glob": "^8.0.0",
-    "@types/jest": "^29.2.3",
-    "@types/node": "^18.11.9",
-    "@types/svg2ttf": "^5.0.1",
-    "@types/svgicons2svgfont": "^10.0.1",
-    "@types/ttf2eot": "^2.0.0",
-    "@types/ttf2woff": "^2.0.2",
-    "@types/ttf2woff2": "^2.0.0",
-    "jest": "^29.3.1",
-    "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
-    "semantic-release": "^19.0.5",
-    "ts-jest": "^29.0.3",
-    "typescript": "^4.9.3"
+    "@types/cli-color": "^2.0.6",
+    "@types/glob": "^8.1.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.2",
+    "@types/svg2ttf": "^5.0.3",
+    "@types/svgicons2svgfont": "^10.0.5",
+    "@types/ttf2eot": "^2.0.2",
+    "@types/ttf2woff": "^2.0.4",
+    "@types/ttf2woff2": "^2.0.2",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "semantic-release": "^23.0.6",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.3"
   },
   "jest": {
     "preset": "ts-jest",
@@ -81,6 +82,6 @@
     }
   },
   "engines": {
-    "node": ">= 12.0.0"
+    "node": ">= 16.0.0"
   }
 }
