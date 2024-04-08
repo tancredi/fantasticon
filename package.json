@@ -64,7 +64,7 @@
     "jest": "^29.7.0",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
-    "semantic-release": "^23.0.6",
+    "semantic-release": "^23.0.7",
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.3"
   },
