@@ -19,7 +19,7 @@ const CONFIG_VALIDATORS: {
   outputDir: [optional(parseString), optional(parseDir)],
   name: [optional(parseString)],
   fontTypes: [listMembersParser(Object.values(FontAssetType))],
-  assetTypes: [listMembersParser(Object.values(OtherAssetType))],
+  assetTypes: [],
   formatOptions: [],
   pathOptions: [],
   templates: [],

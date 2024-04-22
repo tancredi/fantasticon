@@ -20,7 +20,7 @@ export type RunnerOptionalOptions = {
   round: number;
   selector: string;
   tag: string;
-  templates: { [key in OtherAssetType]?: string };
+  templates: { [key: string]: string };
   prefix: string;
   fontsUrl: string;
   getIconId: GetIconIdFn;
