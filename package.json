@@ -42,7 +42,7 @@
     "case": "^1.6.3",
     "cli-color": "^2.0.4",
     "commander": "^12.0.0",
-    "glob": "^10.3.12",
+    "glob": "^10.4.0",
     "handlebars": "^4.7.8",
     "slugify": "^1.6.6",
     "svg2ttf": "^6.0.3",
