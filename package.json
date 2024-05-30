@@ -55,7 +55,7 @@
     "@types/cli-color": "^2.0.6",
     "@types/glob": "^8.1.0",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.12.5",
+    "@types/node": "^20.12.13",
     "@types/svg2ttf": "^5.0.3",
     "@types/svgicons2svgfont": "^10.0.5",
     "@types/ttf2eot": "^2.0.2",
