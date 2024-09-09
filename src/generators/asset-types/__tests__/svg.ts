@@ -71,7 +71,6 @@ describe('`SVG` font generator', () => {
       descent: 2,
       fontHeight: 1,
       fontName: 'foo',
-      log: expect.any(Function),
       normalize: false,
       __mock: 'options__'
     });
@@ -80,8 +79,7 @@ describe('`SVG` font generator', () => {
   });
 
   test('passes correctly format options to `SVGIcons2SVGFontStream`', async () => {
-    const log = () => null;
-    const formatOptions = { descent: 5, fontHeight: 6, log };
+    const formatOptions = { descent: 5, fontHeight: 6 };
     const result = await svgGen.generate(mockOptions(formatOptions), null);
 
     expect(result).toMatchSnapshot();
@@ -91,7 +89,6 @@ describe('`SVG` font generator', () => {
       descent: 5,
       fontHeight: 6,
       fontName: 'foo',
-      log,
       normalize: false
     });
   });

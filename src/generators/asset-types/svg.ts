@@ -1,5 +1,4 @@
 import { createReadStream, ReadStream } from 'fs';
-import SVGIcons2SVGFontStream from 'svgicons2svgfont';
 import { FontGenerator } from '../../types/generator';
 
 type GglyphStream = ReadStream & { metadata?: any };
@@ -17,12 +16,12 @@ const generator: FontGenerator<void> = {
     new Promise(resolve => {
       let font = Buffer.alloc(0);
 
+      const SVGIcons2SVGFontStream = require('svgicons2svgfont');
       const fontStream = new SVGIcons2SVGFontStream({
         fontName,
         fontHeight,
         descent,
         normalize,
-        log: () => null,
         ...svg
       })
         .on('data', data => (font = Buffer.concat([font, data])))
