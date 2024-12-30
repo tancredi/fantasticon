@@ -97,7 +97,12 @@ module.exports = {
       // select what kind of types you want to generate (default `['enum', 'constant', 'literalId', 'literalKey']`)
       types: ['constant', 'literalId'],
       // render the types with `'` instead of `"` (default is `"`)
-      singleQuotes: true
+      singleQuotes: true,
+      // customise names used for the generated types and constants
+      enumName: 'MyIconType',
+      constantName: 'MY_CODEPOINTS'
+      // literalIdName: 'IconId',
+      // literalKeyName: 'IconKey'
     }
   },
   // Use a custom Handlebars template
@@ -195,6 +200,10 @@ And the generated icon IDs would be:
 | `symbol-chevron-right` | `.icon.icon-chevron-right`   |
 
 You can provide a `getIconId` function via the configuration file to customize how the icon IDs / CSS selectors are derived from the filepath. The function will receive relative paths to the icon and the input directory as arguments, and must return a unique string to be used as the ID.
+
+### Support
+
+The library is currently actively maintained for for Node 16.x.x support or above
 
 ### Contribute
 

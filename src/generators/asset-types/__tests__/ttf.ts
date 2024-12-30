@@ -12,7 +12,7 @@ jest.mock('svg2ttf', () =>
 const mockOptions = (ttfOptions = { __mock: 'options__' } as any) =>
   ({
     formatOptions: { [FontAssetType.TTF]: ttfOptions }
-  } as unknown as FontGeneratorOptions);
+  }) as unknown as FontGeneratorOptions;
 
 const svg = '::svg::';
 

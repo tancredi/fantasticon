@@ -12,7 +12,7 @@ jest.mock('ttf2woff', () =>
 const mockOptions = (woffOptions = { __mock: 'options__' } as any) =>
   ({
     formatOptions: { [FontAssetType.WOFF]: woffOptions }
-  } as unknown as FontGeneratorOptions);
+  }) as unknown as FontGeneratorOptions;
 
 const ttf = '::ttf::' as unknown as Buffer;
 

@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`\`SASS\` asset generator renders SASS correctly with \`selector\` option 1`] = `
-"$test-font: \\"test\\"
+"$test-font: "test"
 
 @font-face
     font-family: $test-font
-    src: \\"::src-attr::\\"
+    src: "::src-attr::"
 
 .my-selector:before
     font-family: test !important
@@ -19,22 +19,22 @@ exports[`\`SASS\` asset generator renders SASS correctly with \`selector\` optio
 
 
 $test-map: (
-    \\"my-icon\\": \\"\\\\f101\\",
+    "my-icon": "\\f101",
 )
 
 .my-selector.tf-my-icon:before
-    content: map-get($test-map, \\"my-icon\\")
+    content: map-get($test-map, "my-icon")
 "
 `;
 
 exports[`\`SASS\` asset generator renders SASS correctly with prefix and tag name options 1`] = `
-"$test-font: \\"test\\"
+"$test-font: "test"
 
 @font-face
     font-family: $test-font
-    src: \\"::src-attr::\\"
+    src: "::src-attr::"
 
-b[class^=\\"tf-\\"]:before, b[class*=\\" tf-\\"]:before
+b[class^="tf-"]:before, b[class*=" tf-"]:before
     font-family: test !important
     font-style: normal
     font-weight: normal !important
@@ -46,10 +46,10 @@ b[class^=\\"tf-\\"]:before, b[class*=\\" tf-\\"]:before
 
 
 $test-map: (
-    \\"my-icon\\": \\"\\\\f101\\",
+    "my-icon": "\\f101",
 )
 
 .tf-my-icon:before
-    content: map-get($test-map, \\"my-icon\\")
+    content: map-get($test-map, "my-icon")
 "
 `;

@@ -10,7 +10,7 @@ jest.mock('ttf2eot', () =>
 );
 
 const mockOptions = (eotOptions = { __mock: 'options__' } as any) =>
-  ({} as unknown as FontGeneratorOptions);
+  ({}) as unknown as FontGeneratorOptions;
 
 const ttf = '::ttf::' as unknown as Buffer;
 

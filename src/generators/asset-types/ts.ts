@@ -1,4 +1,4 @@
-import { pascalCase, constantCase } from 'change-case';
+import { pascal as pascalCase, constant as constantCase } from 'case';
 import { FontGenerator } from '../../types/generator';
 
 const generateEnumKeys = (assetKeys: string[]): Record<string, string> =>
@@ -27,7 +27,7 @@ const generateEnums = (
   ].join('\n');
 
 const generateConstant = ({
-  codepointsName,
+  constantName,
   enumName,
   literalIdName,
   literalKeyName,
@@ -36,7 +36,7 @@ const generateConstant = ({
   quote = '"',
   kind = {}
 }: {
-  codepointsName: string;
+  constantName: string;
   enumName: string;
   literalIdName: string;
   literalKeyName: string;
@@ -56,7 +56,7 @@ const generateConstant = ({
   }
 
   return [
-    `export const ${codepointsName}${varType} = {`,
+    `export const ${constantName}${varType} = {`,
     Object.entries(enumKeys)
       .map(([enumValue, enumKey]) => {
         const key = kind.enum
@@ -95,11 +95,11 @@ const generator: FontGenerator = {
       .map(kind => ({ [kind]: true }))
       .reduce((prev, curr) => Object.assign(prev, curr), {});
 
-    const enumName = pascalCase(name);
-    const codepointsName = `${constantCase(name)}_CODEPOINTS`;
-    const literalIdName = `${pascalCase(name)}Id`;
-    const literalKeyName = `${pascalCase(name)}Key`;
-    const names = { enumName, codepointsName, literalIdName, literalKeyName };
+    const enumName = ts?.enumName || pascalCase(name);
+    const constantName = ts?.constantName || `${constantCase(name)}_CODEPOINTS`;
+    const literalIdName = ts?.literalIdName || `${pascalCase(name)}Id`;
+    const literalKeyName = ts?.literalKeyName || `${pascalCase(name)}Key`;
+    const names = { enumName, constantName, literalIdName, literalKeyName };
 
     const enumKeys = generateEnumKeys(Object.keys(assets));
 

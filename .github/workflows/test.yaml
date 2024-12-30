@@ -11,21 +11,26 @@ jobs:
     env:
       NODE: 16.x
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
         with:
           node-version: '${{ env.NODE }}'
-      - uses: actions/cache@v2
+
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-v${{ env.NODE }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-v${{ env.NODE }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
+
       - run: npm ci
+
       - run: npm run lint
+
       - run: npm run typecheck
 
   test:
@@ -37,26 +42,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macOS-10.15, ubuntu-18.04, windows-2019]
-        node: [10.x, 14.x, 16.x]
+        os: [macOS-11, ubuntu-20.04, windows-2019]
+        node: [16.x, 18.x, 19.x, 20.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - uses: actions/cache@v2
+
+      - uses: actions/cache@v3
         with:
-          path: ${{ steps.npm-cache.outputs.dir }}
+          path: ~/.npm
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ matrix.os }}-node-v${{ matrix.node }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
             ${{ matrix.os }}-node-v${{ matrix.node }}-
+
       - run: npm ci
+
       - run: npm run build
+
       - run: npm test

@@ -2,45 +2,45 @@
 
 exports[`\`TS\` asset generator generates constant only 1`] = `
 "export const MY_ICONS_SET_CODEPOINTS: Record<string, string> = {
-  \\"foo\\": \\"4265\\",
-  \\"bar\\": \\"1231\\",
+  "foo": "4265",
+  "bar": "1231",
 };
 "
 `;
 
 exports[`\`TS\` asset generator generates constant with literalId if no enum generated 1`] = `
 "export type MyIconsSetId =
-  | \\"foo\\"
-  | \\"bar\\";
+  | "foo"
+  | "bar";
 
 export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSetId]: string } = {
-  \\"foo\\": \\"4265\\",
-  \\"bar\\": \\"1231\\",
+  "foo": "4265",
+  "bar": "1231",
 };
 "
 `;
 
 exports[`\`TS\` asset generator generates constant with literalKey if no enum generated 1`] = `
 "export type MyIconsSetKey =
-  | \\"Foo\\"
-  | \\"Bar\\";
+  | "Foo"
+  | "Bar";
 
 export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSetKey]: string } = {
-  \\"foo\\": \\"4265\\",
-  \\"bar\\": \\"1231\\",
+  "foo": "4265",
+  "bar": "1231",
 };
 "
 `;
 
-exports[`\`TS\` asset generator generates no key string literal type if option passed like that 1`] = `
+exports[`\`TS\` asset generator generates no key string literal type if option specifies it 1`] = `
 "export enum MyIconsSet {
-  Foo = \\"foo\\",
-  Bar = \\"bar\\",
+  Foo = "foo",
+  Bar = "bar",
 }
 
 export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
-  [MyIconsSet.Foo]: \\"4265\\",
-  [MyIconsSet.Bar]: \\"1231\\",
+  [MyIconsSet.Foo]: "4265",
+  [MyIconsSet.Bar]: "1231",
 };
 "
 `;
@@ -68,67 +68,67 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
 
 exports[`\`TS\` asset generator prevents enum keys that start with digits 1`] = `
 "export type MyIconsSetId =
-  | \\"1234\\"
-  | \\"5678\\";
+  | "1234"
+  | "5678";
 
 export type MyIconsSetKey =
-  | \\"i1234\\"
-  | \\"i5678\\";
+  | "i1234"
+  | "i5678";
 
 export enum MyIconsSet {
-  i1234 = \\"1234\\",
-  i5678 = \\"5678\\",
+  i1234 = "1234",
+  i5678 = "5678",
 }
 
 export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
-  [MyIconsSet.i1234]: \\"undefined\\",
-  [MyIconsSet.i5678]: \\"undefined\\",
+  [MyIconsSet.i1234]: "undefined",
+  [MyIconsSet.i5678]: "undefined",
 };
 "
 `;
 
 exports[`\`TS\` asset generator prevents enum keys that start with digits when digits and chars 1`] = `
 "export type MyIconsSetId =
-  | \\"1234asdf\\"
-  | \\"5678ab\\"
-  | \\"foo\\";
+  | "1234asdf"
+  | "5678ab"
+  | "foo";
 
 export type MyIconsSetKey =
-  | \\"i1234asdf\\"
-  | \\"i5678ab\\"
-  | \\"Foo\\";
+  | "i1234asdf"
+  | "i5678ab"
+  | "Foo";
 
 export enum MyIconsSet {
-  i1234asdf = \\"1234asdf\\",
-  i5678ab = \\"5678ab\\",
-  Foo = \\"foo\\",
+  i1234asdf = "1234asdf",
+  i5678ab = "5678ab",
+  Foo = "foo",
 }
 
 export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
-  [MyIconsSet.i1234asdf]: \\"undefined\\",
-  [MyIconsSet.i5678ab]: \\"undefined\\",
-  [MyIconsSet.Foo]: \\"4265\\",
+  [MyIconsSet.i1234asdf]: "undefined",
+  [MyIconsSet.i5678ab]: "undefined",
+  [MyIconsSet.Foo]: "4265",
 };
 "
 `;
 
 exports[`\`TS\` asset generator renders expected TypeScript module content 1`] = `
 "export type MyIconsSetId =
-  | \\"foo\\"
-  | \\"bar\\";
+  | "foo"
+  | "bar";
 
 export type MyIconsSetKey =
-  | \\"Foo\\"
-  | \\"Bar\\";
+  | "Foo"
+  | "Bar";
 
 export enum MyIconsSet {
-  Foo = \\"foo\\",
-  Bar = \\"bar\\",
+  Foo = "foo",
+  Bar = "bar",
 }
 
 export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
-  [MyIconsSet.Foo]: \\"4265\\",
-  [MyIconsSet.Bar]: \\"1231\\",
+  [MyIconsSet.Foo]: "4265",
+  [MyIconsSet.Bar]: "1231",
 };
 "
 `;
