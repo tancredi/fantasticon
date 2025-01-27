@@ -1,7 +1,9 @@
+import { getDirName } from '../utils/module.cjs';
+
 const _path = jest.requireActual('path');
 const _relative = _path.relative;
 
-const projectDir = _path.resolve(__dirname, '../../');
+const projectDir = _path.resolve(getDirName(), '../../');
 
 const resolve = (...paths: string[]) => {
   let path = '';

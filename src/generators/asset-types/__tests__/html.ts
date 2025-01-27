@@ -1,3 +1,4 @@
+import { getDirName } from '../../../utils/module.cjs';
 import htmlGen from '../html';
 import { resolve } from 'path';
 
@@ -7,7 +8,7 @@ const mockOptions = {
   tag: 'b',
   assets: { 'my-icon': null },
   templates: {
-    html: resolve(__dirname, '../../../../templates/html.hbs')
+    html: resolve(getDirName(), '../../../../templates/html.hbs')
   }
 } as any;
 

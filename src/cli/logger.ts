@@ -1,6 +1,6 @@
 import color from 'cli-color';
-import { RunnerResults } from '../core/runner';
-import { pluralize } from '../utils/string';
+import { RunnerResults } from '../core/runner.js';
+import { pluralize } from '../utils/string.js';
 
 export const getLogger = (debug = false, silent = false) => ({
   error(error: Error | string) {

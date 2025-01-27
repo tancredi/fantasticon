@@ -1,6 +1,7 @@
 import cssGen from '../css';
 import { renderSrcAttribute } from '../../../utils/css';
 import { resolve } from 'path';
+import { getDirName } from '../../../utils/module.cjs';
 
 const renderSrcMock = renderSrcAttribute as any as jest.Mock;
 
@@ -11,7 +12,7 @@ const mockOptions = {
   codepoints: { 'my-icon': 0xf101 },
   assets: { 'my-icon': null },
   templates: {
-    css: resolve(__dirname, '../../../../templates/css.hbs')
+    css: resolve(getDirName(), '../../../../templates/css.hbs')
   }
 } as any;
 

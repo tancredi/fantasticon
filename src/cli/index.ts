@@ -1,10 +1,10 @@
 import commander from 'commander';
-import { FontAssetType, OtherAssetType } from '../types/misc';
-import { loadConfig, DEFAULT_FILEPATHS } from './config-loader';
-import { DEFAULT_OPTIONS } from '../constants';
-import { generateFonts } from '../core/runner';
-import { removeUndefined } from '../utils/validation';
-import { getLogger } from './logger';
+import { FontAssetType, OtherAssetType } from '../types/misc.js';
+import { loadConfig, DEFAULT_FILEPATHS } from './config-loader.js';
+import { DEFAULT_OPTIONS } from '../constants.js';
+import { generateFonts } from '../core/runner.js';
+import { removeUndefined } from '../utils/validation.js';
+import { getLogger } from './logger.js';
 
 const {
   bin,

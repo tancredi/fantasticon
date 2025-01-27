@@ -1,5 +1,5 @@
-import { RunnerOptions } from '../types/runner';
-import { DEFAULT_OPTIONS } from '../constants';
+import { RunnerOptions } from '../types/runner.js';
+import { DEFAULT_OPTIONS } from '../constants.js';
 import {
   parseDir,
   parseString,
@@ -9,8 +9,8 @@ import {
   parseNumeric,
   optional,
   nullable
-} from '../utils/validation';
-import { FontAssetType, OtherAssetType } from '../types/misc';
+} from '../utils/validation.js';
+import { FontAssetType, OtherAssetType } from '../types/misc.js';
 
 const CONFIG_VALIDATORS: {
   [key in keyof RunnerOptions]: Array<(val: any, cur: any) => any>;

@@ -1,16 +1,16 @@
-import { DEFAULT_OPTIONS } from '../constants';
-import { RunnerOptions } from '../types/runner';
+import { DEFAULT_OPTIONS } from '../constants.js';
+import { RunnerOptions } from '../types/runner.js';
 import {
   loadAssets,
   writeAssets,
   AssetsMap,
   WriteResults
-} from '../utils/assets';
-import { CodepointsMap } from '../utils/codepoints';
-import { getGeneratorOptions } from '../generators/generator-options';
-import { GeneratedAssets } from '../generators/generate-assets';
-import { parseConfig } from './config-parser';
-import { generateAssets } from '../generators';
+} from '../utils/assets.js';
+import { CodepointsMap } from '../utils/codepoints.js';
+import { getGeneratorOptions } from '../generators/generator-options.js';
+import { GeneratedAssets } from '../generators/generate-assets.js';
+import { parseConfig } from './config-parser.js';
+import { generateAssets } from '../generators/index.js';
 
 export interface RunnerResults {
   options: RunnerOptions;

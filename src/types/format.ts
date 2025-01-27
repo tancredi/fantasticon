@@ -1,12 +1,12 @@
 import svg2ttf from 'svg2ttf';
 import ttf2woff from 'ttf2woff';
-import { SvgIcons2FontOptions } from 'svgicons2svgfont';
-import { Arguments } from '../types/utils';
+import { SVGIcons2SVGFontStreamOptions } from 'svgicons2svgfont';
+import { Arguments } from '../types/utils.js';
 
 type WoffOptions = Arguments<typeof ttf2woff>[1];
 type TtfOptions = svg2ttf.FontOptions;
 type SvgOptions = Omit<
-  SvgIcons2FontOptions,
+  SVGIcons2SVGFontStreamOptions,
   'fontName' | 'fontHeight' | 'descent' | 'normalize'
 >;
 

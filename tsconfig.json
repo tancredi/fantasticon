@@ -3,9 +3,11 @@
     "allowJs": true,
     "declaration": true,
     "esModuleInterop": true,
-    "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "lib",
+    "module": "ESNext",
+    "lib": ["ESNext"],
+    "outDir": "dist/esm",
+    "allowSyntheticDefaultImports": true,
     "rootDir": "src",
     "sourceMap": true,
     "target": "ES6",
@@ -14,7 +16,7 @@
   "typeRoots": ["node_modules/@types"],
   "exclude": [
     "node_modules",
-    "lib",
+    "dist",
     "src/**/__mocks__/*.ts",
     "src/**/__tests__/*.ts"
   ]

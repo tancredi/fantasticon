@@ -5,8 +5,8 @@ export {
   AssetType,
   GetIconIdFn,
   GetIconIdOptions
-} from './types/misc';
+} from './types/misc.js';
 
-export { RunnerOptions } from './types/runner';
+export { RunnerOptions } from './types/runner.js';
 
-export { generateFonts, generateFonts as default } from './core/runner';
+export { generateFonts, generateFonts as default } from './core/runner.js';
