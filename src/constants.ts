@@ -4,7 +4,7 @@ import { FontAssetType, OtherAssetType } from './types/misc.js';
 import { getIconId } from './utils/icon-id.js';
 import { getDirName } from './utils/module.cjs';
 
-export const TEMPLATES_DIR = resolve(getDirName(), '../templates');
+export const TEMPLATES_DIR = resolve(getDirName(), '../../../templates');
 
 export const DEFAULT_OPTIONS: Omit<RunnerOptions, 'inputDir' | 'outputDir'> = {
   name: 'icons',

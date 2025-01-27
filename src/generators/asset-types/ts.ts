@@ -1,4 +1,4 @@
-import * as caseUtil from 'case';
+import { default as caseUtil } from 'case';
 import { FontGenerator } from '../../types/generator.js';
 
 const generateEnumKeys = (assetKeys: string[]): Record<string, string> =>

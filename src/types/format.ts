@@ -1,6 +1,6 @@
 import svg2ttf from 'svg2ttf';
 import ttf2woff from 'ttf2woff';
-import { SVGIcons2SVGFontStreamOptions } from 'svgicons2svgfont';
+import { type SVGIcons2SVGFontStreamOptions } from 'svgicons2svgfont';
 import { Arguments } from '../types/utils.js';
 
 type WoffOptions = Arguments<typeof ttf2woff>[1];

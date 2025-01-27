@@ -25,7 +25,7 @@ const generator: FontGenerator<void> = {
         // log: () => null,
         ...svg
       })
-        .on('data', data => (font = Buffer.concat([font, data])))
+        .on('data', data => (font = Buffer.concat([font, Buffer.from(data)])))
         .on('end', () => resolve(font.toString()));
 
       for (const { id, absolutePath } of Object.values(assets)) {
