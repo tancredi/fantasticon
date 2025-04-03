@@ -40,10 +40,10 @@
   "prepublish": "build",
   "dependencies": {
     "case": "^1.6.3",
-    "cli-color": "^2.0.4",
     "commander": "^12.0.0",
     "glob": "^10.3.12",
     "handlebars": "^4.7.8",
+    "picocolors": "^1.1.1",
     "slugify": "^1.6.6",
     "svg2ttf": "^6.0.3",
     "svgicons2svgfont": "^12.0.0",
@@ -52,7 +52,6 @@
     "ttf2woff2": "^5.0.0"
   },
   "devDependencies": {
-    "@types/cli-color": "^2.0.6",
     "@types/glob": "^8.1.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.5",
