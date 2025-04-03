@@ -1,10 +1,10 @@
-import color from 'cli-color';
+import color from 'picocolors';
 import { RunnerResults } from '../core/runner';
 import { pluralize } from '../utils/string';
 
 export const getLogger = (debug = false, silent = false) => ({
   error(error: Error | string) {
-    const message = (error instanceof Error && error.message) || error;
+    const message = error instanceof Error ? error.message : error;
 
     console.log(color.red(message));
 
@@ -21,7 +21,7 @@ export const getLogger = (debug = false, silent = false) => ({
     if (loadedConfigPath) {
       this.log(
         color.green(
-          `✔ Using configuration file: ${color.green.bold(loadedConfigPath)}`
+          `✔ Using configuration file: ${color.green(color.bold(loadedConfigPath))}`
         )
       );
     }
@@ -37,9 +37,9 @@ export const getLogger = (debug = false, silent = false) => ({
     );
 
     for (const { writePath } of writeResults) {
-      this.log(color.blue(`✔ Generated`, color.blueBright(writePath)));
+      this.log(color.blue(`✔ Generated ` + color.blueBright(writePath)));
     }
 
-    this.log(color.green.bold('Done'));
+    this.log(color.green(color.bold('Done')));
   }
 });
