@@ -23,8 +23,10 @@ $test-map: (
     "my-icon": "\\f101",
 );
 
-.my-selector.tf-my-icon:before {
-    content: map-get($test-map, "my-icon");
+@each $name, $value in ($test-map) {
+    .my-selector.tf-#{$name}:before {
+        content: $value;
+    }
 }
 "
 `;
@@ -52,8 +54,10 @@ $test-map: (
     "my-icon": "\\f101",
 );
 
-.tf-my-icon:before {
-    content: map-get($test-map, "my-icon");
+@each $name, $value in ($test-map) {
+    b.tf-#{$name}:before {
+        content: $value;
+    }
 }
 "
 `;

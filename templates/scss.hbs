@@ -26,12 +26,12 @@ ${{ name }}-map: (
 {{/ each }}
 );
 
-{{# each codepoints }}
-{{# if ../selector }}
-{{ ../selector }}.{{ ../prefix }}-{{ @key }}:before {
-{{ else }}
-{{ tag }}.{{ ../prefix }}-{{ @key }}:before {
-{{/ if }}
-    content: map-get(${{ ../name }}-map, "{{ @key }}");
+@each $name, $value in (${{ name }}-map) {
+    {{# if selector }}
+    {{ selector }}.{{ prefix }}-#{$name}:before {
+    {{ else }}
+    {{ tag }}.{{ prefix }}-#{$name}:before {
+    {{/ if }}
+        content: $value;
+    }
 }
-{{/ each }}
