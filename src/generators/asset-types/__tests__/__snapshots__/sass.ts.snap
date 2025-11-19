@@ -49,7 +49,7 @@ $test-map: (
 )
 
 @each $name, $value in ($test-map)
-    b.tf-#{$name}:before
+    .tf-#{$name}:before
         content: $value
 "
 `;

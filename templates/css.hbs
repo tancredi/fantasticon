@@ -22,7 +22,7 @@
 {{# if ../selector }}
 {{ ../selector }}.{{ ../prefix }}-{{ @key }}:before {
 {{ else }}
-{{ tag }}.{{ ../prefix }}-{{ @key }}:before {
+.{{ ../prefix }}-{{ @key }}:before {
 {{/ if }}
     content: "\\{{ codepoint this }}";
 }

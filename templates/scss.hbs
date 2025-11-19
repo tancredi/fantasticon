@@ -30,7 +30,7 @@ ${{ name }}-map: (
     {{# if selector }}
     {{ selector }}.{{ prefix }}-#{$name}:before {
     {{ else }}
-    {{ tag }}.{{ prefix }}-#{$name}:before {
+    .{{ prefix }}-#{$name}:before {
     {{/ if }}
         content: $value;
     }
