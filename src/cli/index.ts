@@ -5,13 +5,12 @@ import { DEFAULT_OPTIONS } from '../constants.js';
 import { generateFonts } from '../core/runner.js';
 import { removeUndefined } from '../utils/validation.js';
 import { getLogger } from './logger.js';
-import { getPackageInfo } from '../utils/module.cjs';
+import { getPackageInfo } from '../utils/module.js';
 
 const packageInfo = getPackageInfo();
 
 const getCommandName = () =>
-  (packageInfo.bin && Object.keys(packageInfo.bin)[0]) ||
-  packageInfo.packageName;
+  (packageInfo.bin && Object.keys(packageInfo.bin)[0]) || packageInfo.name;
 
 const cli = async () => {
   config();

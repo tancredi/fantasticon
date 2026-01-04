@@ -20,17 +20,19 @@
   "homepage": "https://github.com/tancredi/fantasticon#readme",
   "type": "module",
   "exports": {
-    "require": "./dist/cjs/index.js",
-    "import": "./dist/esm/index.js"
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js"
   },
-  "main": "dist/cjs/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "fantasticon": "bin/fantasticon"
   },
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "build": "rimraf dist && npm run build:cjs && npm run build:esm",
+    "build": "rimraf dist && tsup --dts --format esm,cjs src/index.ts src/cli/index.ts",
     "build:package:cjs": "touch ./dist/cjs/package.json && echo '{\"type\": \"commonjs\"}' > ./dist/cjs/package.json",
     "build:cjs": "tsc --project ./tsconfig.cjs.json && npm run build:package:cjs",
     "build:package:esm": "touch ./dist/esm/package.json && echo '{\"type\": \"module\"}' > ./dist/esm/package.json",
@@ -75,7 +77,9 @@
     "rimraf": "^6.0.1",
     "semantic-release": "^24.2.1",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.7.3"
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.3",
+    "vitest": "^4.0.16"
   },
   "jest": {
     "preset": "ts-jest",

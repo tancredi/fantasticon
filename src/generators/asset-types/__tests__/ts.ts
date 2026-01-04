@@ -1,4 +1,3 @@
-import { getFileName } from '../../../utils/module.cjs';
 import tsGen from '../ts';
 import { join, dirname } from 'path';
 
@@ -21,7 +20,7 @@ const mockOptions = {
   name: 'my-icons-set',
   assets: mockAssets,
   codepoints: mockCodepoints,
-  inputDir: join(dirname(getFileName()), 'fixtures'),
+  inputDir: join(__dirname, 'fixtures'),
   outputDir: '/dev/null'
 } as any;
 
