@@ -54,7 +54,7 @@ describe('`SCSS` asset generator', () => {
     const scss = await scssGen.generate(mockOptions, Buffer.from(''));
 
     expect(scss).toContain('b[class^="tf-"]:before, b[class*=" tf-"]:before {');
-    expect(scss).toContain('.tf-my-icon:before {');
+    expect(scss).toContain('.tf-#{$name}:before {');
   });
 
   it('renders expected variables', async () => {
@@ -71,6 +71,6 @@ describe('`SCSS` asset generator', () => {
     );
 
     expect(scss).toContain('.my-selector:before {');
-    expect(scss).toContain('.my-selector.tf-my-icon:before {');
+    expect(scss).toContain('.my-selector.tf-#{$name}:before {');
   });
 });

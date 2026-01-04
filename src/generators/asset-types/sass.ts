@@ -9,7 +9,7 @@ const generator: FontGenerator<Buffer> = {
   generate: (options, svg: Buffer) =>
     renderTemplate(options.templates.sass, {
       ...options,
-      fontSrc: renderSrcAttribute(options, svg)
+      fontSrc: renderSrcAttribute(options, svg, { inline: true })
     })
 };
 

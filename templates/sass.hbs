@@ -18,18 +18,16 @@ ${{ name }}-font: "{{ name }}"
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
 
-
 ${{ name }}-map: (
 {{# each codepoints }}
     "{{ @key }}": "\\{{ codepoint this }}",
 {{/ each }}
 )
 
-{{# each codepoints }}
-{{# if ../selector }}
-{{ ../selector }}.{{ ../prefix }}-{{ @key }}:before
-{{ else }}
-{{ tag }}.{{ ../prefix }}-{{ @key }}:before
-{{/ if }}
-    content: map-get(${{ ../name }}-map, "{{ @key }}")
-{{/ each }}
+@each $name, $value in (${{ name }}-map)
+    {{# if selector }}
+    {{ selector }}.{{ prefix }}-#{$name}:before
+    {{ else }}
+    .{{ prefix }}-#{$name}:before
+    {{/ if }}
+        content: $value
