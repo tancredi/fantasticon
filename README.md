@@ -211,4 +211,4 @@ PRs are always welcome. If you need help questions, want to bounce ideas or just
 
 ### License
 
-Copyright (c) 2020 Tancredi Trugenberger. - Released under the [MIT license](https://github.com/tancredi/fantasticon/blob/master/LICENSE)
+Copyright (c) 2026 Tancredi Trugenberger. - Released under the [MIT license](https://github.com/tancredi/fantasticon/blob/master/LICENSE)
