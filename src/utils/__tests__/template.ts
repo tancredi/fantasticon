@@ -9,8 +9,6 @@ const readFile = vi.spyOn(asyncFs, 'readFile').mockImplementation(vi.fn());
 vi.mock('path', () => import('../../__mocks__/path.js'));
 vi.mock('glob', () => import('../../__mocks__/glob.js'));
 
-vi.spyOn(process, 'cwd').mockReturnValue('/root/project');
-
 describe('Template utilities', () => {
   beforeEach(() => {
     readFile.mockClear();
