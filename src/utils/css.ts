@@ -20,7 +20,8 @@ const renderSrcOptions: { [key in FontAssetType]: RenderSrcOptions } = {
 
 export const renderSrcAttribute = (
   { name, fontTypes, fontsUrl }: FontGeneratorOptions,
-  font: string | Buffer
+  font: string | Buffer,
+  { inline = false }: { inline?: boolean } = {}
 ) =>
   fontTypes
     .map(fontType => {
@@ -31,4 +32,4 @@ export const renderSrcAttribute = (
         fontsUrl || '.'
       }/${name}.${fontType}?${hash}${suffix}") format("${formatValue}")`;
     })
-    .join(',\n');
+    .join(inline ? ', ' : ',\n');

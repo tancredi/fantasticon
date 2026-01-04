@@ -46,7 +46,9 @@ describe('`SASS` asset generator', () => {
     const result = await sassGen.generate(mockOptions, fontBuffer);
 
     expect(renderSrcMock).toHaveBeenCalledTimes(1);
-    expect(renderSrcMock).toHaveBeenCalledWith(mockOptions, fontBuffer);
+    expect(renderSrcMock).toHaveBeenCalledWith(mockOptions, fontBuffer, {
+      inline: true
+    });
     expect(result).toContain('::src-attr::');
   });
 
