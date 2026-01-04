@@ -46,7 +46,7 @@
   },
   "files": [
     "bin/fantasticon",
-    "dist/**/*.{js,ts,map}",
+    "dist/**/*",
     "!dist/**/{__mocks__,__tests__}/",
     "templates/*.hbs"
   ],
