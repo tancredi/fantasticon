@@ -134,10 +134,12 @@ module.exports = {
 
 #### Simple usage
 
-```js
+```ts
 import { generateFonts } from 'fantasticon';
 
-generateFonts().then(results => console.log('Done', results));
+const results = await generateFonts();
+
+console.log('Done', results);
 ```
 
 #### Options
@@ -211,4 +213,4 @@ PRs are always welcome. If you need help questions, want to bounce ideas or just
 
 ### License
 
-Copyright (c) 2020 Tancredi Trugenberger. - Released under the [MIT license](https://github.com/tancredi/fantasticon/blob/master/LICENSE)
+Copyright (c) 2026 Tancredi Trugenberger. - Released under the [MIT license](https://github.com/tancredi/fantasticon/blob/master/LICENSE)

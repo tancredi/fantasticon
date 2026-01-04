@@ -1,6 +1,7 @@
 import jsonGen from '../json';
 import { OtherAssetType } from '../../../types/misc';
 import { DEFAULT_OPTIONS } from '../../../constants';
+import { vi, it, describe, beforeEach, expect, Mock } from 'vitest';
 
 const mockCodepoints = { foo: 'oof', bar: 'baz' };
 
@@ -16,17 +17,17 @@ const renderAndParse = async (jsonOptions?: any) =>
   );
 
 describe('`JSON` asset generator', () => {
-  test('renders expected JSON containing the codepoints map', async () => {
+  it('renders expected JSON containing the codepoints map', async () => {
     expect(await renderAndParse()).toEqual({
       foo: 'oof',
       bar: 'baz'
     });
   });
 
-  test('calls JSON.stringify with correct indentation', async () => {
-    const stringifySpy = jest.spyOn(JSON, 'stringify');
+  it('calls JSON.stringify with correct indentation', async () => {
+    const stringifySpy = vi.spyOn(JSON, 'stringify');
 
-    await renderAndParse(DEFAULT_OPTIONS.formatOptions.json);
+    await renderAndParse(DEFAULT_OPTIONS.formatOptions!.json);
 
     expect(stringifySpy).toHaveBeenCalledTimes(1);
     expect(stringifySpy).toHaveBeenCalledWith(

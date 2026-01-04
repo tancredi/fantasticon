@@ -1,9 +1,9 @@
 import { glob } from 'glob';
 import { resolve, relative, join } from 'path';
-import { removeExtension, splitSegments } from '../utils/path';
-import { writeFile } from './fs-async';
-import { RunnerOptions } from '../types/runner';
-import { GeneratedAssets } from '../generators/generate-assets';
+import { removeExtension, splitSegments } from '../utils/path.js';
+import { writeFile } from './fs-async.js';
+import { RunnerOptions } from '../types/runner.js';
+import { GeneratedAssets } from '../generators/generate-assets.js';
 
 export type WriteResult = { content: string | Buffer; writePath: string };
 

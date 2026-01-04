@@ -1,16 +1,16 @@
-import { AssetType, FontAssetType, OtherAssetType } from '../../types/misc';
-import { FontGenerator } from '../../types/generator';
-import svg from './svg';
-import ttf from './ttf';
-import woff from './woff';
-import woff2 from './woff2';
-import eot from './eot';
-import css from './css';
-import html from './html';
-import json from './json';
-import ts from './ts';
-import sass from './sass';
-import scss from './scss';
+import { AssetType, FontAssetType, OtherAssetType } from '../../types/misc.js';
+import { FontGenerator } from '../../types/generator.js';
+import svg from './svg.js';
+import ttf from './ttf.js';
+import woff from './woff.js';
+import woff2 from './woff2.js';
+import eot from './eot.js';
+import css from './css.js';
+import html from './html.js';
+import json from './json.js';
+import ts from './ts.js';
+import sass from './sass.js';
+import scss from './scss.js';
 
 const generators: { [key in AssetType]: FontGenerator<any> } = {
   [FontAssetType.SVG]: svg,

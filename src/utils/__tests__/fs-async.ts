@@ -1,14 +1,15 @@
+import { vi, it, describe, expect, Mock, beforeEach } from 'vitest';
 import { readFile, writeFile, stat, checkPath } from '../fs-async';
 import * as fs from 'fs';
 
-const readFileMock = fs.readFile as any as jest.Mock;
-const writeFileMock = fs.writeFile as any as jest.Mock;
-const statMock = fs.stat as any as jest.Mock;
+const readFileMock = fs.readFile as any as Mock;
+const writeFileMock = fs.writeFile as any as Mock;
+const statMock = fs.stat as any as Mock;
 
-jest.mock('fs', () => ({
-  readFile: jest.fn(),
-  writeFile: jest.fn(),
-  stat: jest.fn()
+vi.mock('fs', () => ({
+  readFile: vi.fn(),
+  writeFile: vi.fn(),
+  stat: vi.fn()
 }));
 
 describe('Async FS utilities', () => {
@@ -85,7 +86,7 @@ describe('Async FS utilities', () => {
 
     it('checks if given path is a directory when given as check type', async () => {
       const mockPath = '/dev/null';
-      const isDirectory = jest.fn(() => false);
+      const isDirectory = vi.fn(() => false);
 
       statMock.mockImplementation((_, cb) => cb(null, { isDirectory }));
 
@@ -101,7 +102,7 @@ describe('Async FS utilities', () => {
 
     it('checks if given path is a file when given as check type', async () => {
       const mockPath = '/dev/null';
-      const isFile = jest.fn(() => false);
+      const isFile = vi.fn(() => false);
 
       statMock.mockImplementation((_, cb) => cb(null, { isFile }));
 

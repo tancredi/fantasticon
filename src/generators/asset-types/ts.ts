@@ -1,10 +1,10 @@
-import { pascal as pascalCase, constant as constantCase } from 'case';
-import { FontGenerator } from '../../types/generator';
+import { default as caseUtil } from 'case';
+import { FontGenerator } from '../../types/generator.js';
 
 const generateEnumKeys = (assetKeys: string[]): Record<string, string> =>
   assetKeys
     .map(name => {
-      const enumName = pascalCase(name);
+      const enumName = caseUtil.pascal(name);
       const prefix = enumName.match(/^\d/) ? 'i' : '';
 
       return {
@@ -95,10 +95,11 @@ const generator: FontGenerator = {
       .map(kind => ({ [kind]: true }))
       .reduce((prev, curr) => Object.assign(prev, curr), {});
 
-    const enumName = ts?.enumName || pascalCase(name);
-    const constantName = ts?.constantName || `${constantCase(name)}_CODEPOINTS`;
-    const literalIdName = ts?.literalIdName || `${pascalCase(name)}Id`;
-    const literalKeyName = ts?.literalKeyName || `${pascalCase(name)}Key`;
+    const enumName = ts?.enumName || caseUtil.pascal(name);
+    const constantName =
+      ts?.constantName || `${caseUtil.constant(name)}_CODEPOINTS`;
+    const literalIdName = ts?.literalIdName || `${caseUtil.pascal(name)}Id`;
+    const literalKeyName = ts?.literalKeyName || `${caseUtil.pascal(name)}Key`;
     const names = { enumName, constantName, literalIdName, literalKeyName };
 
     const enumKeys = generateEnumKeys(Object.keys(assets));

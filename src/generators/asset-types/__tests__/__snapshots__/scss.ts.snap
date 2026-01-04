@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`\`SCSS\` asset generator renders SCSS correctly with \`selector\` option 1`] = `
+exports[`\`SCSS\` asset generator > renders SCSS correctly with \`selector\` option 1`] = `
 "$test-font: "test";
 
 @font-face {
@@ -31,7 +31,7 @@ $test-map: (
 "
 `;
 
-exports[`\`SCSS\` asset generator renders SCSS correctly with prefix and tag name options 1`] = `
+exports[`\`SCSS\` asset generator > renders SCSS correctly with prefix and tag name options 1`] = `
 "$test-font: "test";
 
 @font-face {

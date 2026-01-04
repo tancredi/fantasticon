@@ -1,8 +1,9 @@
 import cssGen from '../css';
 import { renderSrcAttribute } from '../../../utils/css';
 import { resolve } from 'path';
+import { vi, it, describe, beforeEach, expect, Mock } from 'vitest';
 
-const renderSrcMock = renderSrcAttribute as any as jest.Mock;
+const renderSrcMock = renderSrcAttribute as any as Mock;
 
 const mockOptions = {
   name: 'test-font',
@@ -15,8 +16,8 @@ const mockOptions = {
   }
 } as any;
 
-jest.mock('../../../utils/css', () => ({
-  renderSrcAttribute: jest.fn(() => '"::src-attr::"')
+vi.mock('../../../utils/css', () => ({
+  renderSrcAttribute: vi.fn(() => '"::src-attr::"')
 }));
 
 describe('`CSS` asset generator', () => {
@@ -24,13 +25,13 @@ describe('`CSS` asset generator', () => {
     renderSrcMock.mockClear();
   });
 
-  test('renders CSS correctly with prefix and tag name options', async () => {
+  it('renders CSS correctly with prefix and tag name options', async () => {
     expect(
       await cssGen.generate(mockOptions, Buffer.from(''))
     ).toMatchSnapshot();
   });
 
-  test('renders CSS correctly with `selector` option', async () => {
+  it('renders CSS correctly with `selector` option', async () => {
     expect(
       await cssGen.generate(
         { ...mockOptions, selector: '.my-selector' },
@@ -39,7 +40,7 @@ describe('`CSS` asset generator', () => {
     ).toMatchSnapshot();
   });
 
-  test('calls renderSrcAttribute correctly and includes its return value in the rendered template', async () => {
+  it('calls renderSrcAttribute correctly and includes its return value in the rendered template', async () => {
     const fontBuffer = Buffer.from('::svg-content::');
 
     const result = await cssGen.generate(mockOptions, fontBuffer);
@@ -49,14 +50,14 @@ describe('`CSS` asset generator', () => {
     expect(result).toContain('::src-attr::');
   });
 
-  test('renders expected selector blocks', async () => {
+  it('renders expected selector blocks', async () => {
     const css = await cssGen.generate(mockOptions, Buffer.from(''));
 
     expect(css).toContain('b[class^="tf-"]:before, b[class*=" tf-"]:before {');
     expect(css).toContain('.tf-my-icon:before {');
   });
 
-  test('renders expected selector blocks with `selector` option', async () => {
+  it('renders expected selector blocks with `selector` option', async () => {
     const css = await cssGen.generate(
       { ...mockOptions, selector: '.my-selector' },
       Buffer.from('')

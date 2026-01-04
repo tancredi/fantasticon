@@ -6,24 +6,29 @@ on:
 
 env:
   FORCE_COLOR: 2
-  NODE: 20.x
+  NODE: 24.x
 
 jobs:
   release:
     if: "!contains(github.event.head_commit.message, 'skip ci') && github.repository == 'tancredi/fantasticon'"
     name: Release
+    permissions:
+      id-token: write
+      contents: write
+      issues: write
+      pull-requests: write
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v6
         with:
           node-version: '${{ env.NODE }}'
       - name: Set up npm cache
-        uses: actions/cache@v2
+        uses: actions/cache@v5
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-v${{ env.NODE }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
@@ -37,5 +42,4 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release

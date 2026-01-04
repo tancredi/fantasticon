@@ -1,4 +1,7 @@
-const _path = jest.requireActual('path');
+import { vi } from 'vitest';
+import type * as systemPath from 'path';
+
+const _path = (await vi.importActual('path')) as typeof systemPath;
 const _relative = _path.relative;
 
 const projectDir = _path.resolve(__dirname, '../../');
@@ -53,4 +56,11 @@ const normalize = (path: string) => path.replace(/\\/g, '/');
 
 const isAbsolute = (path: string) => path.startsWith('/root');
 
-module.exports = { resolve, relative, join, isAbsolute, normalize };
+module.exports = {
+  resolve,
+  relative,
+  join,
+  isAbsolute,
+  normalize,
+  dirname: _path.dirname
+};

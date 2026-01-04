@@ -1,14 +1,15 @@
+import { vi, it, describe, expect, Mock, beforeEach } from 'vitest';
 import { AssetType, FontAssetType, OtherAssetType } from '../../types/misc';
 import { FontGeneratorOptions } from '../../types/generator';
 import { AssetsMap } from '../../utils/assets';
 import { generateAssets } from '../generate-assets';
 import generators from '../asset-types';
 
-jest.mock('../asset-types', () => {
+vi.mock('../asset-types', () => {
   const mockResult = (type: string) => `::${type}::`;
   const mockGenerator = (name: string, dependsOn: string | null = null) => ({
     dependsOn,
-    generate: jest.fn(async (_, dependant) => {
+    generate: vi.fn(async (_, dependant) => {
       if (dependsOn && dependant !== mockResult(dependsOn)) {
         throw new Error(
           `'${name}' generator called without '${dependsOn}' result`
@@ -20,10 +21,12 @@ jest.mock('../asset-types', () => {
   });
 
   return {
-    a: mockGenerator('a'),
-    b: mockGenerator('b', 'a'),
-    c: mockGenerator('c', 'd'),
-    d: mockGenerator('d')
+    default: {
+      a: mockGenerator('a'),
+      b: mockGenerator('b', 'a'),
+      c: mockGenerator('c', 'd'),
+      d: mockGenerator('d')
+    }
   };
 });
 
@@ -35,11 +38,11 @@ const getGeneratorFn = (key: string) =>
 describe('Generate assets', () => {
   beforeEach(() => {
     for (const gen of Object.values(generators)) {
-      (gen.generate as unknown as jest.Mock).mockClear();
+      (gen.generate as unknown as Mock).mockClear();
     }
   });
 
-  test('`generateAssets` correctly generates and returns assets specified by the merged `fontTypes` and `assetTypes` option', async () => {
+  it('`generateAssets` correctly generates and returns assets specified by the merged `fontTypes` and `assetTypes` option', async () => {
     const fontTypes = cast<FontAssetType[]>(['a']);
     const assetTypes = cast<OtherAssetType[]>(['c']);
     const result = await generateAssets(
@@ -49,7 +52,7 @@ describe('Generate assets', () => {
     expect(result).toEqual({ a: '::a::', c: '::c::' });
   });
 
-  test('`generateAssets` calls necessary generator functions with correct argugments and only once, and with correctly generated codepoints', async () => {
+  it('`generateAssets` calls necessary generator functions with correct argugments and only once, and with correctly generated codepoints', async () => {
     const fontTypes = cast<AssetType[]>(['b', 'd']);
     const assets = cast<AssetsMap>({ __mock: 'assetsMap__' });
     const codepoints = { __mock: '::codepoint::' };

@@ -1,4 +1,4 @@
-import { FontGenerator } from '../../types/generator';
+import { FontGenerator } from '../../types/generator.js';
 
 const generator: FontGenerator = {
   generate: async ({ formatOptions: { json } = {}, codepoints }) =>

@@ -1,3 +1,4 @@
+import { it, describe, expect } from 'vitest';
 import { getHash } from '../hash';
 
 describe('Hash utilities', () => {
