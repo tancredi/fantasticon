@@ -33,12 +33,13 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest dev",
-    "build": "rimraf dist && tsup --dts --format esm,cjs src/index.ts src/cli/index.ts",
+    "build": "rimraf dist && npm run ts",
+    "ts": "tsup --dts --format esm,cjs src/index.ts src/cli/index.ts",
     "build:package:cjs": "touch ./dist/cjs/package.json && echo '{\"type\": \"commonjs\"}' > ./dist/cjs/package.json",
     "build:cjs": "tsc --project ./tsconfig.cjs.json && npm run build:package:cjs",
     "build:package:esm": "touch ./dist/esm/package.json && echo '{\"type\": \"module\"}' > ./dist/esm/package.json",
     "build:esm": "tsc --project ./tsconfig.json && npm run build:package:esm",
-    "watch": "tsc --project ./tsconfig.json --watch",
+    "watch": "npm run ts -- --watch",
     "typecheck": "tsc --noEmit --project tsconfig.test.json --noEmit",
     "lint": "prettier --check .",
     "fix": "prettier --write ."
