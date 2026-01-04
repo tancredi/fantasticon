@@ -134,10 +134,12 @@ module.exports = {
 
 #### Simple usage
 
-```js
+```ts
 import { generateFonts } from 'fantasticon';
 
-generateFonts().then(results => console.log('Done', results));
+const results = await generateFonts();
+
+console.log('Done', results);
 ```
 
 #### Options
