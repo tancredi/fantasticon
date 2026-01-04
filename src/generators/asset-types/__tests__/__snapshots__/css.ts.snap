@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`\`CSS\` asset generator renders CSS correctly with \`selector\` option 1`] = `
+exports[`\`CSS\` asset generator > renders CSS correctly with \`selector\` option 1`] = `
 "@font-face {
     font-family: "test-font";
     src: "::src-attr::";
@@ -23,7 +23,7 @@ exports[`\`CSS\` asset generator renders CSS correctly with \`selector\` option 
 "
 `;
 
-exports[`\`CSS\` asset generator renders CSS correctly with prefix and tag name options 1`] = `
+exports[`\`CSS\` asset generator > renders CSS correctly with prefix and tag name options 1`] = `
 "@font-face {
     font-family: "test-font";
     src: "::src-attr::";

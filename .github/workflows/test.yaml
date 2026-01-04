@@ -9,9 +9,9 @@ jobs:
   lint:
     name: Lint
     env:
-      NODE: 16.x
+      NODE: 24.x
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -42,8 +42,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macOS-11, ubuntu-20.04, windows-2019]
-        node: [16.x, 18.x, 19.x, 20.x]
+        os: [macOS-latest, ubuntu-latest, windows-latest]
+        node: [22.x, 24.x, 25.x]
 
     steps:
       - uses: actions/checkout@v3

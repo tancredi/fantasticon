@@ -1,5 +1,5 @@
-import { GetIconIdFn } from '../types/misc';
-import { removeExtension } from './path';
+import { GetIconIdFn } from '../types/misc.js';
+import { removeExtension } from './path.js';
 import slug from 'slugify';
 
 export const getIconId: GetIconIdFn = ({ relativeFilePath }) =>

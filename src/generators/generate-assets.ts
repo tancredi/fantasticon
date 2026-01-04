@@ -1,6 +1,6 @@
-import { AssetType, FontAssetType, OtherAssetType } from '../types/misc';
-import { FontGeneratorOptions } from '../types/generator';
-import generators from './asset-types';
+import { AssetType, FontAssetType, OtherAssetType } from '../types/misc.js';
+import { FontGeneratorOptions } from '../types/generator.js';
+import generators from './asset-types/index.js';
 
 export type GeneratedAssets = {
   [key in FontAssetType | OtherAssetType]?: string | Buffer;

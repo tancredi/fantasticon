@@ -1,9 +1,10 @@
 import { resolve } from 'path';
-import { RunnerOptions } from './types/runner';
-import { FontAssetType, OtherAssetType } from './types/misc';
-import { getIconId } from './utils/icon-id';
+import { RunnerOptions } from './types/runner.js';
+import { FontAssetType, OtherAssetType } from './types/misc.js';
+import { getIconId } from './utils/icon-id.js';
+import { getRoot } from './utils/path.js';
 
-export const TEMPLATES_DIR = resolve(__dirname, '../templates');
+export const TEMPLATES_DIR = resolve(getRoot(), 'templates');
 
 export const DEFAULT_OPTIONS: Omit<RunnerOptions, 'inputDir' | 'outputDir'> = {
   name: 'icons',

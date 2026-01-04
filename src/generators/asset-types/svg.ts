@@ -1,6 +1,6 @@
 import { createReadStream, ReadStream } from 'fs';
-import SVGIcons2SVGFontStream from 'svgicons2svgfont';
-import { FontGenerator } from '../../types/generator';
+import { SVGIcons2SVGFontStream } from 'svgicons2svgfont';
+import { FontGenerator } from '../../types/generator.js';
 
 type GglyphStream = ReadStream & { metadata?: any };
 
@@ -22,10 +22,10 @@ const generator: FontGenerator<void> = {
         fontHeight,
         descent,
         normalize,
-        log: () => null,
+        // log: () => null,
         ...svg
       })
-        .on('data', data => (font = Buffer.concat([font, data])))
+        .on('data', data => (font = Buffer.concat([font, Buffer.from(data)])))
         .on('end', () => resolve(font.toString()));
 
       for (const { id, absolutePath } of Object.values(assets)) {

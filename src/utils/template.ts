@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import { resolve, isAbsolute } from 'path';
-import { readFile } from './fs-async';
-import { getHexCodepoint } from './codepoints';
+import { readFile } from './fs-async.js';
+import { getHexCodepoint } from './codepoints.js';
 
 export const TEMPLATE_HELPERS: Record<string, Function> = {
   codepoint: getHexCodepoint

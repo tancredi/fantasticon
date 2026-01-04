@@ -1,5 +1,6 @@
 import tsGen from '../ts';
-import { join, dirname } from 'path';
+import { join } from 'path';
+import { it, describe, expect } from 'vitest';
 
 const mockAssets = {
   foo: {
@@ -20,7 +21,7 @@ const mockOptions = {
   name: 'my-icons-set',
   assets: mockAssets,
   codepoints: mockCodepoints,
-  inputDir: join(dirname(__filename), 'fixtures'),
+  inputDir: join(__dirname, 'fixtures'),
   outputDir: '/dev/null'
 } as any;
 

@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { readFile, checkPath } from '../utils/fs-async';
+import { readFile, checkPath } from '../utils/fs-async.js';
 
 export const DEFAULT_FILEPATHS = [
   '.fantasticonrc',

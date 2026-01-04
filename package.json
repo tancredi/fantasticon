@@ -18,55 +18,67 @@
     "url": "https://github.com/tancredi/fantasticon/issues"
   },
   "homepage": "https://github.com/tancredi/fantasticon#readme",
-  "main": "lib/index.js",
+  "type": "module",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "fantasticon": "bin/fantasticon"
   },
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "build": "rimraf lib && tsc --project ./tsconfig.json",
-    "watch": "npm run build -- --watch",
+    "test": "vitest run",
+    "test:watch": "vitest dev",
+    "build": "rimraf dist && npm run ts",
+    "ts": "tsup --dts --format esm,cjs src/index.ts src/cli/index.ts",
+    "build:package:cjs": "touch ./dist/cjs/package.json && echo '{\"type\": \"commonjs\"}' > ./dist/cjs/package.json",
+    "build:cjs": "tsc --project ./tsconfig.cjs.json && npm run build:package:cjs",
+    "build:package:esm": "touch ./dist/esm/package.json && echo '{\"type\": \"module\"}' > ./dist/esm/package.json",
+    "build:esm": "tsc --project ./tsconfig.json && npm run build:package:esm",
+    "watch": "npm run ts -- --watch",
     "typecheck": "tsc --noEmit --project tsconfig.test.json --noEmit",
     "lint": "prettier --check .",
     "fix": "prettier --write ."
   },
   "files": [
     "bin/fantasticon",
-    "lib/**/*.{js,ts,map}",
-    "!lib/**/{__mocks__,__tests__}/",
+    "dist/**/*.{js,ts,map}",
+    "!dist/**/{__mocks__,__tests__}/",
     "templates/*.hbs"
   ],
   "prepublish": "build",
   "dependencies": {
     "case": "^1.6.3",
     "cli-color": "^2.0.4",
-    "commander": "^12.0.0",
-    "glob": "^10.3.12",
+    "commander": "^14.0.2",
+    "glob": "^13.0.0",
     "handlebars": "^4.7.8",
     "slugify": "^1.6.6",
     "svg2ttf": "^6.0.3",
-    "svgicons2svgfont": "^12.0.0",
+    "svgicons2svgfont": "^15.0.1",
     "ttf2eot": "^3.1.0",
     "ttf2woff": "^3.0.0",
-    "ttf2woff2": "^5.0.0"
+    "ttf2woff2": "^8.0.0"
   },
   "devDependencies": {
     "@types/cli-color": "^2.0.6",
-    "@types/glob": "^8.1.0",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.12.5",
+    "@types/glob": "^9.0.0",
+    "@types/node": "^25.0.3",
     "@types/svg2ttf": "^5.0.3",
-    "@types/svgicons2svgfont": "^10.0.5",
+    "@types/svgicons2svgfont": "^14.0.0",
     "@types/ttf2eot": "^2.0.2",
     "@types/ttf2woff": "^2.0.4",
-    "@types/ttf2woff2": "^2.0.2",
-    "jest": "^29.7.0",
-    "prettier": "^3.2.5",
-    "rimraf": "^5.0.5",
-    "semantic-release": "^23.0.7",
-    "ts-jest": "^29.1.2",
-    "typescript": "^5.4.4"
+    "@types/ttf2woff2": "^6.0.0",
+    "prettier": "^3.7.4",
+    "rimraf": "^6.1.2",
+    "semantic-release": "^25.0.2",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
   },
   "jest": {
     "preset": "ts-jest",
@@ -82,6 +94,6 @@
     }
   },
   "engines": {
-    "node": ">= 16.0.0"
+    "node": ">= 22.0"
   }
 }

@@ -1,27 +1,28 @@
+import { vi, it, describe, expect, Mock, beforeEach } from 'vitest';
 import { prefillOptions, getGeneratorOptions } from '../generator-options';
 import { AssetsMap } from '../../utils/assets';
 import { ASSET_TYPES, ASSET_TYPES_WITH_TEMPLATE } from '../../types/misc';
 import { getCodepoints } from '../../utils/codepoints';
 
-const getCodepointsMock = getCodepoints as any as jest.Mock;
+const getCodepointsMock = getCodepoints as any as Mock;
 
-jest.mock('path');
+vi.mock('path', () => import('../../__mocks__/path.js'));
+// vi.mock('glob', () => import('../../__mocks__/glob.js'));
 
-jest.mock('../../constants', () => {
-  const constants = jest.requireActual('../../constants');
+vi.mock('../../constants', async importOriginal => ({
+  ...(await importOriginal()),
+  TEMPLATES_DIR: '/foo/templates-dir'
+}));
 
-  return { ...constants, TEMPLATES_DIR: '/foo/templates-dir' };
-});
-
-jest.mock('../../types/misc', () => ({
+vi.mock('../../types/misc', () => ({
   FontAssetType: { TTF: 'TTF', EOT: 'eot' },
   OtherAssetType: { CSS: 'css', HTML: 'html' },
   ASSET_TYPES: { ttf: 'ttf', eot: 'eot', css: 'css', html: 'html' },
   ASSET_TYPES_WITH_TEMPLATE: ['html', 'css']
 }));
 
-jest.mock('../../utils/codepoints', () => ({
-  getCodepoints: jest.fn(() => ({ __mock: 'processed-codepoint__' }))
+vi.mock('../../utils/codepoints', () => ({
+  getCodepoints: vi.fn(() => ({ __mock: 'processed-codepoint__' }))
 }));
 
 describe('Font generator options', () => {
@@ -29,7 +30,7 @@ describe('Font generator options', () => {
     getCodepointsMock.mockClear();
   });
 
-  test('`prefillOptions` correctly extends default values for each type and prefills missing ones', () => {
+  it('`prefillOptions` correctly extends default values for each type and prefills missing ones', () => {
     expect(
       prefillOptions<any, any>(
         ['html', 'ttf', 'eot', 'css', 'foo'],
@@ -45,7 +46,7 @@ describe('Font generator options', () => {
     });
   });
 
-  test('`prefillOptions` correctly replaces default values when handling primitives', () => {
+  it('`prefillOptions` correctly replaces default values when handling primitives', () => {
     expect(
       prefillOptions<any, any>(
         ['html', 'ttf', 'foo', 'eot'],
@@ -60,7 +61,7 @@ describe('Font generator options', () => {
     });
   });
 
-  test('`getGeneratorOptions` produces usable font generator options including given `assets` and sanitised `formatOptions`', () => {
+  it('`getGeneratorOptions` produces usable font generator options including given `assets` and sanitised `formatOptions`', () => {
     const outputDir = '/dev/null';
     const formatOptions = { eot: { foo: 'bar' } } as any;
     const pathOptions = { eot: 'test' } as any;
@@ -97,7 +98,7 @@ describe('Font generator options', () => {
     );
   });
 
-  test('`getGeneratorOptions` calls `getCodepoints` with input assets and codepoints', () => {
+  it('`getGeneratorOptions` calls `getCodepoints` with input assets and codepoints', () => {
     const codepointsIn = { foo: 'bar' };
     const options = { codepoints: codepointsIn } as any;
     const assets = {} as unknown as AssetsMap;
@@ -108,7 +109,7 @@ describe('Font generator options', () => {
     expect(getCodepointsMock).toHaveBeenCalledWith(assets, codepointsIn);
   });
 
-  test('`getGeneratorOptions` correctly processes templates option', () => {
+  it('`getGeneratorOptions` correctly processes templates option', () => {
     const options = { templates: { html: 'user-template.hbs' } } as any;
     const assets = {} as unknown as AssetsMap;
 

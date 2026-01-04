@@ -1,6 +1,11 @@
-import { CodepointsMap } from '../utils/codepoints';
-import { FontAssetType, OtherAssetType, AssetType, GetIconIdFn } from './misc';
-import { FormatOptions } from './format';
+import { CodepointsMap } from '../utils/codepoints.js';
+import {
+  FontAssetType,
+  OtherAssetType,
+  AssetType,
+  GetIconIdFn
+} from './misc.js';
+import { FormatOptions } from './format.js';
 
 export interface RunnerMandatoryOptions {
   inputDir: string;

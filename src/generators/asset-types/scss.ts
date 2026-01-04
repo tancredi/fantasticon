@@ -1,7 +1,7 @@
-import { FontGenerator } from '../../types/generator';
-import { FontAssetType } from '../../types/misc';
-import { renderTemplate } from '../../utils/template';
-import { renderSrcAttribute } from '../../utils/css';
+import { FontGenerator } from '../../types/generator.js';
+import { FontAssetType } from '../../types/misc.js';
+import { renderTemplate } from '../../utils/template.js';
+import { renderSrcAttribute } from '../../utils/css.js';
 
 const generator: FontGenerator<Buffer> = {
   dependsOn: FontAssetType.SVG,

@@ -1,8 +1,9 @@
 import sassGen from '../sass';
 import { renderSrcAttribute } from '../../../utils/css';
 import { resolve } from 'path';
+import { vi, it, describe, beforeEach, expect, Mock } from 'vitest';
 
-const renderSrcMock = renderSrcAttribute as any as jest.Mock;
+const renderSrcMock = renderSrcAttribute as any as Mock;
 
 const mockOptions = {
   name: 'test',
@@ -15,8 +16,8 @@ const mockOptions = {
   }
 } as any;
 
-jest.mock('../../../utils/css', () => ({
-  renderSrcAttribute: jest.fn(() => '"::src-attr::"')
+vi.mock('../../../utils/css', () => ({
+  renderSrcAttribute: vi.fn(() => '"::src-attr::"')
 }));
 
 describe('`SASS` asset generator', () => {
@@ -24,13 +25,13 @@ describe('`SASS` asset generator', () => {
     renderSrcMock.mockClear();
   });
 
-  test('renders SASS correctly with prefix and tag name options', async () => {
+  it('renders SASS correctly with prefix and tag name options', async () => {
     expect(
       await sassGen.generate(mockOptions, Buffer.from(''))
     ).toMatchSnapshot();
   });
 
-  test('renders SASS correctly with `selector` option', async () => {
+  it('renders SASS correctly with `selector` option', async () => {
     expect(
       await sassGen.generate(
         { ...mockOptions, selector: '.my-selector' },
@@ -39,7 +40,7 @@ describe('`SASS` asset generator', () => {
     ).toMatchSnapshot();
   });
 
-  test('calls renderSrcAttribute correctly and includes its return value in the rendered template', async () => {
+  it('calls renderSrcAttribute correctly and includes its return value in the rendered template', async () => {
     const fontBuffer = Buffer.from('::svg-content::');
 
     const result = await sassGen.generate(mockOptions, fontBuffer);
@@ -49,21 +50,21 @@ describe('`SASS` asset generator', () => {
     expect(result).toContain('::src-attr::');
   });
 
-  test('renders expected selector blocks', async () => {
+  it('renders expected selector blocks', async () => {
     const sass = await sassGen.generate(mockOptions, Buffer.from(''));
 
     expect(sass).toContain('b[class^="tf-"]:before, b[class*=" tf-"]:before');
     expect(sass).toContain('.tf-my-icon:before');
   });
 
-  test('renders expected variables', async () => {
+  it('renders expected variables', async () => {
     const sass = await sassGen.generate(mockOptions, Buffer.from(''));
 
     expect(sass).toContain('$test-font:');
     expect(sass).toContain('$test-map:');
   });
 
-  test('renders expected selector blocks with `selector` option', async () => {
+  it('renders expected selector blocks with `selector` option', async () => {
     const sass = await sassGen.generate(
       { ...mockOptions, selector: '.my-selector' },
       Buffer.from('')

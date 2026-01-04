@@ -1,3 +1,4 @@
+import { it, describe, expect } from 'vitest';
 import { getIconId } from '../icon-id';
 import { GetIconIdOptions } from '../../types/misc';
 

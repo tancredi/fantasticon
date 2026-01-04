@@ -1,18 +1,16 @@
-import commander from 'commander';
-import { FontAssetType, OtherAssetType } from '../types/misc';
-import { loadConfig, DEFAULT_FILEPATHS } from './config-loader';
-import { DEFAULT_OPTIONS } from '../constants';
-import { generateFonts } from '../core/runner';
-import { removeUndefined } from '../utils/validation';
-import { getLogger } from './logger';
+import * as commander from 'commander';
+import { FontAssetType, OtherAssetType } from '../types/misc.js';
+import { loadConfig, DEFAULT_FILEPATHS } from './config-loader.js';
+import { DEFAULT_OPTIONS } from '../constants.js';
+import { generateFonts } from '../core/runner.js';
+import { removeUndefined } from '../utils/validation.js';
+import { getLogger } from './logger.js';
+import { getPackageInfo } from '../utils/module.js';
 
-const {
-  bin,
-  name: packageName,
-  version
-} = require('../../package.json') as any;
+const packageInfo = getPackageInfo();
 
-const getCommandName = () => (bin && Object.keys(bin)[0]) || packageName;
+const getCommandName = () =>
+  (packageInfo.bin && Object.keys(packageInfo.bin)[0]) || packageInfo.name;
 
 const cli = async () => {
   config();
@@ -57,7 +55,7 @@ const config = () => {
 
     .name(getCommandName())
 
-    .version(version)
+    .version(packageInfo.version)
 
     .arguments('[input-dir]')
 

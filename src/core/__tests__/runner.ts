@@ -1,3 +1,4 @@
+import { vi, it, describe, expect, Mock, beforeEach } from 'vitest';
 import { generateFonts } from '../runner';
 import { writeAssets, loadAssets } from '../../utils/assets';
 import { generateAssets } from '../../generators';
@@ -5,33 +6,33 @@ import { getGeneratorOptions } from '../../generators/generator-options';
 import { parseConfig } from '../config-parser';
 import { DEFAULT_OPTIONS } from '../../constants';
 
-const generateAssetsMock = generateAssets as any as jest.Mock;
-const parseConfigMock = parseConfig as any as jest.Mock;
-const writeAssetsMock = writeAssets as any as jest.Mock;
-const loadAssetsMock = loadAssets as any as jest.Mock;
-const getGeneratorOptionsMock = getGeneratorOptions as any as jest.Mock;
+const generateAssetsMock = generateAssets as any as Mock;
+const parseConfigMock = parseConfig as any as Mock;
+const writeAssetsMock = writeAssets as any as Mock;
+const loadAssetsMock = loadAssets as any as Mock;
+const getGeneratorOptionsMock = getGeneratorOptions as any as Mock;
 
-jest.mock('../../constants', () => ({
+vi.mock('../../constants', () => ({
   DEFAULT_OPTIONS: { hasDefaults: true, parsed: false }
 }));
 
-jest.mock('../../generators', () => ({
-  generateAssets: jest.fn(options =>
+vi.mock('../../generators', () => ({
+  generateAssets: vi.fn(options =>
     Promise.resolve({ mockGenerated: { assets: {}, options } })
   )
 }));
 
-jest.mock('../../generators/generator-options', () => ({
-  getGeneratorOptions: jest.fn(() => ({ mock: 'generator-options' }))
+vi.mock('../../generators/generator-options', () => ({
+  getGeneratorOptions: vi.fn(() => ({ mock: 'generator-options' }))
 }));
 
-jest.mock('../../utils/assets', () => ({
-  writeAssets: jest.fn(() => Promise.resolve([{ mock: 'writeResult' }])),
-  loadAssets: jest.fn(() => Promise.resolve({ mock: 'assets' }))
+vi.mock('../../utils/assets', () => ({
+  writeAssets: vi.fn(() => Promise.resolve([{ mock: 'writeResult' }])),
+  loadAssets: vi.fn(() => Promise.resolve({ mock: 'assets' }))
 }));
 
-jest.mock('../config-parser', () => ({
-  parseConfig: jest.fn((config = {}) => ({ ...config, parsed: true }))
+vi.mock('../config-parser', () => ({
+  parseConfig: vi.fn((config = {}) => ({ ...config, parsed: true }))
 }));
 
 describe('Runner', () => {
@@ -43,7 +44,7 @@ describe('Runner', () => {
     getGeneratorOptionsMock.mockClear();
   });
 
-  test('`generateFonts` resolves with expected results', async () => {
+  it('`generateFonts` resolves with expected results', async () => {
     const optionsIn = { inputDir: 'foo' } as any;
     const optionsOut = { hasDefaults: true, parsed: true, inputDir: 'foo' };
 
@@ -60,7 +61,7 @@ describe('Runner', () => {
     });
   });
 
-  test('`generateFonts` resolves with asset write result if `outputDir` was passed', async () => {
+  it('`generateFonts` resolves with asset write result if `outputDir` was passed', async () => {
     const optionsIn = { inputDir: 'foo', outputDir: 'foo' } as any;
     const optionsOut = {
       hasDefaults: true,
@@ -79,7 +80,7 @@ describe('Runner', () => {
     });
   });
 
-  test('`generateFonts` throws error if `outputDir` is not given and `mustWrite` is `true`', async () => {
+  it('`generateFonts` throws error if `outputDir` is not given and `mustWrite` is `true`', async () => {
     const optionsIn = { inputDir: 'foo' } as any;
 
     await expect(() => generateFonts(optionsIn, true)).rejects.toThrow(
@@ -87,7 +88,7 @@ describe('Runner', () => {
     );
   });
 
-  test('`generateFonts` throws error if `inputDir` is not given', async () => {
+  it('`generateFonts` throws error if `inputDir` is not given', async () => {
     const optionsIn = {} as any;
 
     await expect(() => generateFonts(optionsIn)).rejects.toThrow(
@@ -95,7 +96,7 @@ describe('Runner', () => {
     );
   });
 
-  test('`generateFonts` calls `parseConfig` correctly', async () => {
+  it('`generateFonts` calls `parseConfig` correctly', async () => {
     const optionsIn = { inputDir: 'foo', foo: 'bar' } as any;
 
     await generateFonts(optionsIn);
@@ -107,7 +108,7 @@ describe('Runner', () => {
     });
   });
 
-  test('`generateFonts` calls `loadAssets` correctly', async () => {
+  it('`generateFonts` calls `loadAssets` correctly', async () => {
     const inputDir = '/dev/in';
     const optionsIn = { inputDir } as any;
 
@@ -121,7 +122,7 @@ describe('Runner', () => {
     });
   });
 
-  test('`generateFonts` calls `getGeneratorOptions` correctly', async () => {
+  it('`generateFonts` calls `getGeneratorOptions` correctly', async () => {
     const optionsIn = { inputDir: '/dev/in' } as any;
 
     await generateFonts(optionsIn);
@@ -137,7 +138,7 @@ describe('Runner', () => {
     );
   });
 
-  test('`generateFonts` calls `generateAssets` correctly', async () => {
+  it('`generateFonts` calls `generateAssets` correctly', async () => {
     const optionsIn = { inputDir: 'foo', foo: 'bar' } as any;
 
     await generateFonts(optionsIn);
@@ -148,7 +149,7 @@ describe('Runner', () => {
     });
   });
 
-  test('`generateFonts` calls `writeAssets` correctly', async () => {
+  it('`generateFonts` calls `writeAssets` correctly', async () => {
     const optionsIn = { outputDir: 'foo/bar', inputDir: 'foo' } as any;
 
     await generateFonts(optionsIn);
@@ -160,7 +161,7 @@ describe('Runner', () => {
     );
   });
 
-  test('`generateFonts` does not call `writeAssets` if `outputDir` is not specified', async () => {
+  it('`generateFonts` does not call `writeAssets` if `outputDir` is not specified', async () => {
     const optionsIn = { inputDir: 'foo' } as any;
 
     await generateFonts(optionsIn);

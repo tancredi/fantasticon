@@ -1,6 +1,7 @@
+import { it, describe, expect } from 'vitest';
 import { removeExtension, splitSegments } from '../path';
 
-describe('URL utilities', () => {
+describe('Path utilities', () => {
   describe('removeExtension', () => {
     it.each([
       ['foo.bar', 'foo'],

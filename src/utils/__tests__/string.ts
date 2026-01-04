@@ -1,4 +1,5 @@
 import { pluralize } from '../string';
+import { describe, it, expect } from 'vitest';
 
 describe('String utilities', () => {
   describe('pluralize', () => {

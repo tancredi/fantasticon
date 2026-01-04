@@ -1,3 +1,4 @@
+import { vi, it, describe, expect, Mock } from 'vitest';
 import {
   parseNumeric,
   parseString,
@@ -11,11 +12,11 @@ import {
 } from '../validation';
 import { checkPath } from '../fs-async';
 
-const checkPathMock = checkPath as any as jest.Mock;
+const checkPathMock = checkPath as any as Mock;
 
-jest.mock('../fs-async', () => ({ checkPath: jest.fn() }));
+vi.mock('../fs-async', () => ({ checkPath: vi.fn() }));
 
-describe('Cli utilities', () => {
+describe('CLI utilities', () => {
   describe('parseNumeric', () => {
     it.each([
       ['10', 10],
