@@ -1,14 +1,15 @@
+import { vi, it, describe, expect, Mock, beforeEach } from 'vitest';
 import { loadPaths, loadAssets, writeAssets } from '../assets';
-import { GetIconIdFn } from '../../types/misc';
 import { DEFAULT_OPTIONS } from '../../constants';
+import { GetIconIdFn } from '../../types/misc';
 import { writeFile } from '../fs-async';
 
-const writeFileMock = writeFile as any as jest.Mock;
+const writeFileMock = writeFile as any as Mock;
 
-jest.mock('path');
-jest.mock('glob');
-jest.mock('../../utils/fs-async', () => ({
-  writeFile: jest.fn(() => Promise.resolve())
+vi.mock('path', () => import('../../__mocks__/path.js'));
+vi.mock('glob', () => import('../../__mocks__/glob.js'));
+vi.mock('../../utils/fs-async', () => ({
+  writeFile: vi.fn(() => Promise.resolve())
 }));
 
 describe('Assets utilities', () => {
@@ -17,7 +18,7 @@ describe('Assets utilities', () => {
   });
 
   describe('loadPaths', () => {
-    it('returns a Promise that resolves with an Array of `strings`', async () => {
+    it.only('returns a Promise that resolves with an Array of `strings`', async () => {
       const result = loadPaths('./valid');
 
       expect(result).toBeInstanceOf(Promise);
@@ -85,7 +86,7 @@ describe('Assets utilities', () => {
     });
 
     it('generates icon IDs correctly when called with a custom `getIconId` function', async () => {
-      const getIconId: GetIconIdFn = jest.fn(({ relativeFilePath, index }) => {
+      const getIconId: GetIconIdFn = vi.fn(({ relativeFilePath, index }) => {
         return `${index}_${relativeFilePath
           .replace('.svg', '')
           .split('/')

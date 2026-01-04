@@ -1,4 +1,4 @@
-const MOCK_GLOBS = {
+const MOCK_GLOBS: Record<string, string[]> = {
   './valid/**/*.svg': [
     '/project/valid/foo.svg',
     '/project/valid/bar.svg',
@@ -8,14 +8,14 @@ const MOCK_GLOBS = {
   './empty/**/*.svg': []
 };
 
-module.exports = {
-  glob: async (glob: string, _: {}) => {
-    const paths = MOCK_GLOBS[glob];
+const glob = async (glob: string, _: {}) => {
+  const paths = MOCK_GLOBS[glob];
 
-    if (!paths) {
-      throw new Error(`Invalid glob: ${glob}`);
-    }
-
-    return paths;
+  if (!paths) {
+    throw new Error(`Invalid glob: ${glob}`);
   }
+
+  return paths;
 };
+
+export { glob };

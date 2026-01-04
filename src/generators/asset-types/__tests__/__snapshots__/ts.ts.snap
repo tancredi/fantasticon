@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`\`TS\` asset generator generates constant only 1`] = `
+exports[`\`TS\` asset generator > generates constant only 1`] = `
 "export const MY_ICONS_SET_CODEPOINTS: Record<string, string> = {
   "foo": "4265",
   "bar": "1231",
@@ -8,7 +8,7 @@ exports[`\`TS\` asset generator generates constant only 1`] = `
 "
 `;
 
-exports[`\`TS\` asset generator generates constant with literalId if no enum generated 1`] = `
+exports[`\`TS\` asset generator > generates constant with literalId if no enum generated 1`] = `
 "export type MyIconsSetId =
   | "foo"
   | "bar";
@@ -20,7 +20,7 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSetId]: string } = {
 "
 `;
 
-exports[`\`TS\` asset generator generates constant with literalKey if no enum generated 1`] = `
+exports[`\`TS\` asset generator > generates constant with literalKey if no enum generated 1`] = `
 "export type MyIconsSetKey =
   | "Foo"
   | "Bar";
@@ -32,7 +32,7 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSetKey]: string } = {
 "
 `;
 
-exports[`\`TS\` asset generator generates no key string literal type if option specifies it 1`] = `
+exports[`\`TS\` asset generator > generates no key string literal type if option specifies it 1`] = `
 "export enum MyIconsSet {
   Foo = "foo",
   Bar = "bar",
@@ -45,7 +45,7 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
 "
 `;
 
-exports[`\`TS\` asset generator generates single quotes if format option passed 1`] = `
+exports[`\`TS\` asset generator > generates single quotes if format option passed 1`] = `
 "export type MyIconsSetId =
   | 'foo'
   | 'bar';
@@ -66,7 +66,7 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
 "
 `;
 
-exports[`\`TS\` asset generator prevents enum keys that start with digits 1`] = `
+exports[`\`TS\` asset generator > prevents enum keys that start with digits 1`] = `
 "export type MyIconsSetId =
   | "1234"
   | "5678";
@@ -87,7 +87,7 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
 "
 `;
 
-exports[`\`TS\` asset generator prevents enum keys that start with digits when digits and chars 1`] = `
+exports[`\`TS\` asset generator > prevents enum keys that start with digits when digits and chars 1`] = `
 "export type MyIconsSetId =
   | "1234asdf"
   | "5678ab"
@@ -112,7 +112,7 @@ export const MY_ICONS_SET_CODEPOINTS: { [key in MyIconsSet]: string } = {
 "
 `;
 
-exports[`\`TS\` asset generator renders expected TypeScript module content 1`] = `
+exports[`\`TS\` asset generator > renders expected TypeScript module content 1`] = `
 "export type MyIconsSetId =
   | "foo"
   | "bar";

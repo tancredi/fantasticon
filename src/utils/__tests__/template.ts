@@ -1,11 +1,15 @@
+import { vi, it, describe, beforeEach, expect } from 'vitest';
 import * as Handlebars from 'handlebars';
 import { renderTemplate, TEMPLATE_HELPERS } from '../template';
 import * as asyncFs from '../fs-async';
 
-const compile = jest.spyOn(Handlebars, 'compile').mockImplementation(jest.fn());
-const readFile = jest.spyOn(asyncFs, 'readFile').mockImplementation(jest.fn());
+const compile = vi.spyOn(Handlebars, 'compile').mockImplementation(vi.fn());
+const readFile = vi.spyOn(asyncFs, 'readFile').mockImplementation(vi.fn());
 
-jest.mock('path');
+vi.mock('path', () => import('../../__mocks__/path.js'));
+vi.mock('glob', () => import('../../__mocks__/glob.js'));
+
+vi.spyOn(process, 'cwd').mockReturnValue('/root/project');
 
 describe('Template utilities', () => {
   beforeEach(() => {
@@ -18,7 +22,7 @@ describe('Template utilities', () => {
       const filename = 'my-template.hbs';
       const template = '::template::';
       const templateOut = '::rendered::';
-      const templateFn = jest.fn((_: any, __: any) => templateOut);
+      const templateFn = vi.fn((_: any, __: any) => templateOut);
       const context = { foo: 'bar' };
 
       readFile.mockImplementation(async () => template);
@@ -40,8 +44,8 @@ describe('Template utilities', () => {
     });
 
     it('combines given options Object with default helpers', async () => {
-      const templateFn = jest.fn();
-      const userHelpers = { bar: jest.fn() };
+      const templateFn = vi.fn();
+      const userHelpers = { bar: vi.fn() };
       const options = { some: 'option', helpers: userHelpers };
 
       compile.mockImplementation(() => templateFn);

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`\`HTML\` asset generator renders HTML correctly with prefix and tag name options 1`] = `
+exports[`\`HTML\` asset generator > renders HTML correctly with prefix and tag name options 1`] = `
 "<!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,14 +1,13 @@
 import { renderSrcAttribute } from '../css';
 import { FontAssetType } from '../../types/misc';
+import { vi, it, describe, beforeEach, expect } from 'vitest';
 import * as hashUtils from '../hash';
 
-jest.mock('path');
+vi.mock('path');
 
-const getHash = jest
+const getHash = vi
   .spyOn(hashUtils, 'getHash')
-  .mockImplementation(
-    (...values: string[]) => `::hashed(${values.join('|')})::`
-  );
+  .mockImplementation((...values) => `::hashed(${values.join('|')})::`);
 
 describe('CSS utilities', () => {
   beforeEach(() => {

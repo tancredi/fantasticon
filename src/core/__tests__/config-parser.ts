@@ -1,12 +1,13 @@
+import { vi, it, describe, beforeEach, expect, Mock } from 'vitest';
 import { parseConfig } from '../config-parser';
 import { checkPath } from '../../utils/fs-async';
 import { DEFAULT_OPTIONS } from '../../constants';
 
-const checkPathMock = checkPath as any as jest.Mock;
+const checkPathMock = checkPath as any as Mock;
 
-jest.mock('../../utils/fs-async', () => ({ checkPath: jest.fn() }));
+vi.mock('../../utils/fs-async', () => ({ checkPath: vi.fn() }));
 
-jest.mock('../../types/misc', () => ({
+vi.mock('../../types/misc', () => ({
   FontAssetType: { svg: 'a', eot: 'b' },
   OtherAssetType: { svg: 'c', eot: 'd' }
 }));
@@ -43,9 +44,9 @@ const testError = async (options: object, key: string, message: string) =>
   );
 
 const testParsed = async (key: string, input: any, output: any) =>
-  expect((await parseConfig({ ...mockConfig, [key]: input }))[key]).toEqual(
-    output
-  );
+  expect(
+    ((await parseConfig({ ...mockConfig, [key]: input })) as any)[key]
+  ).toEqual(output);
 
 describe('Config parser', () => {
   beforeEach(() => {
@@ -53,11 +54,11 @@ describe('Config parser', () => {
     checkPathMock.mockImplementation(() => Promise.resolve(true));
   });
 
-  test('returns correctly parsed input when valid', async () => {
+  it('returns correctly parsed input when valid', async () => {
     expect(await parseConfig({ ...mockConfig })).toEqual({ ...mockConfig });
   });
 
-  test('correctly parses acceptable values', async () => {
+  it('correctly parses acceptable values', async () => {
     await testParsed('descent', undefined, undefined);
     await testParsed('descent', '1', 1);
     await testParsed('normalize', 'true', true);
@@ -65,7 +66,7 @@ describe('Config parser', () => {
     await testParsed('normalize', 1, true);
   });
 
-  test('throws expected validation errors when given invalid input', async () => {
+  it('throws expected validation errors when given invalid input', async () => {
     await testError({ inputDir: 2 }, 'inputDir', '2 is not a string');
     await testError(
       { inputDir: {} },
@@ -92,7 +93,7 @@ describe('Config parser', () => {
     await testError({ getIconId: true }, 'getIconId', 'true is not a function');
   });
 
-  test('correctly validates existance of input and output paths', async () => {
+  it('correctly validates existance of input and output paths', async () => {
     checkPathMock.mockImplementationOnce(() => Promise.resolve(false));
 
     await testError({ inputDir: 'foo' }, 'inputDir', 'foo is not a directory');
@@ -106,7 +107,7 @@ describe('Config parser', () => {
     );
   });
 
-  test('throws expected error when passing an unrecognised option', async () => {
+  it('throws expected error when passing an unrecognised option', async () => {
     await expect(() =>
       parseConfig({ ...mockConfig, foo: 'bar' })
     ).rejects.toThrow("The option 'foo' is not recognised");

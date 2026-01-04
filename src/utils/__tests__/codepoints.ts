@@ -1,3 +1,4 @@
+import { it, describe, expect } from 'vitest';
 import { DEFAULT_START_CODEPOINT } from '../../constants';
 import { AssetsMap } from '../assets';
 import { getCodepoints, getHexCodepoint } from '../codepoints';
