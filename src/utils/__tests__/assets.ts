@@ -18,7 +18,7 @@ describe('Assets utilities', () => {
   });
 
   describe('loadPaths', () => {
-    it.only('returns a Promise that resolves with an Array of `strings`', async () => {
+    it('returns a Promise that resolves with an Array of `strings`', async () => {
       const result = loadPaths('./valid');
 
       expect(result).toBeInstanceOf(Promise);
