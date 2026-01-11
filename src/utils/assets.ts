@@ -22,7 +22,8 @@ export interface AssetsMap {
 export const ASSETS_EXTENSION = 'svg';
 
 export const loadPaths = async (dir: string): Promise<string[]> => {
-  const globPath = join(dir, `**/*.${ASSETS_EXTENSION}`);
+  // Normalize path separators for glob (requires forward slashes on all platforms)
+  const globPath = join(dir, `**/*.${ASSETS_EXTENSION}`).replace(/\\/g, '/');
   const files = await glob(globPath, {});
 
   if (!files.length) {
