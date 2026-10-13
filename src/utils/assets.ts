@@ -79,7 +79,7 @@ export const loadAssets = async ({
 
 export const writeAssets = async (
   assets: GeneratedAssets,
-  { name, pathOptions = {}, outputDir }: RunnerOptions
+  { name, pathOptions = {}, outputDir }: RunnerOptions & { outputDir: string }
 ) => {
   const results: WriteResults = [];
 

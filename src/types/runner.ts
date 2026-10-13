@@ -9,10 +9,10 @@ import { FormatOptions } from './format.js';
 
 export interface RunnerMandatoryOptions {
   inputDir: string;
-  outputDir: string;
 }
 
 export type RunnerOptionalOptions = {
+  outputDir: string;
   name: string;
   fontTypes: FontAssetType[];
   assetTypes: OtherAssetType[];

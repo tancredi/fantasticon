@@ -44,7 +44,9 @@ export const generateFonts = async (
   const assetsIn = await loadAssets(options);
   const generatorOptions = getGeneratorOptions(options, assetsIn);
   const assetsOut = await generateAssets(generatorOptions);
-  const writeResults = outputDir ? await writeAssets(assetsOut, options) : [];
+  const writeResults = outputDir
+    ? await writeAssets(assetsOut, { ...options, outputDir })
+    : [];
   const { codepoints } = generatorOptions;
 
   return {

@@ -5,6 +5,7 @@ import { generateAssets } from '../../generators';
 import { getGeneratorOptions } from '../../generators/generator-options';
 import { parseConfig } from '../config-parser';
 import { DEFAULT_OPTIONS } from '../../constants';
+import { RunnerOptions } from '../../types/runner';
 
 const generateAssetsMock = generateAssets as any as Mock;
 const parseConfigMock = parseConfig as any as Mock;
@@ -162,7 +163,7 @@ describe('Runner', () => {
   });
 
   it('`generateFonts` does not call `writeAssets` if `outputDir` is not specified', async () => {
-    const optionsIn = { inputDir: 'foo' } as any;
+    const optionsIn: RunnerOptions = { inputDir: 'foo' };
 
     await generateFonts(optionsIn);
 
